@@ -9,4 +9,4 @@
     android:contentDescription="@string/button_rotate_left_description"
     android:focusable="true"
     android:scaleType="centerInside"
-    android:src="@drawable/button_rotate_left_blurred" android:background="@color/black_overlay"/>
+    android:src="@drawable/button_rotate_left"/>

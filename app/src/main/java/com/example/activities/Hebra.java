@@ -14,7 +14,7 @@ public class Hebra extends Thread{
 
     public void run() {
         System.out.println("SOY LA HEBRA Y ESPEROOOO");
-        mainActivity.mostrarCanvas();   //Mostramos el canvas
+       //mainActivity.mostrarCanvas();   //Mostramos el canvas
 
         while (puedoMover) {
            System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");

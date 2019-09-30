@@ -1,6 +1,8 @@
 package com.example.activities;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 
 /* COMO EL GAME ACTIVITY  */
 public class Modelo extends AppCompatActivity {
-    Canvas canvas;
+    canvasAlex canvasAlex;
     public Controls controls;
     Hebra hebra;
     ArrayList matriz;
@@ -46,6 +48,18 @@ public class Modelo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                System.out.println("BOTON DERECHO");
+                controls.rightButtonPressed();
+                findViewById(R.id.button_right).setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                controls.rightButtonReleased();
+                findViewById(R.id.button_right).setPressed(false);
+            }
+
+            return true;
+        });
         System.out.println("ON CREATE MODELO");
         /*canvas = new Canvas(this);
         setContentView(canvas);*/
@@ -60,8 +74,8 @@ public class Modelo extends AppCompatActivity {
 // Register button callback methods
     public void mover(){
         System.out.println("ES EL MODELO");
-            //findViewById(R.id.button_pause).setOnClickListener(view -> Modelo.this.finish());
-/*
+            findViewById(R.id.button_pause).setOnClickListener(view -> Modelo.this.finish());
+
             findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     System.out.println("BOTON DERECHO");
@@ -136,7 +150,7 @@ public class Modelo extends AppCompatActivity {
 
                     return true;
                 });
-            }*/
+            }
     }
 
 

@@ -6,7 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
-public class Canvas extends View {
+public class canvasAlex extends View {
     private int squaresize = 1;
     Paint paint = new Paint();
 
@@ -31,13 +31,12 @@ public class Canvas extends View {
     int inc_col = width / cols;
 
 
-    public Canvas(Context context) {
+    public canvasAlex(Context context) {
         super(context);
     }
 
     int[] rows_L = new int[]{0, 1, 2, 2};
     int[] cols_L = new int[]{0, 0, 0, 1};
-
 
     int[] rows_L_down = new int[]{1, 2, 3, 3};
 

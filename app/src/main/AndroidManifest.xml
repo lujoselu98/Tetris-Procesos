@@ -16,7 +16,7 @@
         <activity android:name=".Hebra">
         </activity>
 
-        <activity android:name=".Canvas">
+        <activity android:name=".canvasAlex">
         </activity>
 
         <activity android:name=".Modelo">
