@@ -12,6 +12,7 @@ public class Bloque {
         this.activo = activo;
         this.color = color;
         this.identificador = identificador;
+        this.posicion = posicion;
     }
 
     public boolean isActivo() {
@@ -45,4 +46,11 @@ public class Bloque {
         return this.posicion;
     }
 
+    public Color getColor() {
+        return color;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
 }

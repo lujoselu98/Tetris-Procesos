@@ -1,5 +1,7 @@
 package com.example.activities;
 
+import com.example.pieces.Pieza;
+
 /* PARA METER LOS MOVIMIENTOS */
 class Controls {
     private Hebra hebra;
@@ -7,8 +9,9 @@ class Controls {
         this.hebra = h;
     }
 
-    public void leftButtonPressed() {
+    public void leftButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO IZQUIERDA");
+        pieza.despIzqda();
     }
 
     public void leftButtonReleased() {
@@ -17,13 +20,16 @@ class Controls {
     public void rightButtonReleased() {
     }
 
-    public void rightButtonPressed() {
+    public void rightButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO DCHA");
+        pieza.despDcha();
+
         //hebra.run();
     }
 
-    public void downButtonPressed() {
+    public void downButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO ABAJO");
+        pieza.bajar();
     }
 
     public void downButtonReleased() {

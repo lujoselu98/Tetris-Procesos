@@ -19,9 +19,6 @@
         <activity android:name=".canvasAlex">
         </activity>
 
-        <activity android:name=".Modelo">
-        </activity>
-
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

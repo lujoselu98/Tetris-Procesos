@@ -6,7 +6,7 @@ public abstract class Pieza {
     int identificador;
     Bloque[][] forma;
     int[] centro;
-    public Color color;
+    Color color;
     //int[] bloquesActivos; //Los bloques activos en la forma. Posicion i guarda la columna j : [fila1] = columna3
 
     public Pieza(int id, Color color){
@@ -89,5 +89,9 @@ public abstract class Pieza {
                 forma[i][j].setPosicion(nuevaPos);
             }
         }
+    }
+
+    public Color getColor() {
+        return color;
     }
 }

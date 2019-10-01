@@ -15,7 +15,7 @@ public class Pieza2x2 extends Pieza {
             for(int j=0; j<4; j++){
                 int posBloque[] = new int[2];
                 posBloque[0] = i;
-                posBloque[0] = j+4; //Para que el bloque también esté desplazado al centro del tablero
+                posBloque[1] = j+4; //Para que el bloque también esté desplazado al centro del tablero
                 this.forma[i][j] = new Bloque(false,id,color,posBloque);
             }
         }
