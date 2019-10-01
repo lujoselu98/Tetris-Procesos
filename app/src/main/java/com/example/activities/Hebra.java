@@ -11,7 +11,7 @@ public class Hebra extends Thread{
         this.puedoMover = puedoMover;
         this.mainActivity = mainActivity;
     }
-
+    @Override
     public void run() {
         System.out.println("SOY LA HEBRA Y ESPEROOOO");
        //mainActivity.mostrarCanvas();   //Mostramos el canvas
