@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">Tetris</string>
+    <string name="app_name">TETRIS G1</string>
+    <string name="new_game">JUGAR</string>
+    <string name="nrew_game">TODO</string>
+    <string name="integrantesGrupo"> Alejandro Checa \n Jose Luis \n Ivan Martin Sanz \n Daniel Carmona \n Sergio
+    </string>
+   <!-- BOTONES-->
+    <string name="button_hard_drop_description">Hard drop button</string>
+    <string name="button_left_description">Left move button</string>
+    <string name="button_right_description">Right move button</string>
+    <string name="button_rotate_left_description">Rotate left button</string>
+    <string name="button_rotate_right_description">Rotate right button</string>
+    <string name="button_soft_drop_description">Soft drop button</string>
+    <string name="pause">Pause</string>
+
+
 </resources>

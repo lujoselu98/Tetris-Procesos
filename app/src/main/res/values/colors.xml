@@ -3,4 +3,11 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="black_overlay">#66F20303</color>
+    <color name="dark_blue_green">#FF408080</color>
+    <color name="yellow">#ffffff30</color>
+    <color name="transparent">#00000000</color>
+    <color name="pantallaCarga">#ffffff30</color>
+    <color name="pantallaJugar">#BEDFE7</color>
+    <color name="holo_grey">#FF4D4D4D</color>
 </resources>
