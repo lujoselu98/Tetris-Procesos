@@ -20,6 +20,7 @@ import static android.app.PendingIntent.getActivity;
 public class MainActivity extends AppCompatActivity {
     canvasAlex canvasAlex;
     Ventana v;
+    Cronometro cronometro;
     int puntuacion = 0;
    @SuppressLint("ClickableViewAccessibility")
    @Override
@@ -33,8 +34,14 @@ public class MainActivity extends AppCompatActivity {
        Modelo modelo = new Modelo(h);
        final Button button = findViewById(R.id.activity_main_button_new_game);
        setContentView(R.layout.activity_juego);
+
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
        Controls controls = new Controls(h);
+
+       TextView textView = new TextView(this);
+       cronometro = new Cronometro("CuentaAtras",textView);
+       Thread c = new Thread(cronometro);
+
 
        v = new Ventana(this);
        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1,R.id.relativelayout1);
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                            public void onClick(DialogInterface dialog, int id) {
                                dialog.cancel();
                                h.start();
+                               c.start();
                            }
                        });
        AlertDialog alert = builder.create();
