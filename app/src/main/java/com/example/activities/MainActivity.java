@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     canvasAlex canvasAlex;
     Ventana v;
     Cronometro cronometro;
+    int puntuacion = 0;
    @SuppressLint("ClickableViewAccessibility")
    @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                System.out.println("BOTON DERECHO");
+               sumar_puntuacion(v,50);
                controls.rightButtonPressed();
                findViewById(R.id.button_right).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -155,6 +157,13 @@ public class MainActivity extends AppCompatActivity {
 
         //setContentView(canvas);
     }
+
+    private void sumar_puntuacion(Ventana v, int ptos) {
+       puntuacion+=ptos;
+       TextView texto = (TextView) findViewById(R.id.puntuacion);
+       texto.setText("Ptos:"+puntuacion);
+    }
+
     protected String doInBackground(String... params) {
         for (int i = 0; i < 1000; i++) {
             try {
