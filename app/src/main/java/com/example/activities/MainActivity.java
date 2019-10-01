@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
        Controls controls = new Controls(h);
 
-       TextView textView = new TextView(this);
+       TextView textView = (TextView) findViewById(R.id.Cronometro);
        cronometro = new Cronometro("CuentaAtras",textView);
        Thread c = new Thread(cronometro);
 
