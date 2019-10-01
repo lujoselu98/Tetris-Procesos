@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.sql.SQLOutput;
+
 
 public class Cronometro implements Runnable
 {
@@ -88,6 +90,7 @@ public class Cronometro implements Runnable
                     {
                         Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
                     }
+                    System.out.println(salida);
                 }
             }
         }
