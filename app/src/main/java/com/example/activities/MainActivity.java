@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
        if (buttonRotateRight != null) {
            (findViewById(R.id.button_rotate_right)).setOnTouchListener((view, event) -> {
                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateRightPressed();
+                   controls.rotateRightPressed(h.getPieza());
                    (findViewById(R.id.button_rotate_right)).setPressed(true);
                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                    (findViewById(R.id.button_rotate_right)).setPressed(false);
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
        if (buttonRotateLeft != null) {
            (findViewById(R.id.button_rotate_left)).setOnTouchListener((view, event) -> {
                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateLeftPressed();
+                   controls.rotateLeftPressed(h.getPieza());
                    (findViewById(R.id.button_rotate_left)).setPressed(true);
                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                    (findViewById(R.id.button_rotate_left)).setPressed(false);

@@ -7,15 +7,18 @@ import android.widget.RelativeLayout;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.pieces.Pieza;
+import com.example.pieces.PiezaI;
 import com.example.pieces.PiezaL;
 
 /* IGUAL QUE EL WORKTHREAD */
 public class Hebra extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
+    private int velocidadCaida = 5000;
+
     MainActivity mainActivity;
     Pieza p;
-    Ventana v;
+    private Ventana v;
     //Modelo modelo;
 
     public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v) {
@@ -23,7 +26,8 @@ public class Hebra extends Thread{
         this.finPartida = false;
         this.mainActivity = mainActivity;
         this.v = v;
-        p = new PiezaL(1,new Color());
+        p = new PiezaI(1,new Color());
+        v.setPieza(p);
     }
 
 
@@ -37,13 +41,12 @@ public class Hebra extends Thread{
                 //p.rotarDcha();
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 //mover(p);
-                v.setPieza(p);
                 System.out.println("LLAMO A INVALIDATE");
                 v.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
                 try {
                     System.out.println("VOY A DORMIR");
-                    Thread.sleep(50);
+                    Thread.sleep(velocidadCaida);
 
                 } catch (InterruptedException ignored) {
 
@@ -73,4 +76,7 @@ public class Hebra extends Thread{
         this.finPartida = true;
     }
 
+    public Ventana getV() {
+        return v;
+    }
 }

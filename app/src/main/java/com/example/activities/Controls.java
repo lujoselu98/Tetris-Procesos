@@ -12,6 +12,7 @@ class Controls {
     public void leftButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO IZQUIERDA");
         pieza.despIzqda();
+        hebra.getV().invalidate();
     }
 
     public void leftButtonReleased() {
@@ -23,6 +24,7 @@ class Controls {
     public void rightButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO DCHA");
         pieza.despDcha();
+        hebra.getV().invalidate();
 
         //hebra.run();
     }
@@ -30,6 +32,7 @@ class Controls {
     public void downButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO ABAJO");
         pieza.bajar();
+        hebra.getV().invalidate();
     }
 
     public void downButtonReleased() {
@@ -39,11 +42,15 @@ class Controls {
         System.out.println("MOVIMIENTO ABAJO RAPIDO");
     }
 
-    public void rotateRightPressed() {
+    public void rotateRightPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO GIRAR");
+        pieza.rotarDcha();
+        hebra.getV().invalidate();
     }
 
-    public void rotateLeftPressed() {
+    public void rotateLeftPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO GIRAR");
+        pieza.rotarIzqda();
+        hebra.getV().invalidate();
     }
 }
