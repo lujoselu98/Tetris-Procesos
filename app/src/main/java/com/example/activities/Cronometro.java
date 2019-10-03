@@ -49,30 +49,6 @@ public class Cronometro implements Runnable
                 if( !pausado )
                 {
                     segundos++;
-                    if(segundos == 60)
-                    {
-                        segundos = 0;
-                        minutos++;
-                    }
-                    if(minutos == 60)
-                    {
-                        minutos = 0;
-                        horas++;
-                    }
-                    // Formateo la salida
-                    salida += "0";
-                    salida += horas;
-                    salida += ":";
-                    if( minutos <= 9 )
-                    {
-                        salida += "0";
-                    }
-                    salida += minutos;
-                    salida += ":";
-                    if( segundos <= 9 )
-                    {
-                        salida += "0";
-                    }
                     salida += segundos;
                     // Modifico la UI
                     try
