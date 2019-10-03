@@ -45,21 +45,20 @@ public class Ventana extends View {
 
         for(int i=0; i<20; i++){
             for(int j=0; j<10; j++){
-                paint.setColor(t.bloqueEn(i,j).getColor());
+                Bloque actual = t.bloqueEn(i,j);
+                paint.setColor(actual.getColor());
+                Rect cuadradoPieza = new Rect(actual.getPosicion()[1] * colSize, actual.getPosicion()[0] * rowSize, actual.getPosicion()[1] * colSize + colSize, actual.getPosicion()[0] * rowSize + rowSize);
+                canvas.drawRect(cuadradoPieza, paint);
             }
         }
 
          for(int i=0; i<filas;i++){
             for(int j=0; j<columnas;j++){
-                if(forma[i][j].isActivo()){
-                    paint.setColor(Color.MAGENTA);
-
-                }else{
-                    paint.setColor(Color.WHITE);
+                if(forma[i][j].isActivo()) {
+                    paint.setColor(forma[i][j].getColor());
+                    Rect cuadradoPieza = new Rect(forma[i][j].getPosicion()[1] * colSize, forma[i][j].getPosicion()[0] * rowSize, forma[i][j].getPosicion()[1] * colSize + colSize, forma[i][j].getPosicion()[0] * rowSize + rowSize);
+                    canvas.drawRect(cuadradoPieza, paint);
                 }
-
-                Rect cuadradoPieza = new Rect(forma[i][j].getPosicion()[1]*colSize, forma[i][j].getPosicion()[0]*rowSize, forma[i][j].getPosicion()[1]*colSize + colSize, forma[i][j].getPosicion()[0]*rowSize + rowSize);
-                canvas.drawRect(cuadradoPieza, paint);
                 //System.out.println(Arrays.toString(forma[i][j].getPosicion()));
             }
         }

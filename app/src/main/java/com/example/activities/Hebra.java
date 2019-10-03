@@ -17,7 +17,6 @@ public class Hebra extends Thread{
     private int velocidadCaida = 5000;
 
     MainActivity mainActivity;
-    Pieza p;
     private Ventana v;
     TableroTetris tetris;
 
@@ -28,10 +27,10 @@ public class Hebra extends Thread{
         this.finPartida = false;
         this.mainActivity = mainActivity;
         this.v = v;
-        p = new PiezaI(1,Color.parseColor("#FF00FF"));
-        v.setPieza(p);
+
 
         tetris = new TableroTetris();
+        v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
     }
 
@@ -42,7 +41,7 @@ public class Hebra extends Thread{
        //mainActivity.mostrarCanvas();   //Mostramos el canvas
         while(!finPartida) {
             while (puedoMover) {
-                p.bajar();
+                tetris.bajar();
                 //p.rotarDcha();
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 //mover(p);
@@ -67,9 +66,7 @@ public class Hebra extends Thread{
     private void metodoHebra() {
 
     }
-    public Pieza getPieza(){
-        return p;
-    }
+
     public void mover(Pieza p) {
         System.out.println("ES EL MODELO");
         int[] rows_L = new int[]{0, 1, 2, 3};
@@ -83,5 +80,9 @@ public class Hebra extends Thread{
 
     public Ventana getV() {
         return v;
+    }
+
+    public Pieza getPiezaActual(){
+        return this.tetris.getPiezaActual();
     }
 }

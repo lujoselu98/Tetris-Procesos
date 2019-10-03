@@ -2,7 +2,9 @@ package com.example.pieces;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class Pieza {
     int identificador;
@@ -68,6 +70,11 @@ public abstract class Pieza {
 
     }
 
+    public void subir(){
+        centro[0] -= 1;
+        desplazarBloques(-1,0);
+    }
+
     public void bajar(){
         centro[0] += 1;
         desplazarBloques(1,0);
@@ -112,5 +119,19 @@ public abstract class Pieza {
 
     public int getColor() {
         return color;
+    }
+
+    public List<Bloque> bloquesActivos(){
+        List<Bloque> bloques = new ArrayList();
+
+        for(int i=0; i<forma.length; i++){
+            for(int j=0; j<forma.length; j++){
+                if(forma[i][j].isActivo()){
+                    bloques.add(forma[i][j]);
+                }
+            }
+        }
+
+        return bloques;
     }
 }

@@ -18,7 +18,6 @@ import static android.app.PendingIntent.getActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-    canvasAlex canvasAlex;
     Ventana v;
     Cronometro cronometro;
     int puntuacion = 0;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
-       Controls controls = new Controls(h);
+       //Controls controls = new Controls(h);
 
        TextView textView = (TextView) findViewById(R.id.Cronometro);
        cronometro = new Cronometro("CuentaAtras",textView);
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
        final Hebra h = new Hebra(true,this,v);
        System.out.println("Voy a crear el modelo:");
-      final Button button = findViewById(R.id.activity_main_button_new_game);
+       final Button button = findViewById(R.id.activity_main_button_new_game);
 
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
        Controls controls = new Controls(h);
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                System.out.println("BOTON DERECHO");
-               controls.rightButtonPressed(h.getPieza());
+               controls.rightButtonPressed(h.getPiezaActual());
 
                sumar_puntuacion(v,50);
                findViewById(R.id.button_right).setPressed(true);
@@ -101,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
        findViewById(R.id.button_left).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               controls.leftButtonPressed(h.getPieza());
+               controls.leftButtonPressed(h.getPiezaActual());
                findViewById(R.id.button_left).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                controls.leftButtonReleased();
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
        findViewById(R.id.button_soft_drop).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               controls.downButtonPressed(h.getPieza());
+               controls.downButtonPressed(h.getPiezaActual());
                (findViewById(R.id.button_soft_drop)).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                controls.downButtonReleased();
@@ -138,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
        if (buttonRotateRight != null) {
            (findViewById(R.id.button_rotate_right)).setOnTouchListener((view, event) -> {
                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateRightPressed(h.getPieza());
+                   controls.rotateRightPressed(h.getPiezaActual());
                    (findViewById(R.id.button_rotate_right)).setPressed(true);
                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                    (findViewById(R.id.button_rotate_right)).setPressed(false);
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
        if (buttonRotateLeft != null) {
            (findViewById(R.id.button_rotate_left)).setOnTouchListener((view, event) -> {
                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateLeftPressed(h.getPieza());
+                   controls.rotateLeftPressed(h.getPiezaActual());
                    (findViewById(R.id.button_rotate_left)).setPressed(true);
                } else if (event.getAction() == MotionEvent.ACTION_UP) {
                    (findViewById(R.id.button_rotate_left)).setPressed(false);
