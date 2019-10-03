@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class PiezaL extends Pieza3x3{
 
-    public PiezaL(int id, Color color){
+    public PiezaL(int id, int color){
         super(id, color);
 
         //Colocar las piezas

@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class PiezaC extends Pieza2x2 { //El cuadrado
 
-    public PiezaC(int id, Color color) {
+    public PiezaC(int id, int color) {
         super(id, color);
 
         forma[0][0].activar();

@@ -2,14 +2,16 @@ package com.example.pieces;
 
 import android.graphics.Color;
 
+import java.util.Arrays;
+
 public abstract class Pieza {
     int identificador;
     Bloque[][] forma;
     int[] centro;
-    public Color color;
+    int color;
     //int[] bloquesActivos; //Los bloques activos en la forma. Posicion i guarda la columna j : [fila1] = columna3
 
-    public Pieza(int id, Color color){
+    public Pieza(int id, int color){
         this.identificador = id;
         this.color = color;
     }
@@ -17,12 +19,20 @@ public abstract class Pieza {
     public void rotarDcha(){
         int filas = forma.length;
         int columnas = forma[0].length;
-        Bloque[][] aux = new Bloque[filas][columnas];
+        Bloque[][] aux = new Bloque[filas][columnas]; //Matriz de bloques de la pieza rotada
+        int[] posAux = new int[2]; //Para guardar la nueva posición del bloque
 
+        //Bucle para cambiar las filas por columnas
         for(int f=0; f<filas; f++){
             for(int c=0; c<columnas; c++){
-                aux[f][c] = forma[columnas+1-c][f];
-                aux[f][c].setPosicion(forma[f][c].getPosicion());//Actualizamos la posicion del bloque que acabamos de trasladar
+
+                //Copiamos el bloque
+                aux[f][c] = new Bloque(forma[columnas-1-c][f]);
+
+                //Ajustamos el valor de su posición.
+                posAux = Arrays.copyOf(forma[f][c].getPosicion(),2);
+                System.out.println(Arrays.toString(posAux));
+                aux[f][c].setPosicion(posAux);//Actualizamos la posicion del bloque que acabamos de trasladar*/
 
             }
         }
@@ -32,15 +42,24 @@ public abstract class Pieza {
 
     public void rotarIzqda(){ //Podria hacer girar a la derecha tres veces pero me parece muy sucio
         int filas = forma.length;
+        System.out.println(filas);
         int columnas = forma[0].length;
+        System.out.println(columnas);
         Bloque[][] aux = new Bloque[filas][columnas];
 
         for(int f=0; f<filas; f++){
             for(int c=0; c<columnas; c++){
-                aux[f][c] = forma[c][filas+1-f]; //Trasladamos el bloque
-                aux[f][c].setPosicion(forma[f][c].getPosicion());//Actualizamos la posicion del bloque que acabamos de trasladar
+                int[] posAux;
+                aux[f][c] = new Bloque(forma[c][filas-1-f]); //Copiamos el bloque
+
+                //Ajustamos el valor de su posición.
+                posAux = Arrays.copyOf(forma[f][c].getPosicion(),2);
+                System.out.println(Arrays.toString(posAux));
+                aux[f][c].setPosicion(posAux);//Actualizamos la posicion del bloque que acabamos de trasladar*/
             }
         }
+
+
 
         forma = aux;
     }
@@ -89,5 +108,9 @@ public abstract class Pieza {
                 forma[i][j].setPosicion(nuevaPos);
             }
         }
+    }
+
+    public int getColor() {
+        return color;
     }
 }

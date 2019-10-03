@@ -26,6 +26,7 @@ tools:context=".MainActivity"
         android:layout_width="wrap_content"
         android:layout_height="524dp"
         android:foregroundGravity="center_vertical" />-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="443dp"

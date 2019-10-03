@@ -7,7 +7,7 @@ public class Pieza4x4 extends Pieza{
     private boolean ultGiroDcha;
     private boolean ultGiroIzqda;
 
-    public Pieza4x4(int id, Color color){
+    public Pieza4x4(int id, int color){
         super(id,color);
 
         ultGiroDcha = false;
@@ -22,7 +22,7 @@ public class Pieza4x4 extends Pieza{
             for(int j=0; j<4; j++){
                 int posBloque[] = new int[2];
                 posBloque[0] = i;
-                posBloque[0] = j+3; //Para que el bloque también esté desplazado al centro
+                posBloque[1] = j+3; //Para que el bloque también esté desplazado al centro
                 this.forma[i][j] = new Bloque(false,id,color,posBloque);
             }
         }

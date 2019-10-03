@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class PiezaZI extends Pieza3x3 {
 
-    public PiezaZI(int id, Color color) {
+    public PiezaZI(int id, int color) {
         super(id, color);
 
         forma[0][0].activar();
