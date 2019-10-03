@@ -26,7 +26,7 @@ public class CreadorPiezas {
         Random r = new Random();
         int n = r.nextInt(7);
 
-        return crearPieza(0, cogerColor(n));
+        return crearPieza(n, cogerColor(n));
     }
 
     public int cogerColor(int x) {
