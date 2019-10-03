@@ -35,6 +35,9 @@ public class Hebra extends Thread{
         v.setTablero(tetris);
     }
 
+    public TableroTetris getTablero(){
+        return tetris;
+    }
 
     @Override
     public void run() {
@@ -43,6 +46,7 @@ public class Hebra extends Thread{
         while(!finPartida) {
             while (puedoMover) {
                 p.bajar();
+               // tetris.piezaSig();
                 //p.rotarDcha();
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 //mover(p);

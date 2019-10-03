@@ -42,6 +42,7 @@ public class CreadorPiezas {
         return -1;
     }
 
+
     public Pieza crearPieza(int x, int color){
         contadorPiezas++;
         if(x==0) return new PiezaI(contadorPiezas, color);
