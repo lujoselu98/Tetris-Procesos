@@ -40,6 +40,9 @@ class Controls {
 
     public void dropButtonPressed() {
         System.out.println("MOVIMIENTO ABAJO RAPIDO");
+        hebra.tetris.hard_Drop();
+        hebra.getV().invalidate();
+
     }
 
     public void rotateRightPressed(Pieza pieza) {
