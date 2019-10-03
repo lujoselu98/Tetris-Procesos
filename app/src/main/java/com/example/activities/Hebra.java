@@ -53,7 +53,7 @@ public class Hebra extends Thread{
                 System.out.println("INVALIDATE SUPERADO");
                 if (tetris.comprobarPerdido()) {
                     System.out.println("PERDIDO");
-                    finPartida = true;
+                    setFinPartida();
                     puedoMover = false;
                 }
                 try {
@@ -67,6 +67,7 @@ public class Hebra extends Thread{
             }
             //finPartida = tetris.comprobarPerdido();
         }
+        mainActivity.gameOver();
     }
 
 

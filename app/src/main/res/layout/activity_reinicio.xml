@@ -66,7 +66,7 @@
             android:textColorHint="@color/pantallaJugar" />-->
 
         <Button
-            android:id="@+id/activity_main_button_new_game"
+            android:id="@+id/activity_main_button_restart"
             style="@android:style/Widget.ImageWell"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
