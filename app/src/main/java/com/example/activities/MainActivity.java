@@ -39,40 +39,33 @@ public class MainActivity extends AppCompatActivity {
    @SuppressLint("ClickableViewAccessibility")
    @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+       super.onCreate(savedInstanceState);
        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
        setContentView(R.layout.activity_juego);
 
 
-       
-
        TextView textView = (TextView) findViewById(R.id.Cronometro);
-       cronometro = new Cronometro("CuentaAtras",textView);
+       cronometro = new Cronometro("CuentaAtras", textView);
        Thread c = new Thread(cronometro);
        v = new Ventana(this);
-       RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1,R.id.relativelayout1);
+       RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
        v.setLayoutParams(params1);
        RelativeLayout relativeSteinAnzeige = (RelativeLayout) findViewById(R.id.relativelayout1);
        v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
-       h = new Hebra(true,this,v);
+       h = new Hebra(true, this, v);
        NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
        h.setTableroPiezaSig(piezaSig);
 
-       LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza,R.id.LinearLayoutLateralPieza);
+       LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza, R.id.LinearLayoutLateralPieza);
        piezaSig.setLayoutParams(parametro);
        LinearLayout relativeSteinLinear = (LinearLayout) findViewById(R.id.LinearLayoutLateralPieza);
        relativeSteinLinear.addView(piezaSig);
 
 
-
-       System.out.println("Voy a crear el modelo:");
-       final Button button = findViewById(R.id.activity_main_button_new_game);
-
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
        Controls controls = new Controls(h);
-
 
 
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -94,21 +87,20 @@ public class MainActivity extends AppCompatActivity {
        findViewById(R.id.button_pause).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_UP) {
                Button pause = (Button) findViewById(R.id.button_pause);
-               if(pause.getText().toString().compareTo("Pause")==0){
+               if (pause.getText().toString().compareTo("Pause") == 0) {
                    h.setPuedoMover(false);
                    cronometro.pause();
                    pause.setText("Resume");
-               }else{
+               } else {
                    h.setPuedoMover(true);
                    cronometro.reanudar();
                    pause.setText("Pause");
                }
            }
 
-            return true;
+           return true;
 
        });
-
 
 
        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
@@ -116,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                System.out.println("BOTON DERECHO");
                controls.rightButtonPressed(h.getPiezaActual());
 
-               sumar_puntuacion(v,50);
+               sumar_puntuacion(v, 50);
                findViewById(R.id.button_right).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                controls.rightButtonReleased();
@@ -188,30 +180,14 @@ public class MainActivity extends AppCompatActivity {
                return true;
            });
        }
-        /*button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-                setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
-
-                //setContentView(canvas);
-                h.run();
-                //Esto arranca la hebra pero deja de visualizarse el Canvas
+   }
 
 
-            }
-        });*/
-
-        //setContentView(canvas);
-    }
-    public int getIvID(){
-       return ivID;
-    }
     public void gameOver(){
-        Intent intent = new Intent(this, PantallaReinicio.class);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);*/
-        startActivity(intent);
+        Intent intent = new Intent(this,PantallaReinicio.class);
+        this.startActivity(intent);
+
+
     }
     private void sumar_puntuacion(Ventana v, int ptos) {
        puntuacion+=ptos;
@@ -219,19 +195,6 @@ public class MainActivity extends AppCompatActivity {
        texto.setText("Ptos:"+puntuacion);
     }
 
-    protected String doInBackground(String... params) {
-        for (int i = 0; i < 1000; i++) {
-            try {
-                Thread.sleep(1000);
-                System.out.println("THREAD IN BACKGROUND");
-            } catch (InterruptedException e) {
-                Thread.interrupted();
-            }
-        }
-        return "Executed";
-    }
-    public void mostrarCanvas(){
-        setContentView(R.layout.activity_juego);
-    }
+
 
 }
