@@ -28,7 +28,7 @@ public class TableroTetris extends AppCompatActivity {
     private boolean perdido = false;
     private MainActivity mainActivity;
     private int contadorPiezas = 0;
-
+    private int puntos=0;
     private final int COLUMNAS = 10;
     private final int FILAS = 20;
 
@@ -115,12 +115,19 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void posarPiezaActual(){
+        int fila_mayor=0;
+        int fila_menor=FILAS-1;
         List<Bloque> bloques = piezaActual.bloquesActivos();
         contadorPiezas++;
         for(Bloque bloque: bloques){
             int pos[] = bloque.getPosicion();
             tablero[pos[0]][pos[1]] = bloque;
+            if(fila_mayor<pos[0]){fila_mayor=pos[0];}
+            if(fila_menor>pos[0]){fila_menor=pos[0];}
         }
+        System.out.println("fila_mayor = " + fila_mayor);
+        System.out.println("fila_menor = " + fila_menor);
+        borrar_lineas(fila_mayor,fila_menor);
     }
 
     public Pieza getPiezaActual() {
@@ -145,5 +152,40 @@ public class TableroTetris extends AppCompatActivity {
         while(contadorPiezas - n == 0){
             bajar();
         }
+    }
+    public void borrar_lineas(int fila_mayor,int fila_menor){
+        int i=fila_mayor;
+        while(i>=fila_menor) {
+            System.out.println("fila_mayor = " + fila_mayor);
+            System.out.println("fila_menor = " + fila_menor);
+            System.out.println("i = " + i);
+            if(comprobar_fila_llena(i)){
+                borrarfila(i);
+                fila_menor--;
+            }else{
+                i--;
+            }
+        }
+    }
+
+    private void borrarfila(int fila) {
+        System.out.println("Estoy en borrar fila");
+        for (int i = fila; i > 0; i--) {
+            for (int j = 0; j < COLUMNAS; j++) {
+                tablero[i][j]=new Bloque(tablero[i-1][j]);
+                tablero[i][j].bajar();
+            }
+        }
+        for (int i = 0; i < COLUMNAS; i++) {
+            int pos[]={0,i};
+            tablero[0][i]=new Bloque(false, 0, Color.WHITE,pos);
+        }
+    }
+
+    public boolean comprobar_fila_llena(int fila){
+        for (int j = 0; j < COLUMNAS; j++) {
+            if(!tablero[fila][j].isActivo()){return false;}
+        }
+        return true;
     }
 }
