@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +18,10 @@ import static android.app.PendingIntent.getActivity;
 
 
 public class MainActivity extends AppCompatActivity {
-     Ventana v;
+    canvasAlex canvasAlex;
+    Ventana v;
+    Cronometro cronometro;
+    int puntuacion = 0;
    @SuppressLint("ClickableViewAccessibility")
    @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -26,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
 
        //setContentView(R.layout.activity_main);
        setContentView(R.layout.activity_juego);
+
+
+       //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
+       Controls controls = new Controls(h);
+
+       TextView textView = (TextView) findViewById(R.id.Cronometro);
+       cronometro = new Cronometro("CuentaAtras",textView);
+       Thread c = new Thread(cronometro);
        v = new Ventana(this);
        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1,R.id.relativelayout1);
        v.setLayoutParams(params1);
@@ -50,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                            public void onClick(DialogInterface dialog, int id) {
                                dialog.cancel();
                                h.start();
+                               c.start();
                            }
                        });
        AlertDialog alert = builder.create();
@@ -75,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                System.out.println("BOTON DERECHO");
                controls.rightButtonPressed(h.getPieza());
+
+               sumar_puntuacion(v,50);
                findViewById(R.id.button_right).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                controls.rightButtonReleased();
@@ -161,6 +176,13 @@ public class MainActivity extends AppCompatActivity {
 
         //setContentView(canvas);
     }
+
+    private void sumar_puntuacion(Ventana v, int ptos) {
+       puntuacion+=ptos;
+       TextView texto = (TextView) findViewById(R.id.puntuacion);
+       texto.setText("Ptos:"+puntuacion);
+    }
+
     protected String doInBackground(String... params) {
         for (int i = 0; i < 1000; i++) {
             try {

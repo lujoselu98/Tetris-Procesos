@@ -26,12 +26,42 @@ tools:context=".MainActivity"
         android:layout_width="wrap_content"
         android:layout_height="524dp"
         android:foregroundGravity="center_vertical" />-->
-    <RelativeLayout
-        android:id="@+id/relativelayout1"
-        android:layout_width="200dp"
-        android:layout_height="400dp">
 
-    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="443dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/relativelayout1"
+            android:layout_width="268dp"
+            android:layout_height="426dp">
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="196dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/puntuacion"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_weight="1"
+                android:text="Ptos: 0" />
+
+            <TextView
+                android:id="@+id/Cronometro"
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_weight="1"
+                android:text="0" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearlayout"
