@@ -40,6 +40,7 @@ class Controls {
 
     public void dropButtonPressed() {
         System.out.println("MOVIMIENTO ABAJO RAPIDO");
+
     }
 
     public void rotateRightPressed(Pieza pieza) {
