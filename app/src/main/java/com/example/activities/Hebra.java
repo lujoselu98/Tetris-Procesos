@@ -14,10 +14,9 @@ import com.example.pieces.PiezaL;
 public class Hebra extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
-    private int velocidadCaida = 5000;
+    private int velocidadCaida = 500;
 
     MainActivity mainActivity;
-    Pieza p;
     private Ventana v;
     TableroTetris tetris;
 
@@ -28,10 +27,10 @@ public class Hebra extends Thread{
         this.finPartida = false;
         this.mainActivity = mainActivity;
         this.v = v;
-        p = new PiezaI(1,Color.parseColor("#FF00FF"));
-        v.setPieza(p);
+
 
         tetris = new TableroTetris();
+        v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
     }
 
@@ -44,15 +43,19 @@ public class Hebra extends Thread{
         System.out.println("SOY LA HEBRA Y ESPEROOOO");
        //mainActivity.mostrarCanvas();   //Mostramos el canvas
         while(!finPartida) {
-            while (puedoMover) {
-                p.bajar();
-               // tetris.piezaSig();
-                //p.rotarDcha();
+            while (puedoMover) 
+                v.setPieza(tetris.getPiezaActual());
+                tetris.bajar();
+
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
-                //mover(p);
                 System.out.println("LLAMO A INVALIDATE");
                 v.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
+                if(tetris.comprobarPerdido()){
+                    System.out.println("PERDIDO");
+                    finPartida = true;
+                    puedoMover = false;
+                }
                 try {
                     System.out.println("VOY A DORMIR");
                     Thread.sleep(velocidadCaida);
@@ -62,6 +65,7 @@ public class Hebra extends Thread{
                 }
 
             }
+            //finPartida = tetris.comprobarPerdido();
         }
 
     }
@@ -71,9 +75,7 @@ public class Hebra extends Thread{
     private void metodoHebra() {
 
     }
-    public Pieza getPieza(){
-        return p;
-    }
+
     public void mover(Pieza p) {
         System.out.println("ES EL MODELO");
         int[] rows_L = new int[]{0, 1, 2, 3};
@@ -87,5 +89,9 @@ public class Hebra extends Thread{
 
     public Ventana getV() {
         return v;
+    }
+
+    public Pieza getPiezaActual(){
+        return this.tetris.getPiezaActual();
     }
 }
