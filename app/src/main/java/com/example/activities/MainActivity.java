@@ -107,8 +107,6 @@ public class MainActivity extends AppCompatActivity {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                System.out.println("BOTON DERECHO");
                controls.rightButtonPressed(h.getPiezaActual());
-
-               sumar_puntuacion(v, 50);
                findViewById(R.id.button_right).setPressed(true);
            } else if (event.getAction() == MotionEvent.ACTION_UP) {
                controls.rightButtonReleased();
@@ -189,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void sumar_puntuacion(Ventana v, int ptos) {
+    public void sumar_puntuacion(int ptos) {
        puntuacion+=ptos;
        TextView texto = (TextView) findViewById(R.id.puntuacion);
        texto.setText("Ptos:"+puntuacion);
