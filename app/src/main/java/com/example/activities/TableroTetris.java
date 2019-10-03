@@ -5,11 +5,14 @@ import android.graphics.Color;
 import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
 
+import java.util.List;
+
 public class TableroTetris {
     private Bloque[][] tablero;
-    private Pieza PiezaSiguiente;
-    private Pieza PiezaActual;
+    private Pieza piezaSiguiente;
+    private Pieza piezaActual;
     private CreadorPiezas creador;
+    private boolean perdido = false;
 
     private final int COLUMNAS = 10;
     private final int FILAS = 20;
@@ -17,13 +20,13 @@ public class TableroTetris {
     public TableroTetris(){
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas();
-        PiezaActual = creador.crearPieza();
-        PiezaSiguiente = creador.crearPieza();
+        piezaActual = creador.crearPieza();
+        piezaSiguiente = creador.crearPieza();
 
         for(int i=0; i<FILAS; i++){
             for(int j=0; j<COLUMNAS; j++){
-                int[] pos = new int[2];
-                tablero[i][j] = new Bloque(false, 0, Color.YELLOW, pos);
+                int[] pos = {i,j};
+                tablero[i][j] = new Bloque(false, 0, Color.WHITE, pos);
             }
         }
     }
@@ -32,4 +35,86 @@ public class TableroTetris {
         return this.tablero[fila][columna];
     }
 
+    public void bajar(){
+        piezaActual.bajar();
+        if(!esPosible()){
+            piezaActual.subir();
+            siguientePieza();
+        }
+    }
+
+    public void despDcha(){
+        piezaActual.despDcha();
+        if(!esPosible()){
+            piezaActual.despIzqda();
+        }
+    }
+
+    public void despIzqda(){
+        piezaActual.despIzqda();
+        if(!esPosible()){
+            piezaActual.despDcha();
+        }
+    }
+
+    public void rotarDcha(){
+        piezaActual.rotarDcha();
+        if(!esPosible()){
+            piezaActual.rotarIzqda();
+        }
+    }
+
+    public void rotarIzqda(){
+        piezaActual.rotarIzqda();
+        if(!esPosible()){
+            piezaActual.rotarDcha();
+        }
+    }
+
+    public boolean esPosible(){
+        List<Bloque> b = piezaActual.bloquesActivos();
+
+        boolean siBajo = true;
+
+        for(Bloque bloque: b){
+            siBajo = (bloque.isInBounds(FILAS,COLUMNAS) && !posicionOcupada(bloque.getPosicion()));
+            if(!siBajo){
+                break;
+            }
+        }
+
+        return siBajo;
+    }
+
+    public void siguientePieza(){
+        posarPiezaActual();
+        this.piezaActual = piezaSiguiente;
+        piezaSiguiente = creador.crearPieza();
+    }
+
+    public void posarPiezaActual(){
+        List<Bloque> bloques = piezaActual.bloquesActivos();
+
+        for(Bloque bloque: bloques){
+            int pos[] = bloque.getPosicion();
+            tablero[pos[0]][pos[1]] = bloque;
+        }
+    }
+
+    public Pieza getPiezaActual() {
+        return piezaActual;
+    }
+
+    public boolean posicionOcupada(int[] pos) {
+        return tablero[pos[0]][pos[1]].isActivo();
+    }
+
+    public boolean comprobarPerdido(){
+        int i=0;
+        while(i < COLUMNAS && !perdido){
+            perdido = tablero[0][i].isActivo();
+            i++;
+        }
+        return perdido;
+    }
 }
