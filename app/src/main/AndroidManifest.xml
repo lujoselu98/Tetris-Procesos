@@ -12,11 +12,12 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
+
         </activity>
         <activity android:name=".Hebra">
         </activity>
 
-        <activity android:name=".canvasAlex">
+        <activity android:name=".PantallaReinicio">
         </activity>
 
         <activity android:name=".SplashActivity">

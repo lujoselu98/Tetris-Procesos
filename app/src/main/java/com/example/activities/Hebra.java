@@ -34,15 +34,19 @@ public class Hebra extends Thread{
         v.setTablero(tetris);
     }
 
+    public TableroTetris getTablero(){
+        return tetris;
+    }
 
     @Override
     public void run() {
         System.out.println("SOY LA HEBRA Y ESPEROOOO");
        //mainActivity.mostrarCanvas();   //Mostramos el canvas
         while(!finPartida) {
-            while (puedoMover) {
+            while (puedoMover) 
                 v.setPieza(tetris.getPiezaActual());
                 tetris.bajar();
+
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 System.out.println("LLAMO A INVALIDATE");
                 v.invalidate();

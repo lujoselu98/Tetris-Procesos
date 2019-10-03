@@ -2,23 +2,35 @@ package com.example.activities;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pieces.Pieza;
+import com.example.pieces.PiezaC;
+import com.example.pieces.PiezaI;
+import com.example.pieces.PiezaL;
+import com.example.pieces.PiezaLI;
+import com.example.pieces.PiezaT;
+import com.example.pieces.PiezaZ;
+import com.example.pieces.PiezaZI;
+
 import static android.app.PendingIntent.getActivity;
 
 
 public class MainActivity extends AppCompatActivity {
     Ventana v;
+    Hebra h;
     Cronometro cronometro;
     int puntuacion = 0;
    @SuppressLint("ClickableViewAccessibility")
@@ -26,13 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-       //setContentView(R.layout.activity_main);
+    gameOver();
        setContentView(R.layout.activity_juego);
 
 
-       //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
-       //Controls controls = new Controls(h);
+       
 
        TextView textView = (TextView) findViewById(R.id.Cronometro);
        cronometro = new Cronometro("CuentaAtras",textView);
@@ -44,12 +54,14 @@ public class MainActivity extends AppCompatActivity {
        v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
-       final Hebra h = new Hebra(true,this,v);
+       h = new Hebra(true,this,v);
+
        System.out.println("Voy a crear el modelo:");
        final Button button = findViewById(R.id.activity_main_button_new_game);
 
        //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
        Controls controls = new Controls(h);
+
 
 
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -73,9 +85,11 @@ public class MainActivity extends AppCompatActivity {
                Button pause = (Button) findViewById(R.id.button_pause);
                if(pause.getText().toString().compareTo("Pause")==0){
                    h.setPuedoMover(false);
+                   cronometro.pause();
                    pause.setText("Resume");
                }else{
                    h.setPuedoMover(true);
+                   cronometro.reanudar();
                    pause.setText("Pause");
                }
            }
@@ -83,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
        });
+
+
+
        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
            if (event.getAction() == MotionEvent.ACTION_DOWN) {
                System.out.println("BOTON DERECHO");
@@ -175,7 +192,13 @@ public class MainActivity extends AppCompatActivity {
 
         //setContentView(canvas);
     }
-
+    public void gameOver(){
+        Intent intent = new Intent(this, PantallaReinicio.class);
+        /*EditText editText = (EditText) findViewById(R.id.editText);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);*/
+        startActivity(intent);
+    }
     private void sumar_puntuacion(Ventana v, int ptos) {
        puntuacion+=ptos;
        TextView texto = (TextView) findViewById(R.id.puntuacion);

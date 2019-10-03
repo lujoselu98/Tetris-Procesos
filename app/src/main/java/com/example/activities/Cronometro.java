@@ -86,4 +86,7 @@ public class Cronometro implements Runnable
     {
         pausado = !pausado;
     }
+    public  void reanudar(){
+        pausado =!pausado;
+    }
 }
