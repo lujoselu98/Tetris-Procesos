@@ -58,7 +58,7 @@ public class Cronometro implements Runnable
                             @Override
                             public void run()
                             {
-                                etiq.setText(salida);
+                                etiq.setText("Tiempo: "+salida);
                             }
                         });
                     }
@@ -66,7 +66,6 @@ public class Cronometro implements Runnable
                     {
                         Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
                     }
-                    System.out.println(salida);
                 }
             }
         }
