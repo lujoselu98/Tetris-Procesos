@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -32,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
     Ventana v;
     Hebra h;
     Cronometro cronometro;
+    int ivID;
     int puntuacion = 0;
    @SuppressLint("ClickableViewAccessibility")
    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    gameOver();
        setContentView(R.layout.activity_juego);
 
 
@@ -55,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
        relativeSteinAnzeige.addView(v);
 
        h = new Hebra(true,this,v);
+       NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
+       h.setTableroPiezaSig(piezaSig);
+
+       LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza,R.id.LinearLayoutLateralPieza);
+       piezaSig.setLayoutParams(parametro);
+       LinearLayout relativeSteinLinear = (LinearLayout) findViewById(R.id.LinearLayoutLateralPieza);
+       relativeSteinLinear.addView(piezaSig);
+
+
 
        System.out.println("Voy a crear el modelo:");
        final Button button = findViewById(R.id.activity_main_button_new_game);
@@ -192,6 +203,9 @@ public class MainActivity extends AppCompatActivity {
 
         //setContentView(canvas);
     }
+    public int getIvID(){
+       return ivID;
+    }
     public void gameOver(){
         Intent intent = new Intent(this, PantallaReinicio.class);
         /*EditText editText = (EditText) findViewById(R.id.editText);
@@ -219,4 +233,5 @@ public class MainActivity extends AppCompatActivity {
     public void mostrarCanvas(){
         setContentView(R.layout.activity_juego);
     }
+
 }

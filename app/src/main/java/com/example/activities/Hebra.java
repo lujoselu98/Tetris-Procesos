@@ -15,7 +15,7 @@ public class Hebra extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 500;
-
+    private NextPieceView tableroPiezaSig;
     MainActivity mainActivity;
     private Ventana v;
     TableroTetris tetris;
@@ -29,7 +29,7 @@ public class Hebra extends Thread{
         this.v = v;
 
 
-        tetris = new TableroTetris();
+        tetris = new TableroTetris(this.mainActivity);
         v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
     }
@@ -41,17 +41,17 @@ public class Hebra extends Thread{
     @Override
     public void run() {
         System.out.println("SOY LA HEBRA Y ESPEROOOO");
-       //mainActivity.mostrarCanvas();   //Mostramos el canvas
-        while(!finPartida) {
-            while (puedoMover) 
+        //mainActivity.mostrarCanvas();   //Mostramos el canvas
+        while (!finPartida) {
+            while (puedoMover) {
                 v.setPieza(tetris.getPiezaActual());
                 tetris.bajar();
-
-                System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
+               System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 System.out.println("LLAMO A INVALIDATE");
                 v.invalidate();
+                tableroPiezaSig.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
-                if(tetris.comprobarPerdido()){
+                if (tetris.comprobarPerdido()) {
                     System.out.println("PERDIDO");
                     finPartida = true;
                     puedoMover = false;
@@ -67,8 +67,9 @@ public class Hebra extends Thread{
             }
             //finPartida = tetris.comprobarPerdido();
         }
-
     }
+
+
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
     }
@@ -91,7 +92,17 @@ public class Hebra extends Thread{
         return v;
     }
 
+    public TableroTetris getTetris(){
+        return tetris;
+    }
     public Pieza getPiezaActual(){
         return this.tetris.getPiezaActual();
+    }
+    public Pieza getPiezaSiguiente(){
+        return this.tetris.getPiezaSig();
+    }
+
+    public void setTableroPiezaSig(NextPieceView piezaSig) {
+        this.tableroPiezaSig = piezaSig;
     }
 }

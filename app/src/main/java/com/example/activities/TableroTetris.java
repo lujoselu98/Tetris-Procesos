@@ -26,18 +26,19 @@ public class TableroTetris extends AppCompatActivity {
     private Pieza piezaActual;
     private CreadorPiezas creador;
     private boolean perdido = false;
+    private MainActivity mainActivity;
     private int contadorPiezas = 0;
 
     private final int COLUMNAS = 10;
     private final int FILAS = 20;
 
     @SuppressLint("ResourceType")
-    public TableroTetris(){
+    public TableroTetris(MainActivity mainActivity){
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas();
         piezaActual = creador.crearPieza();
         piezaSiguiente = creador.crearPieza();
-
+        this.mainActivity = mainActivity;
         for(int i=0; i<FILAS; i++){
             for(int j=0; j<COLUMNAS; j++){
                 int[] pos = {i,j};
@@ -54,30 +55,13 @@ public class TableroTetris extends AppCompatActivity {
         return piezaSiguiente;
     }
 
-    /*public void piezaSig(){
-        ImageView iv = (ImageView) findViewById(R.id.piezaSiguiente);
-        Pieza piezaSig = getPiezaSig();
-        if(piezaSig instanceof PiezaC){
-            iv.setImageResource(R.drawable.cuadrado);
-        }else if(piezaSig instanceof PiezaI){
-            iv.setImageResource(R.drawable.i);
-        }else if(piezaSig instanceof PiezaL){
-            iv.setImageResource(R.drawable.l);
-        }else if(piezaSig instanceof PiezaLI){
-            iv.setImageResource(R.drawable.l_invertida);
-        }else if(piezaSig instanceof PiezaT){
-            iv.setImageResource(R.drawable.t);
-        }else if(piezaSig instanceof PiezaZ){
-            iv.setImageResource(R.drawable.z);
-        }else if(piezaSig instanceof PiezaZI){
-            iv.setImageResource(R.drawable.s);
-        }
-    }*/
+
     public void bajar(){
         piezaActual.bajar();
         if(!esPosible()){
             piezaActual.subir();
             siguientePieza();
+
         }
     }
 
