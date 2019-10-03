@@ -26,6 +26,7 @@ public class TableroTetris extends AppCompatActivity {
     private Pieza piezaActual;
     private CreadorPiezas creador;
     private boolean perdido = false;
+    private int contadorPiezas = 0;
 
     private final int COLUMNAS = 10;
     private final int FILAS = 20;
@@ -131,7 +132,7 @@ public class TableroTetris extends AppCompatActivity {
 
     public void posarPiezaActual(){
         List<Bloque> bloques = piezaActual.bloquesActivos();
-
+        contadorPiezas++;
         for(Bloque bloque: bloques){
             int pos[] = bloque.getPosicion();
             tablero[pos[0]][pos[1]] = bloque;
@@ -153,5 +154,12 @@ public class TableroTetris extends AppCompatActivity {
             i++;
         }
         return perdido;
+    }
+    public void hard_Drop (){
+        int n = contadorPiezas;
+        //Mientras que no se haya posado otra pieza
+        while(contadorPiezas - n == 0){
+            bajar();
+        }
     }
 }
