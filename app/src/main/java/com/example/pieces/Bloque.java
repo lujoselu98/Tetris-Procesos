@@ -7,11 +7,11 @@ import java.util.Arrays;
 
 public class Bloque {
     private boolean activo; //Si está activo significa que está en el tablero o que es parte de una pieza que se está moviendo (si está activo se pinta)
-    private Color color;
+    private int color;
     private int identificador; //Es el número de piezas que han salido hasta el momento, así no se repite
     private int[] posicion;
 
-    public Bloque(boolean activo, int identificador, Color color, int[] posicion) {
+    public Bloque(boolean activo, int identificador, int color, int[] posicion) {
         this.activo = activo;
         this.color = color;
         this.identificador = identificador;
@@ -21,7 +21,7 @@ public class Bloque {
     //Constructor que hace una copia de otro bloque;
     public Bloque(Bloque bloque){
         this.activo = bloque.isActivo();
-        this.color = color;
+        this.color = bloque.getColor();
         this.identificador = bloque.getIdentificador();
         this.posicion = Arrays.copyOf(bloque.getPosicion(),2);
     }
@@ -57,7 +57,7 @@ public class Bloque {
         return aux;
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 

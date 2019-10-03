@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class PiezaLI extends Pieza3x3{ //L inversa
 
-    public PiezaLI(int id, Color color){
+    public PiezaLI(int id, int color){
         super(id, color);
 
         //Colocar las piezas

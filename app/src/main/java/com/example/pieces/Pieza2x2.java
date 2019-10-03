@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class Pieza2x2 extends Pieza {
 
-    public Pieza2x2(int id, Color color){
+    public Pieza2x2(int id, int color){
         super(id, color);
 
         centro = new int[]{1,4};

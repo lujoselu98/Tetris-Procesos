@@ -8,10 +8,10 @@ public abstract class Pieza {
     int identificador;
     Bloque[][] forma;
     int[] centro;
-    Color color;
+    int color;
     //int[] bloquesActivos; //Los bloques activos en la forma. Posicion i guarda la columna j : [fila1] = columna3
 
-    public Pieza(int id, Color color){
+    public Pieza(int id, int color){
         this.identificador = id;
         this.color = color;
     }
@@ -110,7 +110,7 @@ public abstract class Pieza {
         }
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 }

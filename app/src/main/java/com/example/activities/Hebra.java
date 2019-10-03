@@ -19,6 +19,8 @@ public class Hebra extends Thread{
     MainActivity mainActivity;
     Pieza p;
     private Ventana v;
+    TableroTetris tetris;
+
     //Modelo modelo;
 
     public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v) {
@@ -26,8 +28,11 @@ public class Hebra extends Thread{
         this.finPartida = false;
         this.mainActivity = mainActivity;
         this.v = v;
-        p = new PiezaI(1,new Color());
+        p = new PiezaI(1,Color.parseColor("#FF00FF"));
         v.setPieza(p);
+
+        tetris = new TableroTetris();
+        v.setTablero(tetris);
     }
 
 

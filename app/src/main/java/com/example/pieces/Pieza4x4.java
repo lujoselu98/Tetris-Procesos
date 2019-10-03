@@ -7,7 +7,7 @@ public class Pieza4x4 extends Pieza{
     private boolean ultGiroDcha;
     private boolean ultGiroIzqda;
 
-    public Pieza4x4(int id, Color color){
+    public Pieza4x4(int id, int color){
         super(id,color);
 
         ultGiroDcha = false;

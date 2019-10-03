@@ -17,6 +17,7 @@ public class Ventana extends View {
     private int squaresize = 1;
     Paint paint = new Paint();
     Pieza p;
+    TableroTetris t;
 
     /*int rowSize = Canvas.getHeight() / 20;
     int colSize = Canvas.getWidth() / 10;*/
@@ -27,7 +28,7 @@ public class Ventana extends View {
     public Ventana(Context context) {
 
         super(context);
-        p = new PiezaL(1,new Color());
+        p = new PiezaL(1,Color.parseColor("#FF00FF"));
     }
 
     @Override
@@ -41,10 +42,17 @@ public class Ventana extends View {
         rowSize = canvas.getHeight()/20;
 
         paint.setStyle(Paint.Style.FILL);
+
+        for(int i=0; i<20; i++){
+            for(int j=0; j<10; j++){
+                paint.setColor(t.bloqueEn(i,j).getColor());
+            }
+        }
+
          for(int i=0; i<filas;i++){
             for(int j=0; j<columnas;j++){
                 if(forma[i][j].isActivo()){
-                    paint.setColor(Color.BLUE);
+                    paint.setColor(Color.MAGENTA);
 
                 }else{
                     paint.setColor(Color.WHITE);
@@ -60,5 +68,6 @@ public class Ventana extends View {
     public void setPieza(Pieza p) {
         this.p = p;
     }
+    public void setTablero(TableroTetris t){this.t = t;}
 }
 
