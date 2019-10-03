@@ -44,6 +44,11 @@ tools:context=".MainActivity"
             android:layout_height="196dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/cuadrado" />
+
             <TextView
                 android:id="@+id/puntuacion"
                 android:layout_width="104dp"
@@ -59,6 +64,7 @@ tools:context=".MainActivity"
                 android:layout_marginLeft="7dp"
                 android:layout_weight="1"
                 android:text="0" />
+
         </LinearLayout>
 
     </LinearLayout>
