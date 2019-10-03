@@ -28,7 +28,6 @@ public class Ventana extends View {
     public Ventana(Context context) {
 
         super(context);
-        p = new PiezaL(1,Color.parseColor("#FF00FF"));
     }
 
     @Override

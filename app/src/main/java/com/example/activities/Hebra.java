@@ -14,7 +14,7 @@ import com.example.pieces.PiezaL;
 public class Hebra extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
-    private int velocidadCaida = 5000;
+    private int velocidadCaida = 500;
 
     MainActivity mainActivity;
     private Ventana v;
@@ -41,13 +41,17 @@ public class Hebra extends Thread{
        //mainActivity.mostrarCanvas();   //Mostramos el canvas
         while(!finPartida) {
             while (puedoMover) {
+                v.setPieza(tetris.getPiezaActual());
                 tetris.bajar();
-                //p.rotarDcha();
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
-                //mover(p);
                 System.out.println("LLAMO A INVALIDATE");
                 v.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
+                if(tetris.comprobarPerdido()){
+                    System.out.println("PERDIDO");
+                    finPartida = true;
+                    puedoMover = false;
+                }
                 try {
                     System.out.println("VOY A DORMIR");
                     Thread.sleep(velocidadCaida);
@@ -57,6 +61,7 @@ public class Hebra extends Thread{
                 }
 
             }
+            //finPartida = tetris.comprobarPerdido();
         }
 
     }
