@@ -161,6 +161,7 @@ public class TableroTetris extends AppCompatActivity {
             System.out.println("i = " + i);
             if(comprobar_fila_llena(i)){
                 borrarfila(i);
+                mainActivity.sumar_puntuacion( 30);
                 fila_menor--;
             }else{
                 i--;
