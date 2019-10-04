@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
        v.setLayoutParams(params1);
        RelativeLayout relativeSteinAnzeige = (RelativeLayout) findViewById(R.id.relativelayout1);
-       v.setBackgroundColor(Color.YELLOW);
+       //v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
        h = new Hebra(true, this, v);

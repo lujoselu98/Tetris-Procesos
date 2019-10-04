@@ -40,16 +40,18 @@ tools:context=".MainActivity"
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/LinearLayoutLateral"
             android:layout_width="match_parent"
-            android:layout_height="284dp"
-            android:orientation="vertical"
-            android:id = "@+id/LinearLayoutLateral">
+            android:layout_height="355dp"
+            android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/LinearLayoutLateralPieza"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:orientation="vertical"
-                android:id = "@+id/LinearLayoutLateralPieza"/>
+                android:layout_height="144dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical" />
+            <!-- android:gravity="center"-->
 
 
             <TextView
@@ -67,6 +69,15 @@ tools:context=".MainActivity"
                 android:layout_marginLeft="7dp"
                 android:layout_weight="1"
                 android:text="0" />
+
+            <TextView
+                android:id="@+id/Nombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_weight="1"
+                android:text="@string/integrantesGrupo"
+                android:textColor="@color/colorPrimary"/>
 
         </LinearLayout>
 
