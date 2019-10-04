@@ -42,7 +42,7 @@ public class TableroTetris extends AppCompatActivity {
         for(int i=0; i<FILAS; i++){
             for(int j=0; j<COLUMNAS; j++){
                 int[] pos = {i,j};
-                tablero[i][j] = new Bloque(false, 0, Color.WHITE, pos);
+                tablero[i][j] = new Bloque(false, 0, Color.GRAY, pos);
             }
         }
     }
@@ -179,7 +179,7 @@ public class TableroTetris extends AppCompatActivity {
         }
         for (int i = 0; i < COLUMNAS; i++) {
             int pos[]={0,i};
-            tablero[0][i]=new Bloque(false, 0, Color.WHITE,pos);
+            tablero[0][i]=new Bloque(false, 0, Color.GRAY,pos);
         }
     }
 

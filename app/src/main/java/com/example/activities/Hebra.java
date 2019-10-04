@@ -40,8 +40,6 @@ public class Hebra extends Thread{
 
     @Override
     public void run() {
-        System.out.println("SOY LA HEBRA Y ESPEROOOO");
-        //mainActivity.mostrarCanvas();   //Mostramos el canvas
         while (!finPartida) {
             while (puedoMover) {
                 v.setPieza(tetris.getPiezaActual());
@@ -65,7 +63,6 @@ public class Hebra extends Thread{
                 }
 
             }
-            //finPartida = tetris.comprobarPerdido();
         }
         mainActivity.gameOver();
     }
@@ -74,17 +71,9 @@ public class Hebra extends Thread{
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
     }
-    private void metodoHebra() {
 
-    }
 
-    public void mover(Pieza p) {
-        System.out.println("ES EL MODELO");
-        int[] rows_L = new int[]{0, 1, 2, 3};
-        int[] cols_L = new int[]{0, 0, 0, 1};
-        //canvas.drawPiece(4,rows_L,cols_L,getAndroidCanvas());
-        //MOVER PIEZA
-    }
+
     public void setFinPartida(){
         this.finPartida = true;
     }

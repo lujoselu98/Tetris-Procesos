@@ -32,7 +32,7 @@ public class CreadorPiezas {
     public int cogerColor(int x) {
 
         if(x==0) return Color.CYAN;
-        if(x==1) return Color.BLACK;
+        if(x==1) return Color.rgb(254,139,9);
         if(x==2) return Color.BLUE;
         if(x==3) return Color.RED;
         if(x==4) return Color.GREEN;

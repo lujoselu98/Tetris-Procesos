@@ -10,4 +10,5 @@
     <color name="pantallaCarga">#ffffff30</color>
     <color name="pantallaJugar">#BEDFE7</color>
     <color name="holo_grey">#FF4D4D4D</color>
+    <color name="colorL">#ff9800</color>
 </resources>
