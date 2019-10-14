@@ -1,6 +1,7 @@
 package com.example.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,6 +19,8 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
     //--Declaramos la variable para nuestro control
     SeekBar seekBar1;
     TextView porcentajeDificultad;
+    String tipoPieza;
+    int progreso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,7 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 porcentajeDificultad.setText("" + progress);
+                progreso = progress;
             }
 
             @Override
@@ -44,7 +48,7 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
             }
         });
 
-        //MODO DIFICIL (PIEZA CADA 30 SEGUNDOS
+        //MODO DIFICIL (PIEZA CADA 30 SEGUNDOS)
 
         Switch switchModoDificil = findViewById(R.id.casillaModoNuevo);
 
@@ -60,12 +64,18 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
         Button botonInicioPartida = (Button)findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
             String str1, str2;
+            Intent intent = new Intent(Settings.this, MainActivity.class);
+            intent.putExtra("tipoPieza",tipoPieza);
+            intent.putExtra("porcentaje",progreso);
             if (switchModoDificil.isChecked())
-                str1 = switchModoDificil.getTextOn().toString();
+                intent.putExtra("modoDificil",true);
             else
-                str1 = switchModoDificil.getTextOff().toString();
+                intent.putExtra("modoDificil",false);
+            startActivity(intent);
+            finish();
+            /*
 
-            Toast.makeText(getApplicationContext(), "Switch1 -  " + str1 + " \n" ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Switch1 -  " + str1 + " \n" ,Toast.LENGTH_SHORT).show();*/
         });
     }
 
@@ -74,12 +84,18 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String tipoPieza = parent.getItemAtPosition(position).toString();
+        tipoPieza = parent.getItemAtPosition(position).toString();
+        System.out.println(tipoPieza);
+
         Toast.makeText(parent.getContext(), tipoPieza,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    public String getTipoPieza(){
+        return tipoPieza;
     }
 }

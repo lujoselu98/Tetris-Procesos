@@ -24,6 +24,7 @@ public class PantallaReinicio extends AppCompatActivity  {
                     Intent intent = new Intent(this,MainActivity.class);
                     this.startActivity(intent);
                     (findViewById(R.id.activity_main_button_restart)).setPressed(true);
+                    finish();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     (findViewById(R.id.activity_main_button_restart)).setPressed(false);
                 }
