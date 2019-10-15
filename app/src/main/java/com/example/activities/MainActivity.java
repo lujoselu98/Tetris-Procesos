@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,25 +39,35 @@ public class MainActivity extends AppCompatActivity {
     int puntuacion = 0;
     String tipoPieza;
     int nivelVelocidad;
-    Boolean modoDificil;
-
+    Boolean modoSegundaPieza;
+    Boolean modoFantasia;
+    Boolean modoReduccion;
+    String nombreJugador;
+    HebraModoSegundaPieza hebraModoSegundaPieza;
 
     @SuppressLint("ClickableViewAccessibility")
    @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
-       //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
        setContentView(R.layout.activity_juego);
+
+       //Lectura de Datos de la Ventana de Configuración
 
        Bundle datos = this.getIntent().getExtras();
        assert datos != null;
        tipoPieza = datos.getString("tipoPieza");
        nivelVelocidad = datos.getInt("porcentaje");
-       modoDificil = datos.getBoolean("modoDificil");
+       nombreJugador = datos.getString("nombreJugador");
+       modoSegundaPieza = datos.getBoolean("modoDificil");
+       modoFantasia = datos.getBoolean("modoFantasia");
+       modoReduccion = datos.getBoolean("modoDificil");
+
        TextView textView = (TextView) findViewById(R.id.Cronometro);
+       TextView nombreJug = findViewById(R.id.nombreJug);
+       nombreJug.setText("Jugador: "+nombreJugador);
        cronometro = new Cronometro("CuentaAtras", textView);
        Thread c = new Thread(cronometro);
        v = new Ventana(this);
@@ -72,14 +83,16 @@ public class MainActivity extends AppCompatActivity {
 
        LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza, R.id.LinearLayoutLateralPieza);
        piezaSig.setLayoutParams(parametro);
-       LinearLayout relativeSteinLinear = (LinearLayout) findViewById(R.id.LinearLayoutLateralPieza);
+       LinearLayout relativeSteinLinear = findViewById(R.id.LinearLayoutLateralPieza);
        relativeSteinLinear.addView(piezaSig);
 
+       //Activación o no de Modos distintos:
+       if(modoSegundaPieza){
+           hebraModoSegundaPieza = new HebraModoSegundaPieza(h);
+       }
 
-       //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
+       //Iniciamos los controladores del tablero del Tetris
        Controls controls = new Controls(h);
-
-
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
        builder.setMessage("DISFRUTA DEL TETRIS DEL GRUPO 1")
                .setTitle("INICIAR JUEGO")
@@ -89,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                            public void onClick(DialogInterface dialog, int id) {
                                dialog.cancel();
                                h.start();
+                               if(modoSegundaPieza){
+                                   hebraModoSegundaPieza.start();
+                               }
                                c.start();
                            }
                        });

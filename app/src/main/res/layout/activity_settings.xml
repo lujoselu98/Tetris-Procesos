@@ -118,23 +118,23 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkJuegoDificil"
+                android:id="@+id/checkModoSegundaPieza"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/titulo_nuevoModo"
+                    android:text="@string/titulo_modoSegundaPieza"
                     android:textSize="20dp"
                     android:layout_gravity="center"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/descripcion_nuevo_modo"/>
+                    android:text="@string/descripcion_modoSegundaPieza"/>
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id = "@+id/casillaModoNuevo"
+                    android:id = "@+id/casillaModoSegundaPieza"
                     android:summaryOff = "Swithc off"
                     android:summaryOn="Switch on"
                     android:checked="false"
@@ -142,7 +142,80 @@
                     android:gravity="left"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombre"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_nombre"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nombreJugador"
+                    android:inputType="textPersonName"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkModoDificil"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_modoFantasia"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion_modoFantasia"/>
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id = "@+id/casillaModoFantasia"
+                    android:summaryOff = "Swithc off"
+                    android:summaryOn="Switch on"
+                    android:checked="false"
+                    android:text = "Jugar Nueva Funcionalidad: COLORES ALEATORIOS"
+                    android:gravity="left"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkModoReduccion"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/titulo_modoReduccion"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion_modoReducción"/>
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id = "@+id/casillaModoReduccion"
+                    android:summaryOff = "Swithc off"
+                    android:summaryOn="Switch on"
+                    android:checked="false"
+                    android:text = "Jugar Nueva Funcionalidad: MODO REDUCCIÓN"
+                    android:gravity="left"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/botonInicioPartida"

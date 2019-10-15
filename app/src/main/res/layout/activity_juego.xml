@@ -13,19 +13,7 @@ android:paddingBottom="@dimen/activity_vertical_margin"
 tools:context=".MainActivity"
     android:weightSum="2"
     >
-<!-- Hay que ver como se inserta el Canvas
-<com.example.activities.Canvas
-    android:id="@+id/activity_game_view_board"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="#00C72121" />
 
-    <com.example.activities.Canvas
-        android:id="@+id/canvas"
-        android:layout_width="wrap_content"
-        android:layout_height="524dp"
-        android:foregroundGravity="center_vertical" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -78,6 +66,14 @@ tools:context=".MainActivity"
                 android:layout_weight="1"
                 android:text="@string/integrantesGrupo"
                 android:textColor="@color/colorPrimary"/>
+
+            <TextView
+                android:id="@+id/nombreJug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:textColor="@color/colorAccent" />
 
         </LinearLayout>
 
