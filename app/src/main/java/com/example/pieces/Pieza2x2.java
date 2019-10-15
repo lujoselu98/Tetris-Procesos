@@ -7,7 +7,7 @@ public class Pieza2x2 extends Pieza {
     public Pieza2x2(int id, int color){
         super(id, color);
 
-        centro = new int[]{1,4};
+        centro = new int[]{0,4};
 
         //Creamos los bloques
         this.forma = new Bloque[4][4];

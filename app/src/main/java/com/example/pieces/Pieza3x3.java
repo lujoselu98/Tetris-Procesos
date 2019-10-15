@@ -7,7 +7,7 @@ public class Pieza3x3 extends Pieza{
     public Pieza3x3(int id, int color){
         super(id, color);
 
-        centro = new int[]{1,4};
+        centro = new int[]{-20,4};
 
         this.forma = new Bloque[3][3];
 

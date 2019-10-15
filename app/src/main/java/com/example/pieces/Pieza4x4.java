@@ -14,7 +14,7 @@ public class Pieza4x4 extends Pieza{
         ultGiroIzqda = false;
 
         //Ponemos el identificador
-        centro = new int[]{2,4};
+        centro = new int[]{0,4};
 
         //Creamos los bloques
         this.forma = new Bloque[4][4];
