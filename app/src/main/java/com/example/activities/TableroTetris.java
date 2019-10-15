@@ -61,7 +61,6 @@ public class TableroTetris extends AppCompatActivity {
         if(!esPosible()){
             piezaActual.subir();
             siguientePieza();
-
         }
     }
 
@@ -109,9 +108,11 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void siguientePieza(){
-        posarPiezaActual();
-        this.piezaActual = piezaSiguiente;
-        piezaSiguiente = creador.crearPieza();
+        if(!comprobarPerdido()) {
+            posarPiezaActual();
+            this.piezaActual = piezaSiguiente;
+            piezaSiguiente = creador.crearPieza();
+        }
     }
 
     public void posarPiezaActual(){
@@ -141,7 +142,7 @@ public class TableroTetris extends AppCompatActivity {
     public boolean comprobarPerdido(){
         int i=0;
         while(i < COLUMNAS && !perdido){
-            perdido = tablero[0][i].isActivo();
+            perdido = tablero[1][i].isActivo();
             i++;
         }
         return perdido;
