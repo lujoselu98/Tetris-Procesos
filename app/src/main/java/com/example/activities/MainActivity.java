@@ -36,14 +36,26 @@ public class MainActivity extends AppCompatActivity {
     Cronometro cronometro;
     int ivID;
     int puntuacion = 0;
-   @SuppressLint("ClickableViewAccessibility")
+    String tipoPieza;
+    int nivelVelocidad;
+    Boolean modoDificil;
+
+
+    @SuppressLint("ClickableViewAccessibility")
    @Override
+
     protected void onCreate(final Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
        setContentView(R.layout.activity_juego);
 
-
+       Bundle datos = this.getIntent().getExtras();
+       assert datos != null;
+       tipoPieza = datos.getString("tipoPieza");
+       nivelVelocidad = datos.getInt("porcentaje");
+       modoDificil = datos.getBoolean("modoDificil");
        TextView textView = (TextView) findViewById(R.id.Cronometro);
        cronometro = new Cronometro("CuentaAtras", textView);
        Thread c = new Thread(cronometro);
@@ -54,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
        //v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
-       h = new Hebra(true, this, v);
+       h = new Hebra(true, this, v,nivelVelocidad);
        NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
        h.setTableroPiezaSig(piezaSig);
 
@@ -184,8 +196,11 @@ public class MainActivity extends AppCompatActivity {
     public void gameOver(){
         Intent intent = new Intent(this,PantallaReinicio.class);
         this.startActivity(intent);
+        finish();
 
-
+    }
+    public String getTipoPieza(){
+        return tipoPieza;
     }
     public void sumar_puntuacion(int ptos) {
        puntuacion+=ptos;

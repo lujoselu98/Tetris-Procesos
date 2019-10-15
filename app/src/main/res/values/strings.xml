@@ -4,6 +4,7 @@
     <string name="nrew_game">TODO</string>
     <string name="integrantesGrupo">TETRIS GRUPO 1 \n Alejandro Checa \n Jose Luis Lavado \n Ivan Martin Sanz \n Daniel Carmona \n Sergio Casado \n Lucas Gomez
     </string>
+    <string name="config">CONFIGURACIÓN</string>
    <!-- BOTONES-->
     <string name="button_hard_drop_description">Hard drop button</string>
     <string name="button_left_description">Left move button</string>
@@ -12,6 +13,82 @@
     <string name="button_rotate_right_description">Rotate right button</string>
     <string name="button_soft_drop_description">Soft drop button</string>
     <string name="pause">Pause</string>
+
+    <!--OPCIONES-->
+    <string name="descripcion_velocidad">A continuación, podrá ajustar la velocidad de la partida, siendo 0 la velocidad más lenta y 10 el máximo</string>
+    <string name="titulo_velocidad">VELOCIDAD:</string>
+    <string name="titulo_piezas">TIPO DE PIEZA:</string>
+    <string name="descripcion_piezas">A continuación, podrá elegir el tipo de pieza con el que quiere jugar</string>
+    <string-array name="tipo_piezas">
+        <item> Tipo 1 </item>
+        <item> Tipo 2 </item>
+        <item> Tipo 3 </item>
+        <item> Color Único </item>
+    </string-array>
+    <string name="titulo_nuevoModo">NUEVO MODO DE JUEGO:</string>
+    <string name="descripcion_nuevo_modo">En este nuevo modo, las piezas caerán cada 30 segundos, aunque no se haya colocado la anterior. ¿Te atreves?</string>
+    <!-- Preference Strings -->
+    <string name="pref_phantom_summary">Shows the drop location of the active piece</string>
+    <string name="pref_phantom_title">Phantom</string>
+
+    <string name="pref_show_fps_summary">The current Frames per Second will be shown below "APM"</string>
+    <string name="pref_show_fps_title">Show FPS</string>
+
+    <string name="pref_popup_summary">For successful line clears</string>
+    <string name="pref_popup_title">Pop-Up Text</string>
+
+    <string name="pref_sound_volume_title">Effects Volume</string>
+    <string name="pref_sound_volume_summary">The volume of the sound and event effects during the game</string>
+
+    <string name="pref_music_volume_title">Music Volume</string>
+    <string name="pref_music_volume_summary">The volume of the music during the game</string>
+
+    <string name="pref_vibration_button_title">Button Vibration</string>
+    <string name="pref_vibration_button_summary">Vibrates shortly when pressing the game buttons</string>
+
+    <string name="pref_vibration_events_title">Event Vibration</string>
+    <string name="pref_vibration_events_summary">Vibrates on important game events</string>
+
+    <string name="pref_button_sound_summary">Provides auditory feedback when pressing the game buttons</string>
+    <string name="pref_button_sound_title">Button Sound</string>
+
+    <string name="pref_button_vibration_duration_summary">Increase this time to compensate for the delay of your phone\'s vibrator. The duration of button vibrations should be adjusted to be just barely noticeable.\nTime in milliseconds</string>
+    <string name="pref_button_vibration_duration_title">Button Vibration Duration</string>
+    <string name="pref_button_vibration_duration_default">15</string>
+
+    <string name="pref_horizontal_acceleration_summary">Short delay after the initial move. Useful for beginners</string>
+    <string name="pref_horizontal_acceleration_title">Horizontal Acceleration</string>
+
+    <string name="pref_soft_drop_acceleration_summary">Short delay after the initial move. Useful for beginners</string>
+    <string name="pref_soft_drop_acceleration_title">Soft Drop Acceleration</string>
+
+    <string name="pref_left_handed_mode_summary">Swap the position of buttons to suit left handed players</string>
+    <string name="pref_left_handed_mode_title">Left handed mode</string>
+
+    <string name="pref_version_summary">2.0.0\nTouch here to view the public repository of this project</string>
+    <string name="pref_version_title">Version</string>
+    <string name="repository_url" translatable="false">https://github.com/tasioleiva/Blockinger2</string>
+
+    <string name="pref_license_summary">Blockinger is free software: licensed under the GNU General Public License (GPLv3) as published by the Free Software Foundation.\nTouch here to view this license online</string>
+    <string name="pref_license_title">License Information</string>
+    <string name="license_url" translatable="false">http://www.gnu.org/licenses/gpl-3.0</string>
+
+    <string name="pref_license_music_summary">\"lemmings in love (karaoke)\" and \"sad robot (karaoke)\" by Pornophonique. Licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Germany license (CC BY-NC-SA 3.0 DE).\nTouch here to open the artist\'s website</string>
+    <string name="pref_license_music_title">Music Attribution</string>
+    <string name="music_url" translatable="false">http://www.pornophonique.de</string>
+
+    <string name="pref_maintainer_summary">Tasio Leiva\nTouch here to contact the maintainer for suggestions, feedback or anything related to this project</string>
+    <string name="pref_maintainer_title">Maintainer</string>
+    <string name="maintainer_email" translatable="false">contact@tasioleiva.com</string>
+
+    <string name="pref_author_summary">Simon Willeke\nTouch here to visit the original repository before it was forked</string>
+    <string name="pref_author_title">Author</string>
+    <string name="author_url" translatable="false">https://github.com/vocollapse/Blockinger</string>
+
+    <string name="pref_category_sound">SOUND</string>
+    <string name="pref_category_vibration">VIBRATION</string>
+    <string name="pref_category_velocity">VELOCIDAD</string>
+    <string name="pref_category_layout">LAYOUT</string>
 
 
 </resources>

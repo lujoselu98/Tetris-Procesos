@@ -35,7 +35,7 @@ public class TableroTetris extends AppCompatActivity {
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity){
         tablero = new Bloque[20][10];
-        creador = new CreadorPiezas();
+        creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza();
         piezaSiguiente = creador.crearPieza();
         this.mainActivity = mainActivity;

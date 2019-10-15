@@ -14,7 +14,7 @@ import com.example.pieces.PiezaL;
 public class Hebra extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
-    private int velocidadCaida = 500;
+    private int velocidadCaida = 1000;
     private NextPieceView tableroPiezaSig;
     MainActivity mainActivity;
     private Ventana v;
@@ -22,12 +22,14 @@ public class Hebra extends Thread{
 
     //Modelo modelo;
 
-    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v) {
+    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
         this.v = v;
-
+        if(velocidad != 0){
+            this.velocidadCaida = velocidadCaida / velocidad;
+        }
 
         tetris = new TableroTetris(this.mainActivity);
         v.setPieza(tetris.getPiezaActual());
