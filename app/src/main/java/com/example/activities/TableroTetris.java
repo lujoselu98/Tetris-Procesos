@@ -29,8 +29,8 @@ public class TableroTetris extends AppCompatActivity {
     private MainActivity mainActivity;
     private int contadorPiezas = 0;
     private int puntos=0;
-    private final int COLUMNAS = 10;
-    private final int FILAS = 20;
+    private int COLUMNAS = 10;
+    private int FILAS = 20;
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity){
@@ -188,5 +188,34 @@ public class TableroTetris extends AppCompatActivity {
             if(!tablero[fila][j].isActivo()){return false;}
         }
         return true;
+    }
+
+    public void eliminarFilas(){
+        System.out.println("Antes"+tablero.length);
+        Bloque[][] aux = new Bloque[tablero.length-2][10];
+        for (int i=0; i<aux.length;i++){
+            for (int j=0; j<10;j++){
+                aux[i][j]=tablero[i+2][j];
+            }
+        }
+        tablero=aux;
+        System.out.println("Despues"+tablero.length);
+        setFILAS(tablero.length);
+    }
+
+    public int getCOLUMNAS() {
+        return COLUMNAS;
+    }
+
+    public void setCOLUMNAS(int COLUMNAS) {
+        this.COLUMNAS = COLUMNAS;
+    }
+
+    public int getFILAS() {
+        return FILAS;
+    }
+
+    public void setFILAS(int FILAS) {
+        this.FILAS = FILAS;
     }
 }

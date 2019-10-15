@@ -1,14 +1,7 @@
 package com.example.activities;
 
 
-import android.graphics.Color;
-import android.widget.RelativeLayout;
-
-import androidx.appcompat.app.AlertDialog;
-
 import com.example.pieces.Pieza;
-import com.example.pieces.PiezaI;
-import com.example.pieces.PiezaL;
 
 /* IGUAL QUE EL WORKTHREAD */
 public class Hebra extends Thread{
@@ -19,10 +12,12 @@ public class Hebra extends Thread{
     MainActivity mainActivity;
     private Ventana v;
     TableroTetris tetris;
+    private Cronometro cronometro;
+    public int segAnt=0;
 
     //Modelo modelo;
 
-    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad) {
+    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad, Cronometro cronometro) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
@@ -34,6 +29,8 @@ public class Hebra extends Thread{
         tetris = new TableroTetris(this.mainActivity);
         v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
+
+        this.cronometro = cronometro;
     }
 
     public TableroTetris getTablero(){
@@ -61,6 +58,14 @@ public class Hebra extends Thread{
                     Thread.sleep(velocidadCaida);
 
                 } catch (InterruptedException ignored) {
+
+                }
+
+                if (cronometro.getSegundos()%5==0 && cronometro.getSegundos()!=0 && segAnt!=cronometro.getSegundos()){
+                    segAnt= cronometro.getSegundos();
+                    tetris.eliminarFilas();
+                    v.setRows(tetris.getFILAS());
+                    v.setTablero(tetris);
 
                 }
 
