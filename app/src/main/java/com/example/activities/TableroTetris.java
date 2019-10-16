@@ -31,13 +31,14 @@ public class TableroTetris extends AppCompatActivity {
     private int puntos=0;
     private int COLUMNAS = 10;
     private int FILAS = 20;
+    private int eliminateRows = 0;
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity){
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
-        piezaActual = creador.crearPieza();
-        piezaSiguiente = creador.crearPieza();
+        piezaActual = creador.crearPieza(2*eliminateRows);
+        piezaSiguiente = creador.crearPieza(2*eliminateRows);
         this.mainActivity = mainActivity;
         for(int i=0; i<FILAS; i++){
             for(int j=0; j<COLUMNAS; j++){
@@ -111,7 +112,7 @@ public class TableroTetris extends AppCompatActivity {
     public void siguientePieza(){
         posarPiezaActual();
         this.piezaActual = piezaSiguiente;
-        piezaSiguiente = creador.crearPieza();
+        piezaSiguiente = creador.crearPieza(2*eliminateRows);
     }
 
     public void posarPiezaActual(){
@@ -141,7 +142,7 @@ public class TableroTetris extends AppCompatActivity {
     public boolean comprobarPerdido(){
         int i=0;
         while(i < COLUMNAS && !perdido){
-            perdido = tablero[0][i].isActivo();
+            perdido = tablero[2*eliminateRows][i].isActivo();
             i++;
         }
         return perdido;
@@ -191,16 +192,12 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void eliminarFilas(){
-        System.out.println("Antes"+tablero.length);
-        Bloque[][] aux = new Bloque[tablero.length-2][10];
-        for (int i=0; i<aux.length;i++){
-            for (int j=0; j<10;j++){
-                aux[i][j]=tablero[i+2][j];
+        eliminateRows++;
+        for (int i=0;i<2*eliminateRows;i++){
+            for (int j=0;j<getCOLUMNAS();j++){
+                tablero[i][j].setColor(Color.BLACK);
             }
         }
-        tablero=aux;
-        System.out.println("Despues"+tablero.length);
-        setFILAS(tablero.length);
     }
 
     public int getCOLUMNAS() {
