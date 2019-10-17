@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ArrayList> jugadores;
     int longArray;
     ArrayList<ArrayList> arrayReal = new ArrayList<>();
+    Intent intent;
     @SuppressLint("ClickableViewAccessibility")
    @Override
 
@@ -81,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
        //Lectura de Datos de la Ventana de Configuración
 
        jugadores = new ArrayList<>();
+        intent = new Intent(this,PantallaReinicio.class);
 
-       Bundle datos = this.getIntent().getExtras();
+        Bundle datos = this.getIntent().getExtras();
        assert datos != null;
        tipoPieza = datos.getString("tipoPieza");
        nivelVelocidad = datos.getInt("porcentaje");
@@ -265,9 +267,8 @@ public class MainActivity extends AppCompatActivity {
         arrayPuntuaciones = new int[10];
 
         //jugadores.add(new ArrayList());
-        Intent intent = new Intent(this,PantallaReinicio.class);
         //
-        db.collection("Jugadores").orderBy("puntuacion", Query.Direction.DESCENDING).limit(5)
+        db.collection("Jugadores").orderBy("puntuacion", Query.Direction.DESCENDING).limit(10)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -283,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println(name);
                                 System.out.println(document.getData().get("nombre"));
                                 intent.putExtra(name,(String) document.getData().get("nombre"));
-                                intent.putExtra("puntuacion"+i,(int) document.getData().get("puntuacion"));
+                                intent.putExtra("puntuacion"+i,(long) document.getData().get("puntuacion"));
 
 
                                 /*arrayNombres[i] = (String) document.get("nombre");
@@ -291,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
                                 i++;
                             }
                             intent.putExtra("longArray",i);
+                            comenzarActividad();
                            /*longArray = jugadores.size();
                             arrayReal = (ArrayList<ArrayList>)jugadores.clone();
                             System.out.println("LONG ARRAY: "+jugadores.size());
@@ -311,11 +313,14 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("PUNTUACION: " +jugadores.get(i).get(1));
             intent.putExtra("puntuacion"+i,(int) jugadores.get(i).get(1));
         }*/
-        this.startActivity(intent);
-        finish();
+        //this.startActivity(intent);
+        //finish();
 
     }
-
+    private void comenzarActividad(){
+        this.startActivity(intent);
+        finish();
+    }
     private void cogerMejoresJugadores() {
         // Create a new user with a first and last name
 

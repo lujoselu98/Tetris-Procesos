@@ -37,7 +37,7 @@ public class PantallaReinicio extends AppCompatActivity  {
         ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,listado);
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adaptador);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
            // arrayNombres[i] = datos.getString("nombre"+i);
             //arrayPuntuaciones[i] = datos.getInt("puntuacion"+i);
 
@@ -45,7 +45,7 @@ public class PantallaReinicio extends AppCompatActivity  {
             String name = "nombre"+i;
             System.out.println(name);
             System.out.println("NOMBRE: "+datos.getString(name));
-            listado.add(datos.getString("nombre"+i)+" "+datos.getInt("puntuacion"+i));
+            listado.add(datos.getString("nombre"+i)+" "+datos.getLong("puntuacion"+i));
 
             //jugadores.get(i).add(datos.getString("nombre"+i));
             //jugadores.get(i).add(datos.getInt("puntuacion"+i));
