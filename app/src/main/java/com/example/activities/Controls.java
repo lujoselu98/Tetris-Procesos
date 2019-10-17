@@ -12,7 +12,7 @@ class Controls {
     public void leftButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO IZQUIERDA");
         hebra.tetris.despIzqda();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
     }
 
     public void leftButtonReleased() {
@@ -24,7 +24,7 @@ class Controls {
     public void rightButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO DCHA");
         hebra.tetris.despDcha();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
 
         //hebra.run();
     }
@@ -32,7 +32,7 @@ class Controls {
     public void downButtonPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO ABAJO");
         hebra.tetris.bajar();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
     }
 
     public void downButtonReleased() {
@@ -41,19 +41,19 @@ class Controls {
     public void dropButtonPressed() {
         System.out.println("MOVIMIENTO ABAJO RAPIDO");
         hebra.tetris.hard_Drop();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
 
     }
 
     public void rotateRightPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO GIRAR");
         hebra.tetris.rotarDcha();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
     }
 
     public void rotateLeftPressed(Pieza pieza) {
         System.out.println("MOVIMIENTO GIRAR");
         hebra.tetris.rotarIzqda();
-        hebra.getV().invalidate();
+        hebra.getVentana().invalidate();
     }
 }
