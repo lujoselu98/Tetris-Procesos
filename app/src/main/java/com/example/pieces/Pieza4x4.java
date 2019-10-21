@@ -27,9 +27,7 @@ public class Pieza4x4 extends Pieza{
             }
         }
 
-        for (int i = 0; i < rows; i++){
-            bajar();
-        }
+        desplazarBloques(rows,0);
     }
 
     //Solo puede rotar en un sentido una vez seguida así la Pieza Linea no se desplaza de columna al girar

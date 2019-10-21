@@ -22,9 +22,7 @@ public class Pieza3x3 extends Pieza{
             }
         }
 
-        for (int i = 0; i < rows; i++){
-            bajar();
-        }
+        desplazarBloques(rows,0);
     }
 
 }
