@@ -1,6 +1,5 @@
 package com.example.pieces;
 
-import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -5,16 +5,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +29,23 @@ import com.example.pieces.PiezaLI;
 import com.example.pieces.PiezaT;
 import com.example.pieces.PiezaZ;
 import com.example.pieces.PiezaZI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -38,25 +58,48 @@ public class MainActivity extends AppCompatActivity {
     int puntuacion = 0;
     String tipoPieza;
     int nivelVelocidad;
-    Boolean modoDificil;
-
-
+    Boolean modoSegundaPieza;
+    Boolean modoFantasia;
+    Boolean modoReduccion;
+    String nombreJugador;
+    HebraModoSegundaPieza hebraModoSegundaPieza;
+    FirebaseFirestore db;
+    String[] arrayNombres;
+    int[] arrayPuntuaciones;
+    ArrayList<ArrayList> jugadores;
+    int longArray;
+    ArrayList<ArrayList> arrayReal = new ArrayList<>();
+    Intent intent;
     @SuppressLint("ClickableViewAccessibility")
    @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
-       //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
+       conexionBaseDatos();
        setContentView(R.layout.activity_juego);
 
-       Bundle datos = this.getIntent().getExtras();
+       //Lectura de Datos de la Ventana de Configuración
+
+       jugadores = new ArrayList<>();
+        intent = new Intent(this,PantallaReinicio.class);
+
+        Bundle datos = this.getIntent().getExtras();
        assert datos != null;
        tipoPieza = datos.getString("tipoPieza");
        nivelVelocidad = datos.getInt("porcentaje");
-       modoDificil = datos.getBoolean("modoDificil");
+       nombreJugador = datos.getString("nombreJugador");
+
+       modoSegundaPieza = datos.getBoolean("modoDificil");
+       modoFantasia = datos.getBoolean("modoFantasia");
+       modoReduccion = datos.getBoolean("modoDificil");
+
        TextView textView = (TextView) findViewById(R.id.Cronometro);
+       TextView nombreJug = findViewById(R.id.nombreJug);
+       if(nombreJugador.compareTo("INTRODUCE TU NOMBRE:")==1){
+           nombreJugador.replace("INTRODUCE TU NOMBRE:","ANONIMO");
+       }
+       nombreJug.setText("Jugador: "+nombreJugador);
        cronometro = new Cronometro("CuentaAtras", textView);
        Thread c = new Thread(cronometro);
        v = new Ventana(this);
@@ -72,14 +115,16 @@ public class MainActivity extends AppCompatActivity {
 
        LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza, R.id.LinearLayoutLateralPieza);
        piezaSig.setLayoutParams(parametro);
-       LinearLayout relativeSteinLinear = (LinearLayout) findViewById(R.id.LinearLayoutLateralPieza);
+       LinearLayout relativeSteinLinear = findViewById(R.id.LinearLayoutLateralPieza);
        relativeSteinLinear.addView(piezaSig);
 
+       //Activación o no de Modos distintos:
+       if(modoSegundaPieza){
+           hebraModoSegundaPieza = new HebraModoSegundaPieza(h);
+       }
 
-       //setContentView(R.layout.activity_juego); //Iniciamos la pantalla del tablero del Tetris, faltaría meter encima de los botones el canvas
+       //Iniciamos los controladores del tablero del Tetris
        Controls controls = new Controls(h);
-
-
        AlertDialog.Builder builder = new AlertDialog.Builder(this);
        builder.setMessage("DISFRUTA DEL TETRIS DEL GRUPO 1")
                .setTitle("INICIAR JUEGO")
@@ -89,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
                            public void onClick(DialogInterface dialog, int id) {
                                dialog.cancel();
                                h.start();
+                               if(modoSegundaPieza){
+                                   hebraModoSegundaPieza.start();
+                               }
                                c.start();
                            }
                        });
@@ -194,13 +242,95 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void gameOver(){
-        Intent intent = new Intent(this,PantallaReinicio.class);
-        this.startActivity(intent);
-        finish();
+        Map<String, Object> user = new HashMap<>();
+        user.put("nombre",nombreJugador);
+        user.put("puntuacion",puntuacion);
+
+        // Add a new document with a generated ID
+        db.collection("Jugadores")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        System.out.println("EXITO");
+                        //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println("FRACASO");
+                        //Log.w(TAG, "Error adding document", e);
+                    }
+                });
+        arrayNombres = new String[10];
+        arrayPuntuaciones = new int[10];
+
+        //jugadores.add(new ArrayList());
+        //
+        db.collection("Jugadores").orderBy("puntuacion", Query.Direction.DESCENDING).limit(10)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int i = 0;
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d(TAG, document.getId() + " => " + document.getData());
+                                System.out.println(document.getId()+" => "+ document.getData());
+                                System.out.println(document.getData().get("nombre"));
+                                //jugadores.add(new ArrayList());
+                                String name = "nombre"+i;
+                                System.out.println(name);
+                                System.out.println(document.getData().get("nombre"));
+                                intent.putExtra(name,(String) document.getData().get("nombre"));
+                                intent.putExtra("puntuacion"+i,(long) document.getData().get("puntuacion"));
+
+
+                                /*arrayNombres[i] = (String) document.get("nombre");
+                                arrayPuntuaciones[i] = (int) document.get("puntuacion");*/
+                                i++;
+                            }
+                            intent.putExtra("longArray",i);
+                            comenzarActividad();
+                           /*longArray = jugadores.size();
+                            arrayReal = (ArrayList<ArrayList>)jugadores.clone();
+                            System.out.println("LONG ARRAY: "+jugadores.size());
+                            System.out.println("STRING ARRAY: "+jugadores.toString());*/
+                        } else {
+                            //Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+        /*System.out.println("LONG ARRAY:"+longArray);
+        System.out.println("ARRAYREAL: "+arrayReal.toString());
+        System.out.println("VOY A IMPRIMIR JUGADORES EN MAIN "+jugadores.toString());
+        System.out.println("LONG ARRAY:" + jugadores.size());
+        intent.putExtra("longArray",jugadores.size());
+        for (int i = 0; i < jugadores.size(); i++) {
+            System.out.println("JUGADOR: "+jugadores.get(i).get(0));
+            intent.putExtra("nombre"+i,(String) jugadores.get(i).get(0));
+            System.out.println("PUNTUACION: " +jugadores.get(i).get(1));
+            intent.putExtra("puntuacion"+i,(int) jugadores.get(i).get(1));
+        }*/
+        //this.startActivity(intent);
+        //finish();
 
     }
+    private void comenzarActividad(){
+        this.startActivity(intent);
+        finish();
+    }
+    private void cogerMejoresJugadores() {
+        // Create a new user with a first and last name
+
+    }
+
     public String getTipoPieza(){
         return tipoPieza;
+    }
+    public void conexionBaseDatos(){
+        db = FirebaseFirestore.getInstance();
     }
     public void sumar_puntuacion(int ptos) {
        puntuacion+=ptos;

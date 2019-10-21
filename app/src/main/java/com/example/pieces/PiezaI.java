@@ -7,9 +7,9 @@ public class PiezaI extends Pieza4x4 { //El palo
     public PiezaI(int id, int color, int rows) {
         super(id, color,rows);
 
-        forma[0][0].activar();
-        forma[0][1].activar();
-        forma[0][2].activar();
-        forma[0][3].activar();
+        forma[1][0].activar();
+        forma[1][1].activar();
+        forma[1][2].activar();
+        forma[1][3].activar();
     }
 }

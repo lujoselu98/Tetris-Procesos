@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -50,7 +51,9 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
         //MODO DIFICIL (PIEZA CADA 30 SEGUNDOS)
 
-        Switch switchModoDificil = findViewById(R.id.casillaModoNuevo);
+        Switch switchModoSegundaPieza = findViewById(R.id.casillaModoSegundaPieza);
+        Switch switchModoFantasia = findViewById(R.id.casillaModoFantasia);
+        Switch switchModoReduccion = findViewById(R.id.casillaModoReduccion);
 
         //Tipo Piezas
         Spinner tipoPiezas = findViewById(R.id.seleccion_tipo_piezas);
@@ -59,7 +62,9 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
         tipoPiezas.setAdapter(adapter);
         tipoPiezas.setOnItemSelectedListener(this);
 
-        //BOTON PARA INICIAR PARTIDA
+        //Nombre Usuario
+        EditText nombreUsuario = (EditText) findViewById(R.id.nombreJugador);
+         //BOTON PARA INICIAR PARTIDA
 
         Button botonInicioPartida = (Button)findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
@@ -67,10 +72,19 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
             Intent intent = new Intent(Settings.this, MainActivity.class);
             intent.putExtra("tipoPieza",tipoPieza);
             intent.putExtra("porcentaje",progreso);
-            if (switchModoDificil.isChecked())
+            intent.putExtra("nombreJugador",nombreUsuario.getText().toString());
+            if (switchModoSegundaPieza.isChecked())
                 intent.putExtra("modoDificil",true);
             else
                 intent.putExtra("modoDificil",false);
+            if (switchModoFantasia.isChecked())
+                intent.putExtra("modoFantasia",true);
+            else
+                intent.putExtra("modoFantasia",false);
+            if (switchModoReduccion.isChecked())
+                intent.putExtra("modoReduccion",true);
+            else
+                intent.putExtra("modoReduccion",false);
             startActivity(intent);
             finish();
             /*

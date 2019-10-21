@@ -1,6 +1,5 @@
 package com.example.activities;
 
-
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
@@ -10,18 +9,17 @@ public class Hebra extends Thread{
     private int velocidadCaida = 1000;
     private NextPieceView tableroPiezaSig;
     MainActivity mainActivity;
-    private Ventana v;
+    private Ventana ventana;
     TableroTetris tetris;
     private Cronometro cronometro;
     public int segAnt=0;
 
-    //Modelo modelo;
 
     public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad, Cronometro cronometro) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
-        this.v = v;
+        this.ventana = v;
         if(velocidad != 0){
             this.velocidadCaida = velocidadCaida / velocidad;
         }
@@ -33,7 +31,7 @@ public class Hebra extends Thread{
         this.cronometro = cronometro;
     }
 
-    public TableroTetris getTablero(){
+    public TableroTetris getTableroTetris(){
         return tetris;
     }
 
@@ -41,11 +39,11 @@ public class Hebra extends Thread{
     public void run() {
         while (!finPartida) {
             while (puedoMover) {
-                v.setPieza(tetris.getPiezaActual());
+                ventana.setPieza(tetris.getPiezaActual());
                 tetris.bajar();
                System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 System.out.println("LLAMO A INVALIDATE");
-                v.invalidate();
+                ventana.invalidate();
                 tableroPiezaSig.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
                 if (tetris.comprobarPerdido()) {
@@ -79,15 +77,19 @@ public class Hebra extends Thread{
         this.puedoMover = mover;
     }
 
+    public boolean getPuedoMover(){
+        return this.puedoMover;
+    }
 
+    public boolean getFinPartida(){
+        return this.finPartida;
+    }
 
     public void setFinPartida(){
         this.finPartida = true;
     }
 
-    public Ventana getV() {
-        return v;
-    }
+
 
     public TableroTetris getTetris(){
         return tetris;
@@ -98,8 +100,15 @@ public class Hebra extends Thread{
     public Pieza getPiezaSiguiente(){
         return this.tetris.getPiezaSig();
     }
+    public Ventana getVentana(){
+        return ventana;
+    }
 
     public void setTableroPiezaSig(NextPieceView piezaSig) {
         this.tableroPiezaSig = piezaSig;
     }
+    public NextPieceView getTableroPiezaSig() {
+        return this.tableroPiezaSig;
+    }
+
 }

@@ -62,7 +62,6 @@ public class TableroTetris extends AppCompatActivity {
         if(!esPosible()){
             piezaActual.subir();
             siguientePieza();
-
         }
     }
 
@@ -110,9 +109,11 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void siguientePieza(){
-        posarPiezaActual();
-        this.piezaActual = piezaSiguiente;
-        piezaSiguiente = creador.crearPieza(2*eliminateRows);
+        if(!comprobarPerdido()) {
+            posarPiezaActual();
+            this.piezaActual = piezaSiguiente;
+            piezaSiguiente = creador.crearPieza(2*eliminateRows);
+        }
     }
 
     public void posarPiezaActual(){
