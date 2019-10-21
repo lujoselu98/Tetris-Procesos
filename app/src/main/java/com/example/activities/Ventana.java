@@ -12,6 +12,7 @@ import android.view.View;
 import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
 import com.example.pieces.PiezaL;
+
 import java.util.Arrays;
 
 public class Ventana extends View {
@@ -19,6 +20,9 @@ public class Ventana extends View {
     Paint paint = new Paint();
     Pieza p;
     TableroTetris t;
+    private int rows = 20;
+    private int cols = 10;
+
 
     /*int rowSize = Canvas.getHeight() / 20;
     int colSize = Canvas.getWidth() / 10;*/
@@ -34,18 +38,18 @@ public class Ventana extends View {
     @Override
     protected void onDraw(android.graphics.Canvas canvas) {
         super.onDraw(canvas);
-        Bloque[][] forma= p.getForma();
+        Bloque[][] forma = p.getForma();
         int filas = forma.length;
         int columnas = forma[0].length;
 
-        colSize = canvas.getWidth()/10;
-        rowSize = canvas.getHeight()/20;
+        colSize = canvas.getWidth() / cols;
+        rowSize = canvas.getHeight() / rows;
 
         paint.setStyle(Paint.Style.FILL);
 
-        for(int i=0; i<20; i++){
-            for(int j=0; j<10; j++){
-                Bloque actual = t.bloqueEn(i,j);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                Bloque actual = t.bloqueEn(i, j);
                 //paint.setColor(actual.getColor());
                 Rect cuadradoPieza = new Rect(actual.getPosicion()[1] * colSize, actual.getPosicion()[0] * rowSize, actual.getPosicion()[1] * colSize + colSize, actual.getPosicion()[0] * rowSize + rowSize);
                 //canvas.drawRect(cuadradoPieza, paint);
@@ -62,9 +66,9 @@ public class Ventana extends View {
             }
         }
 
-         for(int i=0; i<filas;i++){
-            for(int j=0; j<columnas;j++){
-                if(forma[i][j].isActivo()) {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (forma[i][j].isActivo()) {
 
                     Rect cuadradoPieza = new Rect(forma[i][j].getPosicion()[1] * colSize, forma[i][j].getPosicion()[0] * rowSize, forma[i][j].getPosicion()[1] * colSize + colSize, forma[i][j].getPosicion()[0] * rowSize + rowSize);
                     // border
@@ -86,6 +90,25 @@ public class Ventana extends View {
     public void setPieza(Pieza p) {
         this.p = p;
     }
-    public void setTablero(TableroTetris t){this.t = t;}
+
+    public void setTablero(TableroTetris t) {
+        this.t = t;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
 }
 

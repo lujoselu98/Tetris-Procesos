@@ -68,4 +68,8 @@ public class Bloque {
     public boolean isInBounds(int filas, int columnas){
         return (posicion[0] >= 0 && posicion[0] < filas && posicion[1] >= 0 && posicion[1] < columnas);
     }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
 }

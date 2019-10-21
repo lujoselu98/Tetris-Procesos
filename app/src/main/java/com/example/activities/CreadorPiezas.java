@@ -23,11 +23,11 @@ public class CreadorPiezas {
     }
 
 
-    public Pieza crearPieza(){
+    public Pieza crearPieza( int rows){
         Random r = new Random();
         int n = r.nextInt(7);
 
-        return crearPieza(n, cogerColor(n));
+        return crearPieza(n, cogerColor(n),rows);
     }
 
     public int cogerColor(int x) {
@@ -82,15 +82,15 @@ public class CreadorPiezas {
     }
 
 
-    public Pieza crearPieza(int x, int color){
+    public Pieza crearPieza(int x, int color, int rows){
         contadorPiezas++;
-        if(x==0) return new PiezaI(contadorPiezas, color);
-        if(x==1) return new PiezaL(contadorPiezas, color);
-        if(x==2) return new PiezaLI(contadorPiezas, color);
-        if(x==3) return new PiezaZ(contadorPiezas, color);
-        if(x==4) return new PiezaZI(contadorPiezas, color);
-        if(x==5) return new PiezaT(contadorPiezas, color);
-        if(x==6) return new PiezaC(contadorPiezas, color);
+        if(x==0) return new PiezaI(contadorPiezas, color,rows);
+        if(x==1) return new PiezaL(contadorPiezas, color,rows);
+        if(x==2) return new PiezaLI(contadorPiezas, color,rows);
+        if(x==3) return new PiezaZ(contadorPiezas, color,rows);
+        if(x==4) return new PiezaZI(contadorPiezas, color,rows);
+        if(x==5) return new PiezaT(contadorPiezas, color,rows);
+        if(x==6) return new PiezaC(contadorPiezas, color,rows);
 
         return null;
     }

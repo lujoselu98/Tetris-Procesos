@@ -1,7 +1,5 @@
 package com.example.activities;
 
-
-
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
@@ -13,9 +11,11 @@ public class Hebra extends Thread{
     MainActivity mainActivity;
     private Ventana ventana;
     TableroTetris tetris;
+    private Cronometro cronometro;
+    public int segAnt=0;
 
 
-    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad) {
+    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad, Cronometro cronometro) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
@@ -27,6 +27,8 @@ public class Hebra extends Thread{
         tetris = new TableroTetris(this.mainActivity);
         v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
+
+        this.cronometro = cronometro;
     }
 
     public TableroTetris getTableroTetris(){
@@ -57,6 +59,14 @@ public class Hebra extends Thread{
 
                 }
 
+
+                if (cronometro.getSegundos()%50==0 && cronometro.getSegundos()!=0 && segAnt!=cronometro.getSegundos()){
+                    segAnt= cronometro.getSegundos();
+                    tetris.eliminarFilas();
+                    v.setRows(tetris.getFILAS());
+                    v.setTablero(tetris);
+
+                }
             }
         }
         mainActivity.gameOver();

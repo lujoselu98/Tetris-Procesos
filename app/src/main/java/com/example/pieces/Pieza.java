@@ -105,7 +105,7 @@ public abstract class Pieza {
         return bloquesActivos;
     }*/
 
-    private void desplazarBloques(int fOffset, int cOffset){ //Para desplazar los bloques hacia abajo o los lados
+    protected void desplazarBloques(int fOffset, int cOffset){ //Para desplazar los bloques hacia abajo o los lados
         for(int i=0; i<forma.length; i++){
             for(int j=0; j<forma.length; j++){
                 int[] nuevaPos = new int[2];

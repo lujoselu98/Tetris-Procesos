@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
        //v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
-       h = new Hebra(true, this, v,nivelVelocidad);
+       h = new Hebra(true, this, v,nivelVelocidad, cronometro);
        NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
        h.setTableroPiezaSig(piezaSig);
 
