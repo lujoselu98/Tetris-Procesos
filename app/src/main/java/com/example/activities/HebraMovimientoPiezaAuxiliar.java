@@ -5,17 +5,17 @@ package com.example.activities;
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
-public class Hebra extends Thread{
+public class HebraMovimientoPiezaAuxiliar extends Thread{
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 1000;
     private NextPieceView tableroPiezaSig;
-    MainActivity mainActivity;
+    private MainActivity mainActivity;
     private Ventana ventana;
     TableroTetris tetris;
 
 
-    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad) {
+    public HebraMovimientoPiezaAuxiliar(boolean puedoMover, MainActivity mainActivity, Ventana v, int velocidad) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
@@ -24,9 +24,6 @@ public class Hebra extends Thread{
             this.velocidadCaida = velocidadCaida / velocidad;
         }
 
-        tetris = new TableroTetris(this.mainActivity);
-        v.setPieza(tetris.getPiezaActual());
-        v.setTablero(tetris);
     }
 
     public TableroTetris getTableroTetris(){
@@ -99,9 +96,11 @@ public class Hebra extends Thread{
     public void setTableroPiezaSig(NextPieceView piezaSig) {
         this.tableroPiezaSig = piezaSig;
     }
-
     public NextPieceView getTableroPiezaSig() {
         return this.tableroPiezaSig;
     }
 
+    public void setTableroTetris(TableroTetris tableroTetris) {
+        this.tetris = tableroTetris;
+    }
 }

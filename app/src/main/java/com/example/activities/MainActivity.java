@@ -263,8 +263,6 @@ public class MainActivity extends AppCompatActivity {
                         //Log.w(TAG, "Error adding document", e);
                     }
                 });
-        arrayNombres = new String[10];
-        arrayPuntuaciones = new int[10];
 
         //jugadores.add(new ArrayList());
         //
@@ -285,46 +283,22 @@ public class MainActivity extends AppCompatActivity {
                                 System.out.println(document.getData().get("nombre"));
                                 intent.putExtra(name,(String) document.getData().get("nombre"));
                                 intent.putExtra("puntuacion"+i,(long) document.getData().get("puntuacion"));
-
-
-                                /*arrayNombres[i] = (String) document.get("nombre");
-                                arrayPuntuaciones[i] = (int) document.get("puntuacion");*/
                                 i++;
                             }
                             intent.putExtra("longArray",i);
                             comenzarActividad();
-                           /*longArray = jugadores.size();
-                            arrayReal = (ArrayList<ArrayList>)jugadores.clone();
-                            System.out.println("LONG ARRAY: "+jugadores.size());
-                            System.out.println("STRING ARRAY: "+jugadores.toString());*/
+
                         } else {
                             //Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
-        /*System.out.println("LONG ARRAY:"+longArray);
-        System.out.println("ARRAYREAL: "+arrayReal.toString());
-        System.out.println("VOY A IMPRIMIR JUGADORES EN MAIN "+jugadores.toString());
-        System.out.println("LONG ARRAY:" + jugadores.size());
-        intent.putExtra("longArray",jugadores.size());
-        for (int i = 0; i < jugadores.size(); i++) {
-            System.out.println("JUGADOR: "+jugadores.get(i).get(0));
-            intent.putExtra("nombre"+i,(String) jugadores.get(i).get(0));
-            System.out.println("PUNTUACION: " +jugadores.get(i).get(1));
-            intent.putExtra("puntuacion"+i,(int) jugadores.get(i).get(1));
-        }*/
-        //this.startActivity(intent);
-        //finish();
-
     }
     private void comenzarActividad(){
         this.startActivity(intent);
         finish();
     }
-    private void cogerMejoresJugadores() {
-        // Create a new user with a first and last name
 
-    }
 
     public String getTipoPieza(){
         return tipoPieza;
