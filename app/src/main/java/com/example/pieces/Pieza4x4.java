@@ -7,7 +7,7 @@ public class Pieza4x4 extends Pieza{
     private boolean ultGiroDcha;
     private boolean ultGiroIzqda;
 
-    public Pieza4x4(int id, int color){
+    public Pieza4x4(int id, int color, int rows){
         super(id,color);
 
         ultGiroDcha = false;
@@ -26,6 +26,8 @@ public class Pieza4x4 extends Pieza{
                 this.forma[i][j] = new Bloque(false,id,color,posBloque);
             }
         }
+
+        desplazarBloques(rows,0);
     }
 
     //Solo puede rotar en un sentido una vez seguida así la Pieza Linea no se desplaza de columna al girar

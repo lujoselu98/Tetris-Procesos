@@ -12,7 +12,7 @@ public class Cronometro implements Runnable
     // Atributos privados de la clase
     private TextView etiq; // Etiqueta para mostrar la información
     private String nombrecronometro; // Nombre del cronómetro
-    private int segundos, minutos, horas; // Segundos, minutos y horas que lleva activo el cronómetro
+    private int segundos; // Segundos, minutos y horas que lleva activo el cronómetro
     private Handler escribirenUI; // Necesario para modificar la UI
     private Boolean pausado; // Para pausar el cronómetro
     private String salida; // Salida formateada de los datos del cronómetro
@@ -27,8 +27,6 @@ public class Cronometro implements Runnable
         etiq = etiqueta;
         salida = "";
         segundos = 0;
-        minutos = 0;
-        horas = 0;
         nombrecronometro = nombre;
         escribirenUI = new Handler();
         pausado = Boolean.FALSE;
@@ -73,14 +71,6 @@ public class Cronometro implements Runnable
         {
             Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + ": " + e.toString());
         }
-    }
-
-    public void reiniciar()
-    {
-        segundos = 0;
-        minutos = 0;
-        horas = 0;
-        pausado = Boolean.FALSE;
     }
     public void pause()
     {

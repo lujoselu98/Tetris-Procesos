@@ -30,15 +30,16 @@ public class TableroTetris extends AppCompatActivity {
     private MainActivity mainActivity;
     private int contadorPiezas = 0;
     private int puntos=0;
-    private final int COLUMNAS = 10;
-    private final int FILAS = 20;
     private Ventana ventana;
+    private int COLUMNAS = 10;
+    private int FILAS = 20;
+    private int eliminateRows = 0;
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v){
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
-        piezaActual = creador.crearPieza();
-        piezaSiguiente = creador.crearPieza();
+        piezaActual = creador.crearPieza(2*eliminateRows);
+        piezaSiguiente = creador.crearPieza(2*eliminateRows);
         this.mainActivity = mainActivity;
         this.ventana = v;
         for(int i=0; i<FILAS; i++){
@@ -137,7 +138,7 @@ public class TableroTetris extends AppCompatActivity {
         if(!comprobarPerdido()) {
             posarPiezaActual(piezaActual);
             this.piezaActual = piezaSiguiente;
-            piezaSiguiente = creador.crearPieza();
+            piezaSiguiente = creador.crearPieza(2*eliminateRows);
         }
     }
 
@@ -172,7 +173,7 @@ public class TableroTetris extends AppCompatActivity {
     public boolean comprobarPerdido(){
         int i=0;
         while(i < COLUMNAS && !perdido){
-            perdido = tablero[1][i].isActivo();
+            perdido = tablero[2*eliminateRows][i].isActivo();
             i++;
         }
         return perdido;
@@ -236,5 +237,29 @@ public class TableroTetris extends AppCompatActivity {
         }
 
         return seChocan;
+    }
+    public void eliminarFilas(){
+        eliminateRows++;
+        for (int i=0;i<2*eliminateRows;i++){
+            for (int j=0;j<getCOLUMNAS();j++){
+                tablero[i][j].setColor(Color.BLACK);
+            }
+        }
+    }
+
+    public int getCOLUMNAS() {
+        return COLUMNAS;
+    }
+
+    public void setCOLUMNAS(int COLUMNAS) {
+        this.COLUMNAS = COLUMNAS;
+    }
+
+    public int getFILAS() {
+        return FILAS;
+    }
+
+    public void setFILAS(int FILAS) {
+        this.FILAS = FILAS;
     }
 }

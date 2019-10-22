@@ -72,4 +72,7 @@ public class Bloque {
     public boolean mismaPosicion(Bloque b){
         return (this.posicion[0] == b.getPosicion()[0] && this.posicion[1] == b.getPosicion()[1]);
     }
+    public void setColor(int color) {
+        this.color = color;
+    }
 }

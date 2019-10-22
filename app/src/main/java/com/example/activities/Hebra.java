@@ -1,7 +1,5 @@
 package com.example.activities;
 
-
-
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
@@ -17,7 +15,12 @@ public class Hebra extends Thread{
     private HebraMovimientoPiezaAuxiliar hebraSegundaPieza;
 
     private int segAntSegundaPieza = 0;
-    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad,Cronometro cronometro) {
+
+    public int segAnt=0;
+
+
+    public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad, Cronometro cronometro) {
+
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
@@ -49,7 +52,7 @@ public class Hebra extends Thread{
         while (!finPartida) {
             while (puedoMover) {
                 if(this.mainActivity.getModoSegundaPieza()) {
-                    if (cronometro.getSegundos() % 10 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
+                    if (cronometro.getSegundos() % 30 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
                         System.out.println("VOY A ACTIVAR LA SEGUNDA PIEZAAAA");
                         hebraSegundaPieza.setHebraActiva(true);
                         segAntSegundaPieza = cronometro.getSegundos();
@@ -76,6 +79,14 @@ public class Hebra extends Thread{
 
                 }
 
+
+                if (cronometro.getSegundos()%50==0 && cronometro.getSegundos()!=0 && segAnt!=cronometro.getSegundos()){
+                    segAnt= cronometro.getSegundos();
+                    tetris.eliminarFilas();
+                    v.setRows(tetris.getFILAS());
+                    v.setTablero(tetris);
+
+                }
             }
         }
         mainActivity.gameOver();

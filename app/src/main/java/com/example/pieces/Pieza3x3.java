@@ -4,7 +4,7 @@ import android.graphics.Color;
 
 public class Pieza3x3 extends Pieza{
 
-    public Pieza3x3(int id, int color){
+    public Pieza3x3(int id, int color, int rows){
         super(id, color);
 
         centro = new int[]{-20,4};
@@ -21,6 +21,8 @@ public class Pieza3x3 extends Pieza{
                 this.forma[i][j] = new Bloque(false,id,color,posBloque);
             }
         }
+
+        desplazarBloques(rows,0);
     }
 
 }
