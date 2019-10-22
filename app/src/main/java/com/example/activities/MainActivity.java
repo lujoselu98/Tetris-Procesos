@@ -115,46 +115,6 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout relativeSteinLinear = findViewById(R.id.LinearLayoutLateralPieza);
         relativeSteinLinear.addView(piezaSig);
 
-        //Activación o no de Modos distintos:
-       /*if(modoSegundaPieza){
-
-       assert datos != null;
-       tipoPieza = datos.getString("tipoPieza");
-       nivelVelocidad = datos.getInt("porcentaje");
-       nombreJugador = datos.getString("nombreJugador");
-
-       modoSegundaPieza = datos.getBoolean("modoDificil");
-       modoFantasia = datos.getBoolean("modoFantasia");
-       modoReduccion = datos.getBoolean("modoDificil");
-
-       TextView textView = (TextView) findViewById(R.id.Cronometro);
-       TextView nombreJug = findViewById(R.id.nombreJug);
-       if(nombreJugador.compareTo("INTRODUCE TU NOMBRE:")==1){
-           nombreJugador.replace("INTRODUCE TU NOMBRE:","ANONIMO");
-       }
-       nombreJug.setText("Jugador: "+nombreJugador);
-       cronometro = new Cronometro("CuentaAtras", textView);
-       Thread c = new Thread(cronometro);
-       v = new Ventana(this);
-       RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
-       v.setLayoutParams(params1);
-       RelativeLayout relativeSteinAnzeige = (RelativeLayout) findViewById(R.id.relativelayout1);
-       //v.setBackgroundColor(Color.YELLOW);
-       relativeSteinAnzeige.addView(v);
-
-       h = new Hebra(true, this, v,nivelVelocidad, cronometro);
-       NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
-       h.setTableroPiezaSig(piezaSig);
-
-       LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza, R.id.LinearLayoutLateralPieza);
-       piezaSig.setLayoutParams(parametro);
-       LinearLayout relativeSteinLinear = findViewById(R.id.LinearLayoutLateralPieza);
-       relativeSteinLinear.addView(piezaSig);
-
-       //Activación o no de Modos distintos:
-       if(modoSegundaPieza){
-           hebraModoSegundaPieza = new HebraModoSegundaPieza(h);
-       }*/
 
         //Iniciamos los controladores del tablero del Tetris
         Controls controls = new Controls(h);
@@ -290,6 +250,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public boolean getModoReduccion(){
+        return this.modoReduccion;
+    }
 
     public void gameOver() {
         Map<String, Object> user = new HashMap<>();

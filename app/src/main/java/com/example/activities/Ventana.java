@@ -41,7 +41,6 @@ public class Ventana extends View {
     protected void onDraw(android.graphics.Canvas canvas) {
         super.onDraw(canvas);
 
-
         colSize = canvas.getWidth() / cols;
         rowSize = canvas.getHeight() / rows;
 
@@ -103,9 +102,7 @@ public class Ventana extends View {
 
     }
 
-    public void setTablero(TableroTetris t) {
-        this.t = t;
-    }
+
 
     public void borrarPieza(Pieza pieza) {
         this.arrayListPiezas.remove(pieza);

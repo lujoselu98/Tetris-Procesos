@@ -75,7 +75,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
                     }
 
                     ventana.invalidate();
-                    //tableroPiezaSig.invalidate();
                     System.out.println("INVALIDATE SUPERADO SEGUNDA PIEZA");
                     if (tetris.comprobarPerdido()) {
                         System.out.println("PERDIDO");
