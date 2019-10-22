@@ -80,11 +80,11 @@ public class Hebra extends Thread{
                 }
 
 
-                if (cronometro.getSegundos()%50==0 && cronometro.getSegundos()!=0 && segAnt!=cronometro.getSegundos()){
+                if (cronometro.getSegundos()%20==0 && cronometro.getSegundos()!=0 && segAnt!=cronometro.getSegundos() && this.mainActivity.getModoReduccion()){
                     segAnt= cronometro.getSegundos();
                     tetris.eliminarFilas();
-                    v.setRows(tetris.getFILAS());
-                    v.setTablero(tetris);
+                    ventana.setRows(tetris.getFILAS());
+                    ventana.setTablero(tetris);
 
                 }
             }

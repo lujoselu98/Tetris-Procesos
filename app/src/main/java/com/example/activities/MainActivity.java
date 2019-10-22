@@ -91,15 +91,11 @@ public class MainActivity extends AppCompatActivity {
         nombreJugador = datos.getString("nombreJugador");
 
         modoSegundaPieza = datos.getBoolean("modoDificil");
-        System.out.println("MODO SEGUNDA PIEZAAAAAAAAAA############: " + modoSegundaPieza);
         modoFantasia = datos.getBoolean("modoFantasia");
         modoReduccion = datos.getBoolean("modoReduccion");
 
         TextView textView = (TextView) findViewById(R.id.Cronometro);
         TextView nombreJug = findViewById(R.id.nombreJug);
-        if (nombreJugador.compareTo("INTRODUCE TU NOMBRE:") == 1) {
-            nombreJugador.replace("INTRODUCE TU NOMBRE:", "ANONIMO");
-        }
         nombreJug.setText("Jugador: " + nombreJugador);
         cronometro = new Cronometro("CuentaAtras", textView);
         Thread c = new Thread(cronometro);
@@ -358,6 +354,9 @@ public class MainActivity extends AppCompatActivity {
         return this.modoSegundaPieza;
     }
 
+    public boolean getModoReduccion(){
+        return this.modoReduccion;
+    }
     public String getTipoPieza() {
         return tipoPieza;
     }
