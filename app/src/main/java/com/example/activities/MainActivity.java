@@ -82,17 +82,18 @@ public class MainActivity extends AppCompatActivity {
        //Lectura de Datos de la Ventana de Configuración
 
        jugadores = new ArrayList<>();
-        intent = new Intent(this,PantallaReinicio.class);
+       intent = new Intent(this,PantallaReinicio.class);
 
-        Bundle datos = this.getIntent().getExtras();
+       Bundle datos = this.getIntent().getExtras();
        assert datos != null;
        tipoPieza = datos.getString("tipoPieza");
        nivelVelocidad = datos.getInt("porcentaje");
        nombreJugador = datos.getString("nombreJugador");
 
        modoSegundaPieza = datos.getBoolean("modoDificil");
+        System.out.println("MODO SEGUNDA PIEZAAAAAAAAAA############: "+modoSegundaPieza);
        modoFantasia = datos.getBoolean("modoFantasia");
-       modoReduccion = datos.getBoolean("modoDificil");
+       modoReduccion = datos.getBoolean("modoReduccion");
 
        TextView textView = (TextView) findViewById(R.id.Cronometro);
        TextView nombreJug = findViewById(R.id.nombreJug);
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
        //v.setBackgroundColor(Color.YELLOW);
        relativeSteinAnzeige.addView(v);
 
-       h = new Hebra(true, this, v,nivelVelocidad);
+       h = new Hebra(true, this, v,nivelVelocidad,cronometro);
        NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
        h.setTableroPiezaSig(piezaSig);
 
@@ -119,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
        relativeSteinLinear.addView(piezaSig);
 
        //Activación o no de Modos distintos:
-       if(modoSegundaPieza){
+       /*if(modoSegundaPieza){
            hebraModoSegundaPieza = new HebraModoSegundaPieza(h);
-       }
+       }*/
 
        //Iniciamos los controladores del tablero del Tetris
        Controls controls = new Controls(h);
@@ -134,9 +135,9 @@ public class MainActivity extends AppCompatActivity {
                            public void onClick(DialogInterface dialog, int id) {
                                dialog.cancel();
                                h.start();
-                               if(modoSegundaPieza){
+                               /*if(modoSegundaPieza){
                                    hebraModoSegundaPieza.start();
-                               }
+                               }*/
                                c.start();
                            }
                        });
@@ -298,7 +299,9 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
         finish();
     }
-
+    public boolean getModoSegundaPieza(){
+        return this.modoSegundaPieza;
+    }
 
     public String getTipoPieza(){
         return tipoPieza;

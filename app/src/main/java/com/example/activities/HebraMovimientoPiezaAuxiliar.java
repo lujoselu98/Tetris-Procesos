@@ -13,8 +13,8 @@ public class HebraMovimientoPiezaAuxiliar extends Thread{
     private MainActivity mainActivity;
     private Ventana ventana;
     TableroTetris tetris;
-
-
+    private CreadorPiezas creadorPiezas;
+    private Pieza pieza;
     public HebraMovimientoPiezaAuxiliar(boolean puedoMover, MainActivity mainActivity, Ventana v, int velocidad) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
@@ -23,7 +23,7 @@ public class HebraMovimientoPiezaAuxiliar extends Thread{
         if(velocidad != 0){
             this.velocidadCaida = velocidadCaida / velocidad;
         }
-
+        this.creadorPiezas = new CreadorPiezas(mainActivity);
     }
 
     public TableroTetris getTableroTetris(){
@@ -32,14 +32,28 @@ public class HebraMovimientoPiezaAuxiliar extends Thread{
 
     @Override
     public void run() {
-        while (!finPartida) {
-            while (puedoMover) {
-                ventana.setPieza(tetris.getPiezaActual());
-                tetris.bajar();
+        //while (!finPartida) {
+            pieza = creadorPiezas.crearPieza();
+            ventana.setPieza(pieza);
+            tetris.setPiezaRapida(pieza);
+            boolean seAcabo = true;
+            while (puedoMover && seAcabo) {
+                //ventana.setPieza(tetris.getPiezaActual());
+                //tetris.bajar();
+                //tetris.siguientePieza();
+
+                //ventana.setPieza(tetris.getPiezaSig());
+                //tetris.getPiezaSig().bajar();
+                if(!tetris.esPosible(pieza)){
+                    //puedoMover = false;
+                    //ventana.borrarPieza(pieza);
+                    seAcabo = false;
+                }
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 System.out.println("LLAMO A INVALIDATE");
+                tetris.bajar(tetris.getPiezaRapida());
                 ventana.invalidate();
-                tableroPiezaSig.invalidate();
+                //tableroPiezaSig.invalidate();
                 System.out.println("INVALIDATE SUPERADO");
                 if (tetris.comprobarPerdido()) {
                     System.out.println("PERDIDO");
@@ -55,10 +69,9 @@ public class HebraMovimientoPiezaAuxiliar extends Thread{
                 }
 
             }
-        }
-        mainActivity.gameOver();
+        //}
+        //mainActivity.gameOver();
     }
-
 
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;

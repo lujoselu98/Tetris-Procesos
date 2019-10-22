@@ -17,6 +17,11 @@ public abstract class Pieza {
         this.color = color;
     }
 
+    public Pieza(Pieza pieza){
+        this.identificador = pieza.getIdentificador();
+        this.color = pieza.getColor();
+    }
+
     public void rotarDcha(){
         int filas = forma.length;
         int columnas = forma[0].length;
@@ -63,10 +68,6 @@ public abstract class Pieza {
 
 
         forma = aux;
-    }
-
-    public void actualizarBloquesActivos(){
-
     }
 
     public void subir(){

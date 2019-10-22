@@ -89,4 +89,12 @@ public class Cronometro implements Runnable
     public  void reanudar(){
         pausado =!pausado;
     }
+
+    public int getSegundos() {
+        return segundos;
+    }
+
+    public void setSegundos(int segundos) {
+        this.segundos = segundos;
+    }
 }
