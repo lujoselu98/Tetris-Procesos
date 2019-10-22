@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "887262195816",
+    "firebase_url": "https://tetrisprocesos.firebaseio.com",
+    "project_id": "tetrisprocesos",
+    "storage_bucket": "tetrisprocesos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887262195816:android:0d68b770e5608c332fcbdd",
+        "android_client_info": {
+          "package_name": "com.tetris"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887262195816-3h1smm26u3i354inacl2vikam9o6rhak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcGt_uIADjaqKmACM05CzVb_AwyUDVeck"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887262195816-3h1smm26u3i354inacl2vikam9o6rhak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
