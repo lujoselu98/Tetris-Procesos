@@ -30,27 +30,32 @@ public class Hebra extends Thread{
         v.setTablero(tetris);
         this.cronometro = cronometro;
         if(this.mainActivity.getModoSegundaPieza()){
-            hebraSegundaPieza = new HebraMovimientoPiezaAuxiliar(false, this.mainActivity, this.ventana, 500);
+            hebraSegundaPieza = new HebraMovimientoPiezaAuxiliar(false, this.mainActivity, this.ventana, 10,false);
             hebraSegundaPieza.setTableroPiezaSig(this.getTableroPiezaSig());
             hebraSegundaPieza.setTableroTetris(this.getTableroTetris());
+            hebraSegundaPieza.start();
         }
     }
 
     public TableroTetris getTableroTetris(){
         return tetris;
     }
+    public HebraMovimientoPiezaAuxiliar getHebraSegundaPieza(){
+        return this.hebraSegundaPieza;
+    }
 
     @Override
     public void run() {
         while (!finPartida) {
             while (puedoMover) {
-               /* if(this.mainActivity.getModoSegundaPieza()) {
-                    if (cronometro.getSegundos() % 30 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
-                        hebraSegundaPieza.start();
+                if(this.mainActivity.getModoSegundaPieza()) {
+                    if (cronometro.getSegundos() % 10 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
+                        System.out.println("VOY A ACTIVAR LA SEGUNDA PIEZAAAA");
+                        hebraSegundaPieza.setHebraActiva(true);
                         segAntSegundaPieza = cronometro.getSegundos();
                         hebraSegundaPieza.setPuedoMover(true);
                     }
-                }*/
+                }
                 ventana.setPieza(tetris.getPiezaActual());
                 tetris.bajar(tetris.getPiezaActual());
                 System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
@@ -79,6 +84,7 @@ public class Hebra extends Thread{
 
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
+        hebraSegundaPieza.setPuedoMover(mover);
     }
 
     public boolean getPuedoMover(){

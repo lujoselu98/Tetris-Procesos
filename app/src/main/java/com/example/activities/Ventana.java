@@ -92,12 +92,9 @@ public class Ventana extends View {
     }
 
     public void setPieza(Pieza p) {
-        if (arrayListPiezas.isEmpty()) {
+
             this.arrayListPiezas.add(p);
-        }else{
-            this.arrayListPiezas.clear();
-            this.arrayListPiezas.add(p);
-        }
+
     }
 
     public void setTablero(TableroTetris t) {

@@ -77,6 +77,14 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
 
+    public void bajarPiezaRapida(Pieza pieza){
+        pieza.bajar();
+        if(!esPosible(pieza)){
+            pieza.subir();
+            posarPiezaActual(pieza);
+            ventana.borrarPieza(pieza);
+        }
+    }
     public void despDcha(Pieza pieza){
 
         pieza.despDcha();
@@ -127,16 +135,16 @@ public class TableroTetris extends AppCompatActivity {
 
     public void siguientePieza(){
         if(!comprobarPerdido()) {
-            posarPiezaActual();
+            posarPiezaActual(piezaActual);
             this.piezaActual = piezaSiguiente;
             piezaSiguiente = creador.crearPieza();
         }
     }
 
-    public void posarPiezaActual(){
+    public void posarPiezaActual(Pieza pieza){
         int fila_mayor=0;
         int fila_menor=FILAS-1;
-        List<Bloque> bloques = piezaActual.bloquesActivos();
+        List<Bloque> bloques = pieza.bloquesActivos();
         contadorPiezas++;
         for(Bloque bloque: bloques){
             int pos[] = bloque.getPosicion();
@@ -169,11 +177,11 @@ public class TableroTetris extends AppCompatActivity {
         }
         return perdido;
     }
-    public void hard_Drop (){
+    public void hard_Drop (Pieza pieza){
         int n = contadorPiezas;
         //Mientras que no se haya posado otra pieza
         while(contadorPiezas - n == 0){
-            bajar(piezaActual);
+            bajar(pieza);
         }
     }
     public void borrar_lineas(int fila_mayor,int fila_menor){
@@ -211,5 +219,22 @@ public class TableroTetris extends AppCompatActivity {
             if(!tablero[fila][j].isActivo()){return false;}
         }
         return true;
+    }
+
+    public boolean piezasChocan(){
+        List<Bloque> bloquesActual = piezaActual.bloquesActivos();
+        List<Bloque> bloquesRapido = piezaRapida.bloquesActivos();
+
+        boolean seChocan = false;
+
+        for(Bloque ba: bloquesActual){
+            for(Bloque br : bloquesRapido){
+                if(ba.mismaPosicion(br)){
+                    return true;
+                }
+            }
+        }
+
+        return seChocan;
     }
 }
