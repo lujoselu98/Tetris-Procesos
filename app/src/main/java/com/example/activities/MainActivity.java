@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     Boolean modoFantasia;
     Boolean modoReduccion;
     String nombreJugador;
-    HebraModoSegundaPieza hebraModoSegundaPieza;
     FirebaseFirestore db;
     String[] arrayNombres;
     int[] arrayPuntuaciones;
@@ -70,21 +69,59 @@ public class MainActivity extends AppCompatActivity {
     int longArray;
     ArrayList<ArrayList> arrayReal = new ArrayList<>();
     Intent intent;
+
     @SuppressLint("ClickableViewAccessibility")
-   @Override
+    @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
-       super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-       conexionBaseDatos();
-       setContentView(R.layout.activity_juego);
+        conexionBaseDatos();
+        setContentView(R.layout.activity_juego);
 
-       //Lectura de Datos de la Ventana de Configuración
+        //Lectura de Datos de la Ventana de Configuración
 
-       jugadores = new ArrayList<>();
-        intent = new Intent(this,PantallaReinicio.class);
+        jugadores = new ArrayList<>();
+        intent = new Intent(this, PantallaReinicio.class);
 
         Bundle datos = this.getIntent().getExtras();
+        assert datos != null;
+        tipoPieza = datos.getString("tipoPieza");
+        nivelVelocidad = datos.getInt("porcentaje");
+        nombreJugador = datos.getString("nombreJugador");
+
+        modoSegundaPieza = datos.getBoolean("modoDificil");
+        System.out.println("MODO SEGUNDA PIEZAAAAAAAAAA############: " + modoSegundaPieza);
+        modoFantasia = datos.getBoolean("modoFantasia");
+        modoReduccion = datos.getBoolean("modoReduccion");
+
+        TextView textView = (TextView) findViewById(R.id.Cronometro);
+        TextView nombreJug = findViewById(R.id.nombreJug);
+        if (nombreJugador.compareTo("INTRODUCE TU NOMBRE:") == 1) {
+            nombreJugador.replace("INTRODUCE TU NOMBRE:", "ANONIMO");
+        }
+        nombreJug.setText("Jugador: " + nombreJugador);
+        cronometro = new Cronometro("CuentaAtras", textView);
+        Thread c = new Thread(cronometro);
+        v = new Ventana(this);
+        RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
+        v.setLayoutParams(params1);
+        RelativeLayout relativeSteinAnzeige = (RelativeLayout) findViewById(R.id.relativelayout1);
+        //v.setBackgroundColor(Color.YELLOW);
+        relativeSteinAnzeige.addView(v);
+
+        h = new Hebra(true, this, v, nivelVelocidad, cronometro);
+        NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
+        h.setTableroPiezaSig(piezaSig);
+
+        LinearLayout.LayoutParams parametro = new LinearLayout.LayoutParams(R.id.LinearLayoutLateralPieza, R.id.LinearLayoutLateralPieza);
+        piezaSig.setLayoutParams(parametro);
+        LinearLayout relativeSteinLinear = findViewById(R.id.LinearLayoutLateralPieza);
+        relativeSteinLinear.addView(piezaSig);
+
+        //Activación o no de Modos distintos:
+       /*if(modoSegundaPieza){
+
        assert datos != null;
        tipoPieza = datos.getString("tipoPieza");
        nivelVelocidad = datos.getInt("porcentaje");
@@ -121,130 +158,147 @@ public class MainActivity extends AppCompatActivity {
        //Activación o no de Modos distintos:
        if(modoSegundaPieza){
            hebraModoSegundaPieza = new HebraModoSegundaPieza(h);
-       }
+       }*/
 
-       //Iniciamos los controladores del tablero del Tetris
-       Controls controls = new Controls(h);
-       AlertDialog.Builder builder = new AlertDialog.Builder(this);
-       builder.setMessage("DISFRUTA DEL TETRIS DEL GRUPO 1")
-               .setTitle("INICIAR JUEGO")
-               .setCancelable(false)
-               .setNeutralButton("JUGAR",
-                       new DialogInterface.OnClickListener() {
-                           public void onClick(DialogInterface dialog, int id) {
-                               dialog.cancel();
-                               h.start();
-                               if(modoSegundaPieza){
+        //Iniciamos los controladores del tablero del Tetris
+        Controls controls = new Controls(h);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("DISFRUTA DEL TETRIS DEL GRUPO 1")
+                .setTitle("INICIAR JUEGO")
+                .setCancelable(false)
+                .setNeutralButton("JUGAR",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                h.start();
+                               /*if(modoSegundaPieza){
                                    hebraModoSegundaPieza.start();
-                               }
-                               c.start();
-                           }
-                       });
-       AlertDialog alert = builder.create();
-       alert.show();
-       //BOTONES
+                               }*/
+                                c.start();
+                            }
+                        });
+        AlertDialog alert = builder.create();
+        alert.show();
+        //BOTONES
 
-       findViewById(R.id.button_pause).setOnTouchListener((view, event) -> {
-           if (event.getAction() == MotionEvent.ACTION_UP) {
-               Button pause = (Button) findViewById(R.id.button_pause);
-               if (pause.getText().toString().compareTo("Pause") == 0) {
-                   h.setPuedoMover(false);
-                   cronometro.pause();
-                   pause.setText("Resume");
-               } else {
-                   h.setPuedoMover(true);
-                   cronometro.reanudar();
-                   pause.setText("Pause");
-               }
-           }
+        findViewById(R.id.button_pause).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Button pause = (Button) findViewById(R.id.button_pause);
+                if (pause.getText().toString().compareTo("Pause") == 0) {
+                    h.setPuedoMover(false);
+                    cronometro.pause();
+                    pause.setText("Resume");
+                } else {
+                    h.setPuedoMover(true);
+                    cronometro.reanudar();
+                    pause.setText("Pause");
+                }
+            }
 
-           return true;
+            return true;
 
-       });
-
-
-       findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
-           if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               System.out.println("BOTON DERECHO");
-               controls.rightButtonPressed(h.getPiezaActual());
-               findViewById(R.id.button_right).setPressed(true);
-           } else if (event.getAction() == MotionEvent.ACTION_UP) {
-               controls.rightButtonReleased();
-               findViewById(R.id.button_right).setPressed(false);
-           }
-
-           return true;
-       });
-
-       findViewById(R.id.button_left).setOnTouchListener((view, event) -> {
-           if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               controls.leftButtonPressed(h.getPiezaActual());
-               findViewById(R.id.button_left).setPressed(true);
-           } else if (event.getAction() == MotionEvent.ACTION_UP) {
-               controls.leftButtonReleased();
-               findViewById(R.id.button_left).setPressed(false);
-           }
-
-           return true;
-       });
-
-       findViewById(R.id.button_soft_drop).setOnTouchListener((view, event) -> {
-           if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               controls.downButtonPressed(h.getPiezaActual());
-               (findViewById(R.id.button_soft_drop)).setPressed(true);
-           } else if (event.getAction() == MotionEvent.ACTION_UP) {
-               controls.downButtonReleased();
-               (findViewById(R.id.button_soft_drop)).setPressed(false);
-           }
-
-           return true;
-       });
-
-       (findViewById(R.id.button_hard_drop)).setOnTouchListener((view, event) -> {
-           if (event.getAction() == MotionEvent.ACTION_DOWN) {
-               controls.dropButtonPressed();
-               (findViewById(R.id.button_hard_drop)).setPressed(true);
-           } else if (event.getAction() == MotionEvent.ACTION_UP) {
-               (findViewById(R.id.button_hard_drop)).setPressed(false);
-           }
-
-           return true;
-       });
-
-       ImageButton buttonRotateRight = findViewById(R.id.button_rotate_right);
-       if (buttonRotateRight != null) {
-           (findViewById(R.id.button_rotate_right)).setOnTouchListener((view, event) -> {
-               if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateRightPressed(h.getPiezaActual());
-                   (findViewById(R.id.button_rotate_right)).setPressed(true);
-               } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                   (findViewById(R.id.button_rotate_right)).setPressed(false);
-               }
-
-               return true;
-           });
-       }
-
-       ImageButton buttonRotateLeft = findViewById(R.id.button_rotate_left);
-       if (buttonRotateLeft != null) {
-           (findViewById(R.id.button_rotate_left)).setOnTouchListener((view, event) -> {
-               if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                   controls.rotateLeftPressed(h.getPiezaActual());
-                   (findViewById(R.id.button_rotate_left)).setPressed(true);
-               } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                   (findViewById(R.id.button_rotate_left)).setPressed(false);
-               }
-
-               return true;
-           });
-       }
-   }
+        });
 
 
-    public void gameOver(){
+        findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                    controls.rightButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
+                }
+                controls.rightButtonPressed(h.getPiezaActual());
+                findViewById(R.id.button_right).setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                controls.rightButtonReleased();
+                findViewById(R.id.button_right).setPressed(false);
+            }
+
+            return true;
+        });
+
+        findViewById(R.id.button_left).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                    controls.leftButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
+                }
+                controls.leftButtonPressed(h.getPiezaActual());
+                findViewById(R.id.button_left).setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                controls.leftButtonReleased();
+                findViewById(R.id.button_left).setPressed(false);
+            }
+
+            return true;
+        });
+
+        findViewById(R.id.button_soft_drop).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                    controls.downButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
+                }
+                controls.downButtonPressed(h.getPiezaActual());
+                (findViewById(R.id.button_soft_drop)).setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                controls.downButtonReleased();
+                (findViewById(R.id.button_soft_drop)).setPressed(false);
+            }
+
+            return true;
+        });
+
+        (findViewById(R.id.button_hard_drop)).setOnTouchListener((view, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+               /* if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                    controls.dropButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
+                }*/
+                controls.dropButtonPressed(h.getPiezaActual());
+                (findViewById(R.id.button_hard_drop)).setPressed(true);
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                (findViewById(R.id.button_hard_drop)).setPressed(false);
+            }
+
+            return true;
+        });
+
+        ImageButton buttonRotateRight = findViewById(R.id.button_rotate_right);
+        if (buttonRotateRight != null) {
+            (findViewById(R.id.button_rotate_right)).setOnTouchListener((view, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                        controls.rotateRightPressed(h.getHebraSegundaPieza().getPiezaActual());
+                    }
+                    controls.rotateRightPressed(h.getPiezaActual());
+                    (findViewById(R.id.button_rotate_right)).setPressed(true);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    (findViewById(R.id.button_rotate_right)).setPressed(false);
+                }
+
+                return true;
+            });
+        }
+
+        ImageButton buttonRotateLeft = findViewById(R.id.button_rotate_left);
+        if (buttonRotateLeft != null) {
+            (findViewById(R.id.button_rotate_left)).setOnTouchListener((view, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (h.getHebraSegundaPieza().getPiezaActual() != null) {
+                        controls.rotateLeftPressed(h.getHebraSegundaPieza().getPiezaActual());
+                    }
+                    controls.rotateLeftPressed(h.getPiezaActual());
+                    (findViewById(R.id.button_rotate_left)).setPressed(true);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    (findViewById(R.id.button_rotate_left)).setPressed(false);
+                }
+
+                return true;
+            });
+        }
+    }
+
+
+    public void gameOver() {
         Map<String, Object> user = new HashMap<>();
-        user.put("nombre",nombreJugador);
-        user.put("puntuacion",puntuacion);
+        user.put("nombre", nombreJugador);
+        user.put("puntuacion", puntuacion);
 
         // Add a new document with a generated ID
         db.collection("Jugadores")
@@ -263,8 +317,6 @@ public class MainActivity extends AppCompatActivity {
                         //Log.w(TAG, "Error adding document", e);
                     }
                 });
-        arrayNombres = new String[10];
-        arrayPuntuaciones = new int[10];
 
         //jugadores.add(new ArrayList());
         //
@@ -277,67 +329,48 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d(TAG, document.getId() + " => " + document.getData());
-                                System.out.println(document.getId()+" => "+ document.getData());
+                                System.out.println(document.getId() + " => " + document.getData());
                                 System.out.println(document.getData().get("nombre"));
                                 //jugadores.add(new ArrayList());
-                                String name = "nombre"+i;
+                                String name = "nombre" + i;
                                 System.out.println(name);
                                 System.out.println(document.getData().get("nombre"));
-                                intent.putExtra(name,(String) document.getData().get("nombre"));
-                                intent.putExtra("puntuacion"+i,(long) document.getData().get("puntuacion"));
-
-
-                                /*arrayNombres[i] = (String) document.get("nombre");
-                                arrayPuntuaciones[i] = (int) document.get("puntuacion");*/
+                                intent.putExtra(name, (String) document.getData().get("nombre"));
+                                intent.putExtra("puntuacion" + i, (long) document.getData().get("puntuacion"));
                                 i++;
                             }
-                            intent.putExtra("longArray",i);
+                            intent.putExtra("longArray", i);
                             comenzarActividad();
-                           /*longArray = jugadores.size();
-                            arrayReal = (ArrayList<ArrayList>)jugadores.clone();
-                            System.out.println("LONG ARRAY: "+jugadores.size());
-                            System.out.println("STRING ARRAY: "+jugadores.toString());*/
+
                         } else {
                             //Log.w(TAG, "Error getting documents.", task.getException());
                         }
                     }
                 });
-        /*System.out.println("LONG ARRAY:"+longArray);
-        System.out.println("ARRAYREAL: "+arrayReal.toString());
-        System.out.println("VOY A IMPRIMIR JUGADORES EN MAIN "+jugadores.toString());
-        System.out.println("LONG ARRAY:" + jugadores.size());
-        intent.putExtra("longArray",jugadores.size());
-        for (int i = 0; i < jugadores.size(); i++) {
-            System.out.println("JUGADOR: "+jugadores.get(i).get(0));
-            intent.putExtra("nombre"+i,(String) jugadores.get(i).get(0));
-            System.out.println("PUNTUACION: " +jugadores.get(i).get(1));
-            intent.putExtra("puntuacion"+i,(int) jugadores.get(i).get(1));
-        }*/
-        //this.startActivity(intent);
-        //finish();
-
     }
-    private void comenzarActividad(){
+
+    private void comenzarActividad() {
         this.startActivity(intent);
         finish();
     }
-    private void cogerMejoresJugadores() {
-        // Create a new user with a first and last name
 
+    public boolean getModoSegundaPieza() {
+        return this.modoSegundaPieza;
     }
 
-    public String getTipoPieza(){
+    public String getTipoPieza() {
         return tipoPieza;
     }
-    public void conexionBaseDatos(){
+
+    public void conexionBaseDatos() {
         db = FirebaseFirestore.getInstance();
     }
-    public void sumar_puntuacion(int ptos) {
-       puntuacion+=ptos;
-       TextView texto = (TextView) findViewById(R.id.puntuacion);
-       texto.setText("Ptos:"+puntuacion);
-    }
 
+    public void sumar_puntuacion(int ptos) {
+        puntuacion += ptos;
+        TextView texto = (TextView) findViewById(R.id.puntuacion);
+        texto.setText("Ptos:" + puntuacion);
+    }
 
 
 }

@@ -83,4 +83,8 @@ public class Cronometro implements Runnable
     public int getSegundos() {
         return segundos;
     }
+
+    public void setSegundos(int segundos) {
+        this.segundos = segundos;
+    }
 }

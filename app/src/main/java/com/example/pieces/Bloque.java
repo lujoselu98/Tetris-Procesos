@@ -34,9 +34,9 @@ public class Bloque {
         this.activo = true;
     }
 
-    public boolean seChocaCon(Bloque otro) {
+    /*public boolean seChocaCon(Bloque otro) {
         return (this.getIdentificador() != otro.getIdentificador() && otro.isActivo());
-    }
+    }*/
 
     public void bajar() { posicion[0] += 1;} //Desplazar una fila hacia abajo
 
@@ -69,6 +69,9 @@ public class Bloque {
         return (posicion[0] >= 0 && posicion[0] < filas && posicion[1] >= 0 && posicion[1] < columnas);
     }
 
+    public boolean mismaPosicion(Bloque b){
+        return (this.posicion[0] == b.getPosicion()[0] && this.posicion[1] == b.getPosicion()[1]);
+    }
     public void setColor(int color) {
         this.color = color;
     }

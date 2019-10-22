@@ -12,10 +12,15 @@ public class Hebra extends Thread{
     private Ventana ventana;
     TableroTetris tetris;
     private Cronometro cronometro;
+    private HebraMovimientoPiezaAuxiliar hebraSegundaPieza;
+
+    private int segAntSegundaPieza = 0;
+
     public int segAnt=0;
 
 
     public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v,int velocidad, Cronometro cronometro) {
+
         this.puedoMover = puedoMover;
         this.finPartida = false;
         this.mainActivity = mainActivity;
@@ -23,25 +28,40 @@ public class Hebra extends Thread{
         if(velocidad != 0){
             this.velocidadCaida = velocidadCaida / velocidad;
         }
-
-        tetris = new TableroTetris(this.mainActivity);
+        tetris = new TableroTetris(this.mainActivity,this.ventana);
         v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
-
         this.cronometro = cronometro;
+        if(this.mainActivity.getModoSegundaPieza()){
+            hebraSegundaPieza = new HebraMovimientoPiezaAuxiliar(false, this.mainActivity, this.ventana, 10,false);
+            hebraSegundaPieza.setTableroPiezaSig(this.getTableroPiezaSig());
+            hebraSegundaPieza.setTableroTetris(this.getTableroTetris());
+            hebraSegundaPieza.start();
+        }
     }
 
     public TableroTetris getTableroTetris(){
         return tetris;
+    }
+    public HebraMovimientoPiezaAuxiliar getHebraSegundaPieza(){
+        return this.hebraSegundaPieza;
     }
 
     @Override
     public void run() {
         while (!finPartida) {
             while (puedoMover) {
+                if(this.mainActivity.getModoSegundaPieza()) {
+                    if (cronometro.getSegundos() % 30 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
+                        System.out.println("VOY A ACTIVAR LA SEGUNDA PIEZAAAA");
+                        hebraSegundaPieza.setHebraActiva(true);
+                        segAntSegundaPieza = cronometro.getSegundos();
+                        hebraSegundaPieza.setPuedoMover(true);
+                    }
+                }
                 ventana.setPieza(tetris.getPiezaActual());
-                tetris.bajar();
-               System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
+                tetris.bajar(tetris.getPiezaActual());
+                System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
                 System.out.println("LLAMO A INVALIDATE");
                 ventana.invalidate();
                 tableroPiezaSig.invalidate();
@@ -75,6 +95,7 @@ public class Hebra extends Thread{
 
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
+        hebraSegundaPieza.setPuedoMover(mover);
     }
 
     public boolean getPuedoMover(){
@@ -89,7 +110,9 @@ public class Hebra extends Thread{
         this.finPartida = true;
     }
 
-
+    public MainActivity getMainActivity(){
+        return mainActivity;
+    }
 
     public TableroTetris getTetris(){
         return tetris;
@@ -107,6 +130,7 @@ public class Hebra extends Thread{
     public void setTableroPiezaSig(NextPieceView piezaSig) {
         this.tableroPiezaSig = piezaSig;
     }
+
     public NextPieceView getTableroPiezaSig() {
         return this.tableroPiezaSig;
     }
