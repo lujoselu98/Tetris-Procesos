@@ -108,9 +108,7 @@ public class Ventana extends View {
         this.arrayListPiezas.remove(pieza);
     }
 
-    public void setTablero(TableroTetris t) {
-        this.t = t;
-    }
+
 
     public int getRows() {
         return rows;

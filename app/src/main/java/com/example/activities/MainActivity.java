@@ -317,6 +317,9 @@ public class MainActivity extends AppCompatActivity {
         return this.modoSegundaPieza;
     }
 
+    public boolean getModoReduccion(){
+        return this.modoReduccion;
+    }
     public String getTipoPieza() {
         return tipoPieza;
     }
