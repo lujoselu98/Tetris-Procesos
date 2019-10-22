@@ -262,4 +262,7 @@ public class TableroTetris extends AppCompatActivity {
     public void setFILAS(int FILAS) {
         this.FILAS = FILAS;
     }
+    public int getEliminateRows(){
+        return this.eliminateRows;
+    }
 }
