@@ -57,7 +57,9 @@ public class TableroTetris extends AppCompatActivity {
     public Pieza getPiezaSig() {
         return piezaSiguiente;
     }
-
+    public int getEliminateRows(){
+        return this.eliminateRows;
+    }
 
     public Pieza getPiezaRapida() {
         return piezaRapida;

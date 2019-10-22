@@ -42,9 +42,11 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
         while (!finPartida) {
             if (hebraActiva && puedoMover) {
                 System.out.println("VOY A CREAR SEGUNDA PIEZA");
-                pieza = creadorPiezas.crearPieza();
-                ventana.setPieza(pieza);
-                tetris.setPiezaRapida(pieza);
+                if(tetris.getPiezaRapida() == null) {
+                    pieza = creadorPiezas.crearPieza(tetris.getEliminateRows());
+                    ventana.setPieza(pieza);
+                    tetris.setPiezaRapida(pieza);
+                }
                 while (puedoMover) {
                     System.out.println("ESTOY DENTRO DE PUEDO MOVER DE SEGUNDA PIEZA");
                     //ventana.setPieza(tetris.getPiezaActual());
@@ -67,13 +69,12 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
 
                     if(tetris.piezasChocan()){
                         ventana.borrarPieza(tetris.getPiezaRapida());
-                        //tetris.setPiezaRapida(null);
+                        tetris.setPiezaRapida(null);
                         puedoMover=false;
                         hebraActiva=false;
                     }
 
                     ventana.invalidate();
-                    //tableroPiezaSig.invalidate();
                     System.out.println("INVALIDATE SUPERADO SEGUNDA PIEZA");
                     if (tetris.comprobarPerdido()) {
                         System.out.println("PERDIDO");
