@@ -125,5 +125,8 @@ public class Ventana extends View {
     public void setCols(int cols) {
         this.cols = cols;
     }
+    public void setTablero(TableroTetris t) {	
+        this.t = t;	
+    }
 }
 
