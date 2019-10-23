@@ -34,7 +34,6 @@ public class Hebra extends Thread{
         this.cronometro = cronometro;
         if(this.mainActivity.getModoSegundaPieza()){
             hebraSegundaPieza = new HebraMovimientoPiezaAuxiliar(false, this.mainActivity, this.ventana, 10,false);
-            hebraSegundaPieza.setTableroPiezaSig(this.getTableroPiezaSig());
             hebraSegundaPieza.setTableroTetris(this.getTableroTetris());
             hebraSegundaPieza.start();
         }

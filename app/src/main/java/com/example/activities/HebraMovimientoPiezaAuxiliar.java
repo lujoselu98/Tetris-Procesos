@@ -8,7 +8,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 1000;
-    private NextPieceView tableroPiezaSig;
     private MainActivity mainActivity;
     private Ventana ventana;
     TableroTetris tetris;
@@ -131,15 +130,12 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
         return ventana;
     }
 
-    public void setTableroPiezaSig(NextPieceView piezaSig) {
-        this.tableroPiezaSig = piezaSig;
-    }
-
-    public NextPieceView getTableroPiezaSig() {
-        return this.tableroPiezaSig;
-    }
 
     public void setTableroTetris(TableroTetris tableroTetris) {
         this.tetris = tableroTetris;
+    }
+
+    public boolean isHebraActiva() {
+        return hebraActiva;
     }
 }

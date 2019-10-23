@@ -87,7 +87,7 @@ public class TableroTetris extends AppCompatActivity {
         if(!esPosible(pieza)){
             pieza.subir();
             posarPiezaActual(pieza);
-            //ventana.borrarPieza(pieza);
+            ventana.borrarPieza(pieza);
         }
     }
     public void despDcha(Pieza pieza){
@@ -215,15 +215,11 @@ public class TableroTetris extends AppCompatActivity {
 
     private void borrarfila(int fila) {
         System.out.println("Estoy en borrar fila");
-        for (int i = fila; i > 0; i--) {
+        for (int i = fila; i > eliminateRows*2; i--) {
             for (int j = 0; j < COLUMNAS; j++) {
                 tablero[i][j]=new Bloque(tablero[i-1][j]);
                 tablero[i][j].bajar();
             }
-        }
-        for (int i = 0; i < COLUMNAS; i++) {
-            int pos[]={0,i};
-            tablero[0][i]=new Bloque(false, 0, Color.GRAY,pos);
         }
     }
 
