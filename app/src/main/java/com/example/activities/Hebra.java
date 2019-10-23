@@ -34,7 +34,6 @@ public class Hebra extends Thread{
         this.cronometro = cronometro;
         if(this.mainActivity.getModoSegundaPieza()){
             hebraSegundaPieza = new HebraMovimientoPiezaAuxiliar(false, this.mainActivity, this.ventana, 10,false);
-            hebraSegundaPieza.setTableroPiezaSig(this.getTableroPiezaSig());
             hebraSegundaPieza.setTableroTetris(this.getTableroTetris());
             hebraSegundaPieza.start();
         }
@@ -59,20 +58,20 @@ public class Hebra extends Thread{
                         hebraSegundaPieza.setPuedoMover(true);
                     }
                 }
-                ventana.setPieza(tetris.getPiezaActual());
+                //ventana.setPieza(tetris.getPiezaActual());
                 tetris.bajar(tetris.getPiezaActual());
-                System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
+
                 System.out.println("LLAMO A INVALIDATE");
                 ventana.invalidate();
                 tableroPiezaSig.invalidate();
-                System.out.println("INVALIDATE SUPERADO");
+
                 if (tetris.comprobarPerdido()) {
                     System.out.println("PERDIDO");
                     setFinPartida();
                     puedoMover = false;
                 }
                 try {
-                    System.out.println("VOY A DORMIR");
+
                     Thread.sleep(velocidadCaida);
 
                 } catch (InterruptedException ignored) {
@@ -96,7 +95,9 @@ public class Hebra extends Thread{
 
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
-        hebraSegundaPieza.setPuedoMover(mover);
+        if(mainActivity.getModoSegundaPieza()) {
+            hebraSegundaPieza.setPuedoMover(mover);
+        }
     }
 
     public boolean getPuedoMover(){

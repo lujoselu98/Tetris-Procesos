@@ -72,11 +72,13 @@ public class TableroTetris extends AppCompatActivity {
         }else{
             piezaMover = this.getPiezaRapida();
         }*/
-        pieza.bajar();
-        if(!esPosible(pieza)){
-            pieza.subir();
-            siguientePieza();
-            ventana.borrarPieza(pieza);
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.bajar();
+            if (!esPosible(pieza)) {
+                pieza.subir();
+                siguientePieza();
+                //ventana.borrarPieza(pieza);
+            }
         }
     }
 
@@ -89,34 +91,38 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
     public void despDcha(Pieza pieza){
-
-        pieza.despDcha();
-        if(!esPosible(pieza)){
-            pieza.despIzqda();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.despDcha();
+            if (!esPosible(pieza)) {
+                pieza.despIzqda();
+            }
         }
     }
 
     public void despIzqda(Pieza pieza){
-
-        pieza.despIzqda();
-        if(!esPosible(pieza)){
-            pieza.despDcha();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.despIzqda();
+            if (!esPosible(pieza)) {
+                pieza.despDcha();
+            }
         }
     }
 
     public void rotarDcha(Pieza pieza){
-
-        pieza.rotarDcha();
-        if(!esPosible(pieza)){
-            pieza.rotarIzqda();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.rotarDcha();
+            if (!esPosible(pieza)) {
+                pieza.rotarIzqda();
+            }
         }
     }
 
     public void rotarIzqda(Pieza pieza){
-
-        pieza.rotarIzqda();
-        if(!esPosible(pieza)){
-            pieza.rotarDcha();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.rotarIzqda();
+            if (!esPosible(pieza)) {
+                pieza.rotarDcha();
+            }
         }
     }
 
@@ -139,7 +145,9 @@ public class TableroTetris extends AppCompatActivity {
     public void siguientePieza(){
         if(!comprobarPerdido()) {
             posarPiezaActual(piezaActual);
+            ventana.borrarPieza(piezaActual);
             this.piezaActual = piezaSiguiente;
+            ventana.setPieza(piezaActual);
             piezaSiguiente = creador.crearPieza(2*eliminateRows);
         }
     }
@@ -181,10 +189,12 @@ public class TableroTetris extends AppCompatActivity {
         return perdido;
     }
     public void hard_Drop (Pieza pieza){
-        int n = contadorPiezas;
-        //Mientras que no se haya posado otra pieza
-        while(contadorPiezas - n == 0){
-            bajar(pieza);
+        if (mainActivity.getH().getPuedoMover()) {
+            int n = contadorPiezas;
+            //Mientras que no se haya posado otra pieza
+            while (contadorPiezas - n == 0) {
+                bajar(pieza);
+            }
         }
     }
     public void borrar_lineas(int fila_mayor,int fila_menor){
@@ -205,15 +215,11 @@ public class TableroTetris extends AppCompatActivity {
 
     private void borrarfila(int fila) {
         System.out.println("Estoy en borrar fila");
-        for (int i = fila; i > 0; i--) {
+        for (int i = fila; i > eliminateRows*2; i--) {
             for (int j = 0; j < COLUMNAS; j++) {
                 tablero[i][j]=new Bloque(tablero[i-1][j]);
                 tablero[i][j].bajar();
             }
-        }
-        for (int i = 0; i < COLUMNAS; i++) {
-            int pos[]={0,i};
-            tablero[0][i]=new Bloque(false, 0, Color.GRAY,pos);
         }
     }
 

@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.button_right).setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null) {
+                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null && h.getHebraSegundaPieza().isHebraActiva()) {
                     controls.rightButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
                 }
                 controls.rightButtonPressed(h.getPiezaActual());
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.button_left).setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null) {
+                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null && h.getHebraSegundaPieza().isHebraActiva()) {
                     controls.leftButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
                 }
                 controls.leftButtonPressed(h.getPiezaActual());
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.button_soft_drop).setOnTouchListener((view, event) -> {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null) {
+                if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null && h.getHebraSegundaPieza().isHebraActiva()) {
                     controls.downButtonPressed(h.getHebraSegundaPieza().getPiezaActual());
                 }
                 controls.downButtonPressed(h.getPiezaActual());
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
         if (buttonRotateRight != null) {
             (findViewById(R.id.button_rotate_right)).setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null) {
+                    if (modoSegundaPieza && h.getHebraSegundaPieza().getPiezaActual() != null && h.getHebraSegundaPieza().isHebraActiva()) {
                         controls.rotateRightPressed(h.getHebraSegundaPieza().getPiezaActual());
                     }
                     controls.rotateRightPressed(h.getPiezaActual());
@@ -331,5 +331,7 @@ public class MainActivity extends AppCompatActivity {
         texto.setText("Ptos:" + puntuacion);
     }
 
-
+    public Hebra getH() {
+        return h;
+    }
 }
