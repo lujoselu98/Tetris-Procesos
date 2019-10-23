@@ -72,11 +72,13 @@ public class TableroTetris extends AppCompatActivity {
         }else{
             piezaMover = this.getPiezaRapida();
         }*/
-        pieza.bajar();
-        if(!esPosible(pieza)){
-            pieza.subir();
-            siguientePieza();
-            ventana.borrarPieza(pieza);
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.bajar();
+            if (!esPosible(pieza)) {
+                pieza.subir();
+                siguientePieza();
+                ventana.borrarPieza(pieza);
+            }
         }
     }
 
@@ -89,34 +91,38 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
     public void despDcha(Pieza pieza){
-
-        pieza.despDcha();
-        if(!esPosible(pieza)){
-            pieza.despIzqda();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.despDcha();
+            if (!esPosible(pieza)) {
+                pieza.despIzqda();
+            }
         }
     }
 
     public void despIzqda(Pieza pieza){
-
-        pieza.despIzqda();
-        if(!esPosible(pieza)){
-            pieza.despDcha();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.despIzqda();
+            if (!esPosible(pieza)) {
+                pieza.despDcha();
+            }
         }
     }
 
     public void rotarDcha(Pieza pieza){
-
-        pieza.rotarDcha();
-        if(!esPosible(pieza)){
-            pieza.rotarIzqda();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.rotarDcha();
+            if (!esPosible(pieza)) {
+                pieza.rotarIzqda();
+            }
         }
     }
 
     public void rotarIzqda(Pieza pieza){
-
-        pieza.rotarIzqda();
-        if(!esPosible(pieza)){
-            pieza.rotarDcha();
+        if (mainActivity.getH().getPuedoMover()) {
+            pieza.rotarIzqda();
+            if (!esPosible(pieza)) {
+                pieza.rotarDcha();
+            }
         }
     }
 
@@ -181,10 +187,12 @@ public class TableroTetris extends AppCompatActivity {
         return perdido;
     }
     public void hard_Drop (Pieza pieza){
-        int n = contadorPiezas;
-        //Mientras que no se haya posado otra pieza
-        while(contadorPiezas - n == 0){
-            bajar(pieza);
+        if (mainActivity.getH().getPuedoMover()) {
+            int n = contadorPiezas;
+            //Mientras que no se haya posado otra pieza
+            while (contadorPiezas - n == 0) {
+                bajar(pieza);
+            }
         }
     }
     public void borrar_lineas(int fila_mayor,int fila_menor){

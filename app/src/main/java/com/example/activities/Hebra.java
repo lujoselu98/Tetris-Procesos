@@ -96,7 +96,9 @@ public class Hebra extends Thread{
 
     public void setPuedoMover(boolean mover){
         this.puedoMover = mover;
-        hebraSegundaPieza.setPuedoMover(mover);
+        if(mainActivity.getModoSegundaPieza()) {
+            hebraSegundaPieza.setPuedoMover(mover);
+        }
     }
 
     public boolean getPuedoMover(){

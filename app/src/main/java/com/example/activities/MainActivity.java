@@ -331,5 +331,7 @@ public class MainActivity extends AppCompatActivity {
         texto.setText("Ptos:" + puntuacion);
     }
 
-
+    public Hebra getH() {
+        return h;
+    }
 }
