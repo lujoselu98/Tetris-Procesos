@@ -77,7 +77,7 @@ public class TableroTetris extends AppCompatActivity {
             if (!esPosible(pieza)) {
                 pieza.subir();
                 siguientePieza();
-                ventana.borrarPieza(pieza);
+                //ventana.borrarPieza(pieza);
             }
         }
     }
@@ -87,7 +87,7 @@ public class TableroTetris extends AppCompatActivity {
         if(!esPosible(pieza)){
             pieza.subir();
             posarPiezaActual(pieza);
-            ventana.borrarPieza(pieza);
+            //ventana.borrarPieza(pieza);
         }
     }
     public void despDcha(Pieza pieza){
@@ -145,7 +145,9 @@ public class TableroTetris extends AppCompatActivity {
     public void siguientePieza(){
         if(!comprobarPerdido()) {
             posarPiezaActual(piezaActual);
+            ventana.borrarPieza(piezaActual);
             this.piezaActual = piezaSiguiente;
+            ventana.setPieza(piezaActual);
             piezaSiguiente = creador.crearPieza(2*eliminateRows);
         }
     }

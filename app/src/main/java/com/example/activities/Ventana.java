@@ -44,7 +44,6 @@ public class Ventana extends View {
         colSize = canvas.getWidth() / cols;
         rowSize = canvas.getHeight() / rows;
 
-        paint.setStyle(Paint.Style.FILL);
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {

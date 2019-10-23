@@ -59,20 +59,20 @@ public class Hebra extends Thread{
                         hebraSegundaPieza.setPuedoMover(true);
                     }
                 }
-                ventana.setPieza(tetris.getPiezaActual());
+                //ventana.setPieza(tetris.getPiezaActual());
                 tetris.bajar(tetris.getPiezaActual());
-                System.out.println("ESTOY DENTRO DEL WHILE DE LA HEBRA");
+
                 System.out.println("LLAMO A INVALIDATE");
                 ventana.invalidate();
                 tableroPiezaSig.invalidate();
-                System.out.println("INVALIDATE SUPERADO");
+
                 if (tetris.comprobarPerdido()) {
                     System.out.println("PERDIDO");
                     setFinPartida();
                     puedoMover = false;
                 }
                 try {
-                    System.out.println("VOY A DORMIR");
+
                     Thread.sleep(velocidadCaida);
 
                 } catch (InterruptedException ignored) {
