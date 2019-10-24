@@ -7,22 +7,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import com.example.activities.R;
 
 public class SplashActivity extends Activity {
 
-    public void onCreate (Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
-        //5000;
-        int DURACION_SPLASH = 1000;
+        int duracionSplash = 1000;
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, Settings.class);
             startActivity(intent);
             finish();
-        }, DURACION_SPLASH);
+        }, duracionSplash);
     }
 }

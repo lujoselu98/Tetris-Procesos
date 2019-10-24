@@ -12,86 +12,128 @@ import com.example.pieces.PiezaT;
 import com.example.pieces.PiezaZ;
 import com.example.pieces.PiezaZI;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class CreadorPiezas {
 
     private int contadorPiezas;
     private final MainActivity mainActivity;
-    public CreadorPiezas(MainActivity mainActivity){
+    private static Random r;
+
+    static {
+        try {
+            r = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public CreadorPiezas(MainActivity mainActivity) {
         contadorPiezas = 1;
         this.mainActivity = mainActivity;
     }
 
 
-    public Pieza crearPieza( int rows){
-        Random r = new Random();
+    public Pieza crearPieza(int rows) {
         int n = r.nextInt(7);
 
-        return crearPieza(n, cogerColor(n),rows);
+        return crearPieza(n, cogerColor(n), rows);
     }
 
     private int cogerColor(int x) {
-        System.out.println("TIPO COLOR               "+this.mainActivity.getTipoPieza());
-        switch (this.mainActivity.getTipoPieza()){
+        switch (this.mainActivity.getTipoPieza()) {
             case "Tipo 1":
-                if(x==0) return Color.CYAN;
-                if(x==1) return Color.rgb(254,139,9);
-                if(x==2) return Color.BLUE;
-                if(x==3) return Color.RED;
-                if(x==4) return Color.GREEN;
-                if(x==5) return Color.MAGENTA;
-                if(x==6) return Color.YELLOW;
-            break;
+                switch (x) {
+                    case 0:
+                        return Color.CYAN;
+                    case 1:
+                        return Color.rgb(254, 139, 9);
+                    case 2:
+                        return Color.BLUE;
+                    case 3:
+                        return Color.RED;
+                    case 4:
+                        return Color.GREEN;
+                    case 5:
+                        return Color.MAGENTA;
+                    case 6:
+                        return Color.YELLOW;
+                    default:
+                        break;
+                }
+                break;
             case "Tipo 2":
-                if(x==0) return Color.CYAN; //I
-                if(x==1) return Color.GREEN;  //L
-                if(x==2) return Color.BLUE;  //L Invertida
-                if(x==3) return Color.MAGENTA;  //Z
-                if(x==4) return Color.rgb(254,139,9);  //Z Invertida
-                if(x==5) return Color.YELLOW;  // T
-                if(x==6) return Color.RED;  // Cuadrado
-            break;
+                switch (x) {
+                    case 0:
+                        return Color.CYAN;
+                    case 1:
+                        return Color.GREEN;
+                    case 2:
+                        return Color.BLUE;
+                    case 3:
+                        return Color.MAGENTA;
+                    case 4:
+                        return Color.rgb(254, 139, 9);
+                    case 5:
+                        return Color.YELLOW;
+                    case 6:
+                        return Color.RED;
+                    default:
+                        break;
+                }
+                break;
             case "Tipo 3":
-                if(x==0) return Color.RED; //I
-                if(x==1) return Color.YELLOW;  //L
-                if(x==2) return Color.MAGENTA;  //L Invertida
-                if(x==3) return Color.GREEN;  //Z
-                if(x==4) return Color.BLUE;  //Z Invertida
-                if(x==5) return Color.GRAY;  // T
-                if(x==6) return Color.CYAN;  // Cuadrado
-            break;
+                switch (x) {
+                    case 0:
+                        return Color.RED;
+                    case 1:
+                        return Color.YELLOW;
+                    case 2:
+                        return Color.MAGENTA;
+                    case 3:
+                        return Color.GREEN;
+                    case 4:
+                        return Color.BLUE;
+                    case 5:
+                        return Color.GRAY;
+                    case 6:
+                        return Color.CYAN;
+                    default:
+                        break;
+                }
+                break;
             case "Color Único":
-                if(x==0) return Color.YELLOW; //I
-                if(x==1) return Color.YELLOW;  //L
-                if(x==2) return Color.YELLOW;  //L Invertida
-                if(x==3) return Color.YELLOW;  //Z
-                if(x==4) return Color.YELLOW;  //Z Invertida
-                if(x==5) return Color.YELLOW;  // T
-                if(x==6) return Color.YELLOW;  // Cuadrado
-            break;
+                switch (x) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                        return Color.YELLOW;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
-       /* if(x==0) return Color.CYAN;
-        if(x==1) return Color.rgb(254,139,9);
-        if(x==2) return Color.BLUE;
-        if(x==3) return Color.RED;
-        if(x==4) return Color.GREEN;
-        if(x==5) return Color.MAGENTA;
-        if(x==6) return Color.YELLOW;*/
-
         return -1;
     }
 
 
-    private Pieza crearPieza(int x, int color, int rows){
+    private Pieza crearPieza(int x, int color, int rows) {
         contadorPiezas++;
-        if(x==0) return new PiezaI(contadorPiezas, color,rows);
-        if(x==1) return new PiezaL(contadorPiezas, color,rows);
-        if(x==2) return new PiezaLI(contadorPiezas, color,rows);
-        if(x==3) return new PiezaZ(contadorPiezas, color,rows);
-        if(x==4) return new PiezaZI(contadorPiezas, color,rows);
-        if(x==5) return new PiezaT(contadorPiezas, color,rows);
-        if(x==6) return new PiezaC(contadorPiezas, color,rows);
+        if (x == 0) return new PiezaI(contadorPiezas, color, rows);
+        if (x == 1) return new PiezaL(contadorPiezas, color, rows);
+        if (x == 2) return new PiezaLI(contadorPiezas, color, rows);
+        if (x == 3) return new PiezaZ(contadorPiezas, color, rows);
+        if (x == 4) return new PiezaZI(contadorPiezas, color, rows);
+        if (x == 5) return new PiezaT(contadorPiezas, color, rows);
+        if (x == 6) return new PiezaC(contadorPiezas, color, rows);
 
         return null;
     }

@@ -15,34 +15,31 @@ public class Bloque {
         this.posicion = posicion;
     }
 
-    //Constructor que hace una copia de otro bloque;
-    public Bloque(Bloque bloque){
+    public Bloque(Bloque bloque) {
         this.activo = bloque.isActivo();
         this.color = bloque.getColor();
         this.identificador = bloque.getIdentificador();
-        this.posicion = Arrays.copyOf(bloque.getPosicion(),2);
+        this.posicion = Arrays.copyOf(bloque.getPosicion(), 2);
     }
 
     public boolean isActivo() {
         return activo;
     }
 
-    public void activar(){
+    public void activar() {
         this.activo = true;
     }
 
-    /*public boolean seChocaCon(Bloque otro) {
-        return (this.getIdentificador() != otro.getIdentificador() && otro.isActivo());
-    }*/
+    public void bajar() {
+        posicion[0] += 1;
+    } //Desplazar una fila hacia abajo
 
-    public void bajar() { posicion[0] += 1;} //Desplazar una fila hacia abajo
-
-    public void setPosicion(int[] pos){
+    public void setPosicion(int[] pos) {
         this.posicion[0] = pos[0];
         this.posicion[1] = pos[1];
     }
 
-    public int[] getPosicion(){
+    public int[] getPosicion() {
         int[] aux = new int[2];
         aux[0] = this.posicion[0];
         aux[1] = this.posicion[1];
@@ -58,13 +55,14 @@ public class Bloque {
         return identificador;
     }
 
-    public boolean isInBounds(int filas, int columnas){
+    public boolean isInBounds(int filas, int columnas) {
         return (posicion[0] >= 0 && posicion[0] < filas && posicion[1] >= 0 && posicion[1] < columnas);
     }
 
-    public boolean mismaPosicion(Bloque b){
+    public boolean mismaPosicion(Bloque b) {
         return (this.posicion[0] == b.getPosicion()[0] && this.posicion[1] == b.getPosicion()[1]);
     }
+
     public void setColor(int color) {
         this.color = color;
     }

@@ -17,18 +17,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PantallaReinicio extends AppCompatActivity  {
+public class PantallaReinicio extends AppCompatActivity {
     private String[] arrayNombres;
     private int[] arrayPuntuaciones;
     private ArrayList<ArrayList> jugadores;
     private ArrayList<String> listado;
     private FirebaseFirestore db;
+
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_reinicio);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         arrayNombres = new String[10];
         arrayPuntuaciones = new int[10];
         jugadores = new ArrayList<>();
@@ -77,24 +77,22 @@ public class PantallaReinicio extends AppCompatActivity  {
             user.put("valoracion", ratingBar1.getRating());
             db.collection("Rating")
                     .add(user)
-                    .addOnSuccessListener(documentReference -> {
-                        System.out.println("EXITO");
-                        //Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    })
-                    .addOnFailureListener(e -> {
-                        System.out.println("FRACASO");
-                        //Log.w(TAG, "Error adding document", e);
-                    });
+                    .addOnSuccessListener(documentReference ->
+                            System.out.println("EXITO")
+                    )
+                    .addOnFailureListener(e ->
+                            System.out.println("FRACASO")
+                    );
         });
         for (int i = 0; i < 10; i++) {
-           // arrayNombres[i] = datos.getString("nombre"+i);
+            // arrayNombres[i] = datos.getString("nombre"+i);
             //arrayPuntuaciones[i] = datos.getInt("puntuacion"+i);
 
             //jugadores.add(new ArrayList());
-            String name = "nombre"+i;
+            String name = "nombre" + i;
             System.out.println(name);
-            System.out.println("NOMBRE: "+datos.getString(name));
-            listado.add(datos.getString("nombre"+i)+" "+datos.getLong("puntuacion"+i));
+            System.out.println("NOMBRE: " + datos.getString(name));
+            listado.add(datos.getString("nombre" + i) + " " + datos.getLong("puntuacion" + i));
 
             //jugadores.get(i).add(datos.getString("nombre"+i));
             //jugadores.get(i).add(datos.getInt("puntuacion"+i));
@@ -122,7 +120,7 @@ public class PantallaReinicio extends AppCompatActivity  {
         if (buttonReinicio != null) {
             (findViewById(R.id.activity_main_button_restart)).setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Intent intent = new Intent(this,Settings.class);
+                    Intent intent = new Intent(this, Settings.class);
                     this.startActivity(intent);
                     (findViewById(R.id.activity_main_button_restart)).setPressed(true);
                     finish();

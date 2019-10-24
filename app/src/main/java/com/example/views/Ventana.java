@@ -31,17 +31,14 @@ public class Ventana extends View {
         super.onDraw(canvas);
 
         int colSize = getWidth() / cols;
-        /*int rowSize = Canvas.getHeight() / 20;
-    int colSize = Canvas.getWidth() / 10;*/
         int rowSize = getHeight() / rows;
 
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 Bloque actual = t.bloqueEn(i, j);
-                //paint.setColor(actual.getColor());
                 Rect cuadradoPieza = new Rect(actual.getPosicion()[1] * colSize, actual.getPosicion()[0] * rowSize, actual.getPosicion()[1] * colSize + colSize, actual.getPosicion()[0] * rowSize + rowSize);
-                //canvas.drawRect(cuadradoPieza, paint);
+
 
                 // border
                 paint.setStyle(Paint.Style.STROKE);
@@ -56,9 +53,6 @@ public class Ventana extends View {
         }
         for (Pieza p : arrayListPiezas) {
             Bloque[][] forma = p.getForma();
-            int filas = forma.length;
-            int columnas = forma[0].length;
-
             for (Bloque[] bloques : forma) {
                 for (Bloque bloque : bloques) {
                     if (bloque.isActivo()) {

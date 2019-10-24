@@ -6,14 +6,9 @@ public class Pieza4x4 extends Pieza{
     private boolean ultGiroIzqda;
 
     Pieza4x4(int id, int color, int rows){
-        super(id);
-
+        super();
         ultGiroDcha = false;
         ultGiroIzqda = false;
-
-        //Ponemos el identificador
-        //centro = new int[]{0,4};
-
         //Creamos los bloques
         this.forma = new Bloque[4][4];
         for(int i=0; i<4; i++){

@@ -3,11 +3,8 @@ package com.example.pieces;
 public class Pieza2x2 extends Pieza {
 
     Pieza2x2(int id, int color, int rows){
-        super(id);
+        super();
 
-        //centro = new int[]{0,4};
-
-        //Creamos los bloques
         this.forma = new Bloque[4][4];
         for(int i=0; i<4; i++){
             for(int j=0; j<4; j++){
@@ -23,9 +20,11 @@ public class Pieza2x2 extends Pieza {
         }
     }
 
+    @Override
     public void rotarDcha(){ //No rotan
     }
 
+    @Override
     public void rotarIzqda(){ //No rotan
     }
 }

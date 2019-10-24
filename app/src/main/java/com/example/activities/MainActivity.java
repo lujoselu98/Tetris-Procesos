@@ -28,7 +28,7 @@ import java.util.Objects;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Ventana v;
+    private Ventana ventana;
     private Hebra h;
     private Cronometro cronometro;
     private int puntuacion = 0;
@@ -69,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
         nombreJug.setText("Jugador: " + nombreJugador);
         cronometro = new Cronometro("CuentaAtras", textView);
         Thread c = new Thread(cronometro);
-        v = new Ventana(this);
+        ventana = new Ventana(this);
         RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
-        v.setLayoutParams(params1);
+        ventana.setLayoutParams(params1);
         RelativeLayout relativeSteinAnzeige = findViewById(R.id.relativelayout1);
-        //v.setBackgroundColor(Color.YELLOW);
-        relativeSteinAnzeige.addView(v);
+        //ventana.setBackgroundColor(Color.YELLOW);
+        relativeSteinAnzeige.addView(ventana);
 
-        h = new Hebra(true, this, v, nivelVelocidad, cronometro);
+        h = new Hebra(true, this, ventana, nivelVelocidad, cronometro);
         NextPieceView piezaSig = new NextPieceView(this, h.getTetris());
         h.setTableroPiezaSig(piezaSig);
 
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public boolean getModoReduccion(){
+    public boolean getModoReduccion() {
         return this.modoReduccion;
     }
 
@@ -270,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
         finish();
     }
+
     public boolean getModoSegundaPieza() {
         return this.modoSegundaPieza;
     }

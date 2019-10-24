@@ -12,7 +12,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 1000;
-    private final MainActivity mainActivity;
     private final Ventana ventana;
     private TableroTetris tetris;
     private final CreadorPiezas creadorPiezas;
@@ -26,7 +25,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     public HebraMovimientoPiezaAuxiliar(boolean puedoMover, MainActivity mainActivity, Ventana v, int velocidad, boolean hebraActiva) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
-        this.mainActivity = mainActivity;
         this.ventana = v;
         if (velocidad != 0) {
             this.velocidadCaida = velocidadCaida / velocidad;
@@ -41,36 +39,22 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
         while (!finPartida) {
             if (hebraActiva && puedoMover) {
                 System.out.println("VOY A CREAR SEGUNDA PIEZA");
-                if(tetris.getPiezaRapida() == null) {
+                if (tetris.getPiezaRapida() == null) {
                     pieza = creadorPiezas.crearPieza(tetris.getEliminateRows());
                     ventana.setPieza(pieza);
                     tetris.setPiezaRapida(pieza);
                 }
                 while (puedoMover) {
-
-                    //ventana.setPieza(tetris.getPiezaActual());
-                    //tetris.bajar();
-                    //tetris.siguientePieza();
-
-                    //ventana.setPieza(tetris.getPiezaSig());
-                    //tetris.getPiezaSig().bajar();
                     if (tetris.noPosible(pieza)) {
-                        //puedoMover = false;
                         hebraActiva = false;
                         puedoMover = false;
-                    }else{
-                        System.out.println("ES POSIBLE MOVER SEGUNDA PIEZA");
                     }
-
-
-
                     tetris.bajarPiezaRapida(tetris.getPiezaRapida());
-
-                    if(tetris.piezasChocan()){
+                    if (tetris.piezasChocan()) {
                         ventana.borrarPieza(tetris.getPiezaRapida());
                         tetris.setPiezaRapida(null);
-                        puedoMover=false;
-                        hebraActiva=false;
+                        puedoMover = false;
+                        hebraActiva = false;
                     }
 
                     ventana.invalidate();
@@ -91,7 +75,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
                 }
             }
         }
-        //mainActivity.gameOver();
     }
 
     public void setPuedoMover(boolean mover) {
