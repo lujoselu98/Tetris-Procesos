@@ -1,36 +1,26 @@
 package com.example.activities;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.os.Handler;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.utils.CreadorPiezas;
+import com.example.views.Ventana;
 import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
-import com.example.pieces.PiezaC;
-import com.example.pieces.PiezaI;
-import com.example.pieces.PiezaL;
-import com.example.pieces.PiezaLI;
-import com.example.pieces.PiezaT;
-import com.example.pieces.PiezaZ;
-import com.example.pieces.PiezaZI;
 
 import java.util.List;
 public class TableroTetris extends AppCompatActivity {
-    private Bloque[][] tablero;
+    private final Bloque[][] tablero;
     private Pieza piezaSiguiente;
     private Pieza piezaActual;
     private Pieza piezaRapida;
-    private CreadorPiezas creador;
+    private final CreadorPiezas creador;
     private boolean perdido = false;
-    private MainActivity mainActivity;
+    private final MainActivity mainActivity;
     private int contadorPiezas = 0;
-    private int puntos=0;
-    private Ventana ventana;
+    private final Ventana ventana;
     private int COLUMNAS = 10;
     private int FILAS = 20;
     private int eliminateRows = 0;
@@ -74,7 +64,7 @@ public class TableroTetris extends AppCompatActivity {
         }*/
         if (mainActivity.getH().getPuedoMover()) {
             pieza.bajar();
-            if (!esPosible(pieza)) {
+            if (noPosible(pieza)) {
                 pieza.subir();
                 siguientePieza();
                 //ventana.borrarPieza(pieza);
@@ -84,7 +74,7 @@ public class TableroTetris extends AppCompatActivity {
 
     public void bajarPiezaRapida(Pieza pieza){
         pieza.bajar();
-        if(!esPosible(pieza)){
+        if(noPosible(pieza)){
             pieza.subir();
             posarPiezaActual(pieza);
             ventana.borrarPieza(pieza);
@@ -93,7 +83,7 @@ public class TableroTetris extends AppCompatActivity {
     public void despDcha(Pieza pieza){
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despDcha();
-            if (!esPosible(pieza)) {
+            if (noPosible(pieza)) {
                 pieza.despIzqda();
             }
         }
@@ -102,7 +92,7 @@ public class TableroTetris extends AppCompatActivity {
     public void despIzqda(Pieza pieza){
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despIzqda();
-            if (!esPosible(pieza)) {
+            if (noPosible(pieza)) {
                 pieza.despDcha();
             }
         }
@@ -111,7 +101,7 @@ public class TableroTetris extends AppCompatActivity {
     public void rotarDcha(Pieza pieza){
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarDcha();
-            if (!esPosible(pieza)) {
+            if (noPosible(pieza)) {
                 pieza.rotarIzqda();
             }
         }
@@ -120,13 +110,13 @@ public class TableroTetris extends AppCompatActivity {
     public void rotarIzqda(Pieza pieza){
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarIzqda();
-            if (!esPosible(pieza)) {
+            if (noPosible(pieza)) {
                 pieza.rotarDcha();
             }
         }
     }
 
-    public boolean esPosible(Pieza pieza){
+    public boolean noPosible(Pieza pieza){
 
         List<Bloque> b = pieza.bloquesActivos();
 
@@ -139,10 +129,10 @@ public class TableroTetris extends AppCompatActivity {
             }
         }
 
-        return siBajo;
+        return !siBajo;
     }
 
-    public void siguientePieza(){
+    private void siguientePieza(){
         if(!comprobarPerdido()) {
             posarPiezaActual(piezaActual);
             ventana.borrarPieza(piezaActual);
@@ -152,13 +142,13 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
 
-    public void posarPiezaActual(Pieza pieza){
+    private void posarPiezaActual(Pieza pieza){
         int fila_mayor=0;
         int fila_menor=FILAS-1;
         List<Bloque> bloques = pieza.bloquesActivos();
         contadorPiezas++;
         for(Bloque bloque: bloques){
-            int pos[] = bloque.getPosicion();
+            int[] pos = bloque.getPosicion();
             tablero[pos[0]][pos[1]] = bloque;
             if(fila_mayor<pos[0]){fila_mayor=pos[0];}
             if(fila_menor>pos[0]){fila_menor=pos[0];}
@@ -176,7 +166,7 @@ public class TableroTetris extends AppCompatActivity {
         this.piezaRapida = piezaRapida;
     }
 
-    public boolean posicionOcupada(int[] pos) {
+    private boolean posicionOcupada(int[] pos) {
         return tablero[pos[0]][pos[1]].isActivo();
     }
 
@@ -197,7 +187,7 @@ public class TableroTetris extends AppCompatActivity {
             }
         }
     }
-    public void borrar_lineas(int fila_mayor,int fila_menor){
+    private void borrar_lineas(int fila_mayor, int fila_menor){
         int i=fila_mayor;
         while(i>=fila_menor) {
             System.out.println("fila_mayor = " + fila_mayor);
@@ -223,7 +213,7 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
 
-    public boolean comprobar_fila_llena(int fila){
+    private boolean comprobar_fila_llena(int fila){
         for (int j = 0; j < COLUMNAS; j++) {
             if(!tablero[fila][j].isActivo()){return false;}
         }
@@ -249,25 +239,14 @@ public class TableroTetris extends AppCompatActivity {
     public void eliminarFilas(){
         eliminateRows++;
         for (int i=0;i<2*eliminateRows;i++){
-            for (int j=0;j<getCOLUMNAS();j++){
+            for (int j=0;j<this.COLUMNAS;j++){
                 tablero[i][j].setColor(Color.BLACK);
             }
         }
-    }
-
-    public int getCOLUMNAS() {
-        return COLUMNAS;
-    }
-
-    public void setCOLUMNAS(int COLUMNAS) {
-        this.COLUMNAS = COLUMNAS;
     }
 
     public int getFILAS() {
         return FILAS;
     }
 
-    public void setFILAS(int FILAS) {
-        this.FILAS = FILAS;
-    }
 }

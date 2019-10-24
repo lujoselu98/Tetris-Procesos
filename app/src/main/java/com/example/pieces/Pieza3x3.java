@@ -1,13 +1,12 @@
 package com.example.pieces;
 
-import android.graphics.Color;
 
-public class Pieza3x3 extends Pieza{
+class Pieza3x3 extends Pieza{
 
-    public Pieza3x3(int id, int color, int rows){
-        super(id, color);
+    Pieza3x3(int id, int color, int rows){
+        super(id);
 
-        centro = new int[]{-20,4};
+        //centro = new int[]{-20,4};
 
         this.forma = new Bloque[3][3];
 

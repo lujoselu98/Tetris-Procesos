@@ -1,7 +1,5 @@
 package com.example.pieces;
 
-import android.graphics.Color;
-
 public class PiezaI extends Pieza4x4 { //El palo
 
     public PiezaI(int id, int color, int rows) {

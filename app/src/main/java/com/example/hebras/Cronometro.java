@@ -1,21 +1,20 @@
-package com.example.activities;
+package com.example.hebras;
 
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.sql.SQLOutput;
-
 
 public class Cronometro implements Runnable
 {
     // Atributos privados de la clase
-    private TextView etiq; // Etiqueta para mostrar la información
-    private String nombrecronometro; // Nombre del cronómetro
+    private final TextView etiq; // Etiqueta para mostrar la información
+    private final String nombrecronometro; // Nombre del cronómetro
     private int segundos; // Segundos, minutos y horas que lleva activo el cronómetro
-    private Handler escribirenUI; // Necesario para modificar la UI
+    private final Handler escribirenUI; // Necesario para modificar la UI
     private Boolean pausado; // Para pausar el cronómetro
     private String salida; // Salida formateada de los datos del cronómetro
+    private boolean finPartida;
 
     /**
      * Constructor de la clase
@@ -30,17 +29,18 @@ public class Cronometro implements Runnable
         nombrecronometro = nombre;
         escribirenUI = new Handler();
         pausado = Boolean.FALSE;
+        finPartida = Boolean.FALSE;
     }
 
     @Override
-    /**
+    /*
      * Acción del cronómetro, contar tiempo en segundo plano
      */
     public void run()
     {
         try
         {
-            while(Boolean.TRUE)
+            while(!finPartida)
             {
                 Thread.sleep(1000);
                 salida = "";
@@ -51,14 +51,7 @@ public class Cronometro implements Runnable
                     // Modifico la UI
                     try
                     {
-                        escribirenUI.post(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                etiq.setText("Tiempo: "+salida);
-                            }
-                        });
+                        escribirenUI.post(() -> etiq.setText("Tiempo: "+salida));
                     }
                     catch (Exception e)
                     {
@@ -84,7 +77,7 @@ public class Cronometro implements Runnable
         return segundos;
     }
 
-    public void setSegundos(int segundos) {
-        this.segundos = segundos;
+    public void setFinPartida(){
+        this.finPartida = true;
     }
 }

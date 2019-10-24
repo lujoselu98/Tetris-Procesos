@@ -1,7 +1,5 @@
 package com.example.pieces;
 
-import android.graphics.Color;
-
 public class PiezaC extends Pieza2x2 { //El cuadrado
 
     public PiezaC(int id, int color, int rows) {

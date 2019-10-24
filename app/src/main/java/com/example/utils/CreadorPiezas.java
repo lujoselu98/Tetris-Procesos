@@ -1,7 +1,8 @@
-package com.example.activities;
+package com.example.utils;
 
 import android.graphics.Color;
 
+import com.example.activities.MainActivity;
 import com.example.pieces.Pieza;
 import com.example.pieces.PiezaC;
 import com.example.pieces.PiezaI;
@@ -15,8 +16,8 @@ import java.util.Random;
 
 public class CreadorPiezas {
 
-    int contadorPiezas;
-    MainActivity mainActivity;
+    private int contadorPiezas;
+    private final MainActivity mainActivity;
     public CreadorPiezas(MainActivity mainActivity){
         contadorPiezas = 1;
         this.mainActivity = mainActivity;
@@ -30,7 +31,7 @@ public class CreadorPiezas {
         return crearPieza(n, cogerColor(n),rows);
     }
 
-    public int cogerColor(int x) {
+    private int cogerColor(int x) {
         System.out.println("TIPO COLOR               "+this.mainActivity.getTipoPieza());
         switch (this.mainActivity.getTipoPieza()){
             case "Tipo 1":
@@ -82,7 +83,7 @@ public class CreadorPiezas {
     }
 
 
-    public Pieza crearPieza(int x, int color, int rows){
+    private Pieza crearPieza(int x, int color, int rows){
         contadorPiezas++;
         if(x==0) return new PiezaI(contadorPiezas, color,rows);
         if(x==1) return new PiezaL(contadorPiezas, color,rows);

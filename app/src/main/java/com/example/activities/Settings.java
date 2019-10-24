@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -18,10 +16,10 @@ import android.widget.Toast;
 
 public  class Settings extends Activity implements AdapterView.OnItemSelectedListener {
     //--Declaramos la variable para nuestro control
-    SeekBar seekBar1;
-    TextView porcentajeDificultad;
-    String tipoPieza;
-    int progreso;
+    private SeekBar seekBar1;
+    private TextView porcentajeDificultad;
+    private String tipoPieza;
+    private int progreso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +27,8 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
         //Velocidad
 
-        porcentajeDificultad = (TextView) findViewById(R.id.textoNivelDificultad);
-        seekBar1 = (SeekBar) findViewById(R.id.seekBarVelocidad);
+        porcentajeDificultad = findViewById(R.id.textoNivelDificultad);
+        seekBar1 = findViewById(R.id.seekBarVelocidad);
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -63,10 +61,10 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
         tipoPiezas.setOnItemSelectedListener(this);
 
         //Nombre Usuario
-        EditText nombreUsuario = (EditText) findViewById(R.id.nombreJugador);
+        EditText nombreUsuario = findViewById(R.id.nombreJugador);
          //BOTON PARA INICIAR PARTIDA
 
-        Button botonInicioPartida = (Button)findViewById(R.id.botonInicioPartida);
+        Button botonInicioPartida = findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
             String str1, str2;
             Intent intent = new Intent(Settings.this, MainActivity.class);
@@ -109,7 +107,4 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
     }
 
-    public String getTipoPieza(){
-        return tipoPieza;
-    }
 }

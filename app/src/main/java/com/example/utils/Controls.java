@@ -1,58 +1,46 @@
-package com.example.activities;
+package com.example.utils;
 
+import com.example.hebras.Hebra;
 import com.example.pieces.Pieza;
 
 /* PARA METER LOS MOVIMIENTOS */
-class Controls {
-    private Hebra hebra;
+public class Controls {
+    private final Hebra hebra;
     public Controls(Hebra h) {
         this.hebra = h;
     }
 
     public void leftButtonPressed(Pieza pieza) {
-        hebra.tetris.despIzqda(pieza);
+        hebra.getTetris().despIzqda(pieza);
         hebra.getVentana().invalidate();
-    }
-
-    public void leftButtonReleased() {
-    }
-
-    public void rightButtonReleased() {
     }
 
     public void rightButtonPressed(Pieza pieza) {
-
-
-        hebra.tetris.despDcha(pieza);
+        hebra.getTetris().despDcha(pieza);
         hebra.getVentana().invalidate();
-
-        //hebra.run();
     }
 
     public void downButtonPressed(Pieza pieza) {
 
-        hebra.tetris.bajar(pieza);
+        hebra.getTetris().bajar(pieza);
         hebra.getVentana().invalidate();
     }
 
-    public void downButtonReleased() {
-    }
-
     public void dropButtonPressed(Pieza pieza) {
-        hebra.tetris.hard_Drop(pieza);
+        hebra.getTetris().hard_Drop(pieza);
         hebra.getVentana().invalidate();
 
     }
 
     public void rotateRightPressed(Pieza pieza) {
 
-        hebra.tetris.rotarDcha(pieza);
+        hebra.getTetris().rotarDcha(pieza);
         hebra.getVentana().invalidate();
     }
 
     public void rotateLeftPressed(Pieza pieza) {
 
-        hebra.tetris.rotarIzqda(pieza);
+        hebra.getTetris().rotarIzqda(pieza);
         hebra.getVentana().invalidate();
     }
 }

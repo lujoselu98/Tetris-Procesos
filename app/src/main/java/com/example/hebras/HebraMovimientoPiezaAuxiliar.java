@@ -1,6 +1,10 @@
-package com.example.activities;
+package com.example.hebras;
 
 
+import com.example.utils.CreadorPiezas;
+import com.example.activities.MainActivity;
+import com.example.activities.TableroTetris;
+import com.example.views.Ventana;
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
@@ -8,10 +12,10 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 1000;
-    private MainActivity mainActivity;
-    private Ventana ventana;
-    TableroTetris tetris;
-    private CreadorPiezas creadorPiezas;
+    private final MainActivity mainActivity;
+    private final Ventana ventana;
+    private TableroTetris tetris;
+    private final CreadorPiezas creadorPiezas;
     private Pieza pieza;
     private boolean hebraActiva;
 
@@ -32,10 +36,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     }
 
 
-    public TableroTetris getTableroTetris() {
-        return tetris;
-    }
-
     @Override
     public void run() {
         while (!finPartida) {
@@ -54,7 +54,7 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
 
                     //ventana.setPieza(tetris.getPiezaSig());
                     //tetris.getPiezaSig().bajar();
-                    if (!tetris.esPosible(pieza)) {
+                    if (tetris.noPosible(pieza)) {
                         //puedoMover = false;
                         hebraActiva = false;
                         puedoMover = false;
@@ -77,7 +77,7 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
 
                     if (tetris.comprobarPerdido()) {
                         System.out.println("PERDIDO");
-                        setFinPartida();
+                        this.finPartida = true;
                         puedoMover = false;
                     }
                     try {
@@ -98,36 +98,8 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
         this.puedoMover = mover;
     }
 
-    public boolean getPuedoMover() {
-        return this.puedoMover;
-    }
-
-    public boolean getFinPartida() {
-        return this.finPartida;
-    }
-
-    public void setFinPartida() {
-        this.finPartida = true;
-    }
-
-    public MainActivity getMainActivity() {
-        return mainActivity;
-    }
-
-    public TableroTetris getTetris() {
-        return tetris;
-    }
-
     public Pieza getPiezaActual() {
         return this.pieza;
-    }
-
-    public Pieza getPiezaSiguiente() {
-        return this.tetris.getPiezaSig();
-    }
-
-    public Ventana getVentana() {
-        return ventana;
     }
 
 

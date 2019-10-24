@@ -1,7 +1,5 @@
 package com.example.pieces;
 
-import android.graphics.Color;
-
 public class PiezaT extends Pieza3x3{
 
     public PiezaT(int id, int color, int rows){
