@@ -39,12 +39,12 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                throw new UnsupportedOperationException();
+                //No tiene que hacer nada
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                throw new UnsupportedOperationException();
+                //No tiene que hacer nada
             }
         });
 
