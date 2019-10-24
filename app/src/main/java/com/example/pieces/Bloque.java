@@ -40,11 +40,7 @@ public class Bloque {
     }
 
     public int[] getPosicion() {
-        int[] aux = new int[2];
-        aux[0] = this.posicion[0];
-        aux[1] = this.posicion[1];
-
-        return aux;
+        return posicion;
     }
 
     public int getColor() {
