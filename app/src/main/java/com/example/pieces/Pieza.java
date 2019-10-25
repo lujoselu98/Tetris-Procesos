@@ -7,8 +7,12 @@ import java.util.List;
 
 public abstract class Pieza {
     Bloque[][] forma;
+    int id;
+    int color;
 
-    Pieza() {
+    Pieza(int id, int color) {
+        this.id = id;
+        this.color = color;
     }
 
     public void rotarDcha() {
@@ -91,5 +95,9 @@ public abstract class Pieza {
             }
         }
         return bloques;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

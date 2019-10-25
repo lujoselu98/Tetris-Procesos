@@ -6,7 +6,7 @@ public class Pieza4x4 extends Pieza{
     private boolean ultGiroIzqda;
 
     Pieza4x4(int id, int color, int rows){
-        super();
+        super(id, color);
         ultGiroDcha = false;
         ultGiroIzqda = false;
         //Creamos los bloques
