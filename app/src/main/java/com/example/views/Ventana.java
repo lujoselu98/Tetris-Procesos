@@ -47,7 +47,7 @@ public class Ventana extends View {
                 canvas.drawRect(cuadradoPieza, paint);
                 // fill
                 paint.setStyle(Paint.Style.FILL);
-                paint.setColor(actual.getColor());
+                paint.setColor(codigoAColor(actual.getColor()));
                 canvas.drawRect(cuadradoPieza, paint);
             }
         }
@@ -117,7 +117,7 @@ public class Ventana extends View {
             case 6:
                 return Color.YELLOW;
             default:
-                return Color.BLACK;
+                return Color.GRAY;
         }
     }
 }
