@@ -39,7 +39,7 @@ public class CreadorPiezas {
     public Pieza crearPieza(int rows) {
         int n = r.nextInt(7);
 
-        return crearPieza(n, cogerColor(n), rows);
+        return crearPieza(n, n, rows);
     }
 
     private int cogerColor(int x) {

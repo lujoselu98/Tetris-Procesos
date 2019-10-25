@@ -6,9 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class Pieza {
-    Bloque[][] forma;
+    protected Bloque[][] forma;
+    protected int id;
+    protected int color;
 
-    Pieza() {
+    Pieza(int id, int color) {
+        this.id = id;
+        this.color = color;
     }
 
     public void rotarDcha() {
@@ -91,5 +95,9 @@ public abstract class Pieza {
             }
         }
         return bloques;
+    }
+
+    public int getColor() {
+        return color;
     }
 }

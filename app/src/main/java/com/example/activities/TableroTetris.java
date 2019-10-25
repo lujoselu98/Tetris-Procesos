@@ -11,6 +11,7 @@ import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
 
 import java.util.List;
+import java.util.Random;
 
 public class TableroTetris extends AppCompatActivity {
     private final Bloque[][] tablero;
@@ -25,6 +26,8 @@ public class TableroTetris extends AppCompatActivity {
     private int columnas = 10;
     private int filas = 20;
     private int eliminateRows = 0;
+    // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
+    private boolean modoFantasia = true;
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v) {
@@ -37,7 +40,7 @@ public class TableroTetris extends AppCompatActivity {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 int[] pos = {i, j};
-                tablero[i][j] = new Bloque(false, 0, Color.GRAY, pos);
+                tablero[i][j] = new Bloque(false, 0, -1, pos);
             }
         }
     }
@@ -189,9 +192,11 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     private void borrarLineas(int filaMayor, int filaMenor) {
+        int contadorFilasLlenas = 0;
         int i = filaMayor;
         while (i >= filaMenor) {
             if (comprobarFilaLlena(i)) {
+                contadorFilasLlenas++;
                 borrarfila(i);
                 mainActivity.sumar_puntuacion(30);
                 filaMenor--;
@@ -199,6 +204,13 @@ public class TableroTetris extends AppCompatActivity {
                 i--;
             }
         }
+
+        if(modoFantasia && contadorFilasLlenas == 1){
+            cambiarBloquesaMismoColor();
+        }else if(modoFantasia && contadorFilasLlenas > 1){
+            cambiarBloquesColorRandom();
+        }
+
     }
 
     private void borrarfila(int fila) {
@@ -250,4 +262,23 @@ public class TableroTetris extends AppCompatActivity {
         return filas;
     }
 
+    public void cambiarBloquesaMismoColor(){
+        //Cambiamos al color de la pieza actual
+        int color = piezaActual.getColor();
+        for (int i = 0; i < filas ; i++) {
+            for (int j = 0; j < columnas ; j++) {
+                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+            }
+        }
+    }
+
+    public void cambiarBloquesColorRandom(){
+        Random r = new Random();
+        for (int i = 0; i < filas ; i++) {
+            for (int j = 0; j < columnas ; j++) {
+                int color = r.nextInt(7);
+                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+            }
+        }
+    }
 }

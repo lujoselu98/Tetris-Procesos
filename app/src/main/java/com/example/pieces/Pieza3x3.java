@@ -4,7 +4,7 @@ package com.example.pieces;
 class Pieza3x3 extends Pieza {
 
     Pieza3x3(int id, int color, int rows) {
-        super();
+        super(id, color);
         this.forma = new Bloque[3][3];
         //Creamos los bloques
         this.forma = new Bloque[3][3];

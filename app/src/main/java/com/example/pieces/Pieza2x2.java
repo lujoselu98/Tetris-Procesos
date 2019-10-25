@@ -3,7 +3,7 @@ package com.example.pieces;
 public class Pieza2x2 extends Pieza {
 
     Pieza2x2(int id, int color, int rows){
-        super();
+        super(id, color);
 
         this.forma = new Bloque[4][4];
         for(int i=0; i<4; i++){
