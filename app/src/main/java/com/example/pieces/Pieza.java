@@ -7,8 +7,8 @@ import java.util.List;
 
 public abstract class Pieza {
     Bloque[][] forma;
-    int id;
-    int color;
+    protected int id;
+    protected int color;
 
     Pieza(int id, int color) {
         this.id = id;

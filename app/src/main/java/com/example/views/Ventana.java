@@ -66,7 +66,7 @@ public class Ventana extends View {
                         canvas.drawRect(cuadradoPieza, paint);
                         // fill
                         paint.setStyle(Paint.Style.FILL);
-                        paint.setColor(bloque.getColor());
+                        paint.setColor(codigoAColor(bloque.getColor()));
                         canvas.drawRect(cuadradoPieza, paint);
 
 
@@ -98,6 +98,27 @@ public class Ventana extends View {
 
     public void setTablero(TableroTetris t) {
         this.t = t;	
+    }
+
+    public int codigoAColor(int x){
+        switch (x) {
+            case 0:
+                return Color.CYAN;
+            case 1:
+                return Color.rgb(254, 139, 9);
+            case 2:
+                return Color.BLUE;
+            case 3:
+                return Color.RED;
+            case 4:
+                return Color.GREEN;
+            case 5:
+                return Color.MAGENTA;
+            case 6:
+                return Color.YELLOW;
+            default:
+                return Color.BLACK;
+        }
     }
 }
 
