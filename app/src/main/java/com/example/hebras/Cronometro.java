@@ -1,90 +1,74 @@
-package com.example.activities;
+package com.example.hebras;
 
 import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
-import java.sql.SQLOutput;
 
-
-public class Cronometro implements Runnable
-{
+public class Cronometro implements Runnable {
     // Atributos privados de la clase
-    private TextView etiq; // Etiqueta para mostrar la información
-    private String nombrecronometro; // Nombre del cronómetro
+    private final TextView etiq; // Etiqueta para mostrar la información
+    private final String nombrecronometro; // Nombre del cronómetro
     private int segundos; // Segundos, minutos y horas que lleva activo el cronómetro
-    private Handler escribirenUI; // Necesario para modificar la UI
+    private final Handler escribirenUI; // Necesario para modificar la UI
     private Boolean pausado; // Para pausar el cronómetro
     private String salida; // Salida formateada de los datos del cronómetro
+    private boolean finPartida;
 
     /**
      * Constructor de la clase
-     * @param nombre Nombre del cronómetro
+     *
+     * @param nombre   Nombre del cronómetro
      * @param etiqueta Etiqueta para mostrar información
      */
-    public Cronometro(String nombre, TextView etiqueta)
-    {
+    public Cronometro(String nombre, TextView etiqueta) {
         etiq = etiqueta;
         salida = "";
         segundos = 0;
         nombrecronometro = nombre;
         escribirenUI = new Handler();
         pausado = Boolean.FALSE;
+        finPartida = Boolean.FALSE;
     }
 
     @Override
-    /**
+    /*
      * Acción del cronómetro, contar tiempo en segundo plano
      */
-    public void run()
-    {
-        try
-        {
-            while(Boolean.TRUE)
-            {
+    public void run() {
+        try {
+            while (!finPartida) {
                 Thread.sleep(1000);
                 salida = "";
-                if( !pausado )
-                {
+                if (!pausado) {
                     segundos++;
                     salida += segundos;
                     // Modifico la UI
-                    try
-                    {
-                        escribirenUI.post(new Runnable()
-                        {
-                            @Override
-                            public void run()
-                            {
-                                etiq.setText("Tiempo: "+salida);
-                            }
-                        });
-                    }
-                    catch (Exception e)
-                    {
+                    try {
+                        escribirenUI.post(() -> etiq.setText("Tiempo: " + salida));
+                    } catch (Exception e) {
                         Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + " al escribir en la UI: " + e.toString());
                     }
                 }
             }
-        }
-        catch (InterruptedException e)
-        {
+        } catch (InterruptedException e) {
             Log.i("Cronometro", "Error en el cronometro " + nombrecronometro + ": " + e.toString());
         }
     }
-    public void pause()
-    {
+
+    public void pause() {
         pausado = !pausado;
     }
-    public  void reanudar(){
-        pausado =!pausado;
+
+    public void reanudar() {
+        pausado = !pausado;
     }
 
     public int getSegundos() {
         return segundos;
     }
 
-    public void setSegundos(int segundos) {
-        this.segundos = segundos;
+    public void setFinPartida() {
+        this.finPartida = true;
     }
 }

@@ -1,6 +1,10 @@
-package com.example.activities;
+package com.example.hebras;
 
 
+import com.example.utils.CreadorPiezas;
+import com.example.activities.MainActivity;
+import com.example.activities.TableroTetris;
+import com.example.views.Ventana;
 import com.example.pieces.Pieza;
 
 /* IGUAL QUE EL WORKTHREAD */
@@ -8,10 +12,9 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     private boolean puedoMover;
     private boolean finPartida;
     private int velocidadCaida = 1000;
-    private MainActivity mainActivity;
-    private Ventana ventana;
-    TableroTetris tetris;
-    private CreadorPiezas creadorPiezas;
+    private final Ventana ventana;
+    private TableroTetris tetris;
+    private final CreadorPiezas creadorPiezas;
     private Pieza pieza;
     private boolean hebraActiva;
 
@@ -22,7 +25,6 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     public HebraMovimientoPiezaAuxiliar(boolean puedoMover, MainActivity mainActivity, Ventana v, int velocidad, boolean hebraActiva) {
         this.puedoMover = puedoMover;
         this.finPartida = false;
-        this.mainActivity = mainActivity;
         this.ventana = v;
         if (velocidad != 0) {
             this.velocidadCaida = velocidadCaida / velocidad;
@@ -32,52 +34,34 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
     }
 
 
-    public TableroTetris getTableroTetris() {
-        return tetris;
-    }
-
     @Override
     public void run() {
         while (!finPartida) {
             if (hebraActiva && puedoMover) {
                 System.out.println("VOY A CREAR SEGUNDA PIEZA");
-                if(tetris.getPiezaRapida() == null) {
+                if (tetris.getPiezaRapida() == null) {
                     pieza = creadorPiezas.crearPieza(tetris.getEliminateRows());
                     ventana.setPieza(pieza);
                     tetris.setPiezaRapida(pieza);
                 }
                 while (puedoMover) {
-
-                    //ventana.setPieza(tetris.getPiezaActual());
-                    //tetris.bajar();
-                    //tetris.siguientePieza();
-
-                    //ventana.setPieza(tetris.getPiezaSig());
-                    //tetris.getPiezaSig().bajar();
-                    if (!tetris.esPosible(pieza)) {
-                        //puedoMover = false;
+                    if (tetris.noPosible(pieza)) {
                         hebraActiva = false;
                         puedoMover = false;
-                    }else{
-                        System.out.println("ES POSIBLE MOVER SEGUNDA PIEZA");
                     }
-
-
-
                     tetris.bajarPiezaRapida(tetris.getPiezaRapida());
-
-                    if(tetris.piezasChocan()){
+                    if (tetris.piezasChocan()) {
                         ventana.borrarPieza(tetris.getPiezaRapida());
                         tetris.setPiezaRapida(null);
-                        puedoMover=false;
-                        hebraActiva=false;
+                        puedoMover = false;
+                        hebraActiva = false;
                     }
 
                     ventana.invalidate();
 
                     if (tetris.comprobarPerdido()) {
                         System.out.println("PERDIDO");
-                        setFinPartida();
+                        this.finPartida = true;
                         puedoMover = false;
                     }
                     try {
@@ -91,43 +75,14 @@ public class HebraMovimientoPiezaAuxiliar extends Thread {
                 }
             }
         }
-        //mainActivity.gameOver();
     }
 
     public void setPuedoMover(boolean mover) {
         this.puedoMover = mover;
     }
 
-    public boolean getPuedoMover() {
-        return this.puedoMover;
-    }
-
-    public boolean getFinPartida() {
-        return this.finPartida;
-    }
-
-    public void setFinPartida() {
-        this.finPartida = true;
-    }
-
-    public MainActivity getMainActivity() {
-        return mainActivity;
-    }
-
-    public TableroTetris getTetris() {
-        return tetris;
-    }
-
     public Pieza getPiezaActual() {
         return this.pieza;
-    }
-
-    public Pieza getPiezaSiguiente() {
-        return this.tetris.getPiezaSig();
-    }
-
-    public Ventana getVentana() {
-        return ventana;
     }
 
 

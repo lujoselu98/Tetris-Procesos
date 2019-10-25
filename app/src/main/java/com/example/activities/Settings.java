@@ -7,21 +7,20 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public  class Settings extends Activity implements AdapterView.OnItemSelectedListener {
+public class Settings extends Activity implements AdapterView.OnItemSelectedListener {
     //--Declaramos la variable para nuestro control
-    SeekBar seekBar1;
-    TextView porcentajeDificultad;
-    String tipoPieza;
-    int progreso;
+    private SeekBar seekBar1;
+    private TextView porcentajeDificultad;
+    private String tipoPieza;
+    private int progreso;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +28,8 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
         //Velocidad
 
-        porcentajeDificultad = (TextView) findViewById(R.id.textoNivelDificultad);
-        seekBar1 = (SeekBar) findViewById(R.id.seekBarVelocidad);
+        porcentajeDificultad = findViewById(R.id.textoNivelDificultad);
+        seekBar1 = findViewById(R.id.seekBarVelocidad);
         seekBar1.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -40,12 +39,12 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
+                //No tiene que hacer nada
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                //No tiene que hacer nada
             }
         });
 
@@ -57,43 +56,29 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
 
         //Tipo Piezas
         Spinner tipoPiezas = findViewById(R.id.seleccion_tipo_piezas);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.tipo_piezas, R.layout.spinner_levels);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo_piezas, R.layout.spinner_levels);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tipoPiezas.setAdapter(adapter);
         tipoPiezas.setOnItemSelectedListener(this);
 
         //Nombre Usuario
-        EditText nombreUsuario = (EditText) findViewById(R.id.nombreJugador);
-         //BOTON PARA INICIAR PARTIDA
+        EditText nombreUsuario = findViewById(R.id.nombreJugador);
+        //BOTON PARA INICIAR PARTIDA
 
-        Button botonInicioPartida = (Button)findViewById(R.id.botonInicioPartida);
+        Button botonInicioPartida = findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
-            String str1, str2;
             Intent intent = new Intent(Settings.this, MainActivity.class);
-            intent.putExtra("tipoPieza",tipoPieza);
-            intent.putExtra("porcentaje",progreso);
-            intent.putExtra("nombreJugador",nombreUsuario.getText().toString());
-            if (switchModoSegundaPieza.isChecked())
-                intent.putExtra("modoDificil",true);
-            else
-                intent.putExtra("modoDificil",false);
-            if (switchModoFantasia.isChecked())
-                intent.putExtra("modoFantasia",true);
-            else
-                intent.putExtra("modoFantasia",false);
-            if (switchModoReduccion.isChecked())
-                intent.putExtra("modoReduccion",true);
-            else
-                intent.putExtra("modoReduccion",false);
+            intent.putExtra("tipoPieza", tipoPieza);
+            intent.putExtra("porcentaje", progreso);
+            intent.putExtra("nombreJugador", nombreUsuario.getText().toString());
+
+            intent.putExtra("modoDificil", switchModoSegundaPieza.isChecked());
+            intent.putExtra("modoFantasia", switchModoFantasia.isChecked());
+            intent.putExtra("modoReduccion", switchModoReduccion.isChecked());
             startActivity(intent);
             finish();
-            /*
-
-            Toast.makeText(getApplicationContext(), "Switch1 -  " + str1 + " \n" ,Toast.LENGTH_SHORT).show();*/
         });
     }
-
-
 
 
     @Override
@@ -101,15 +86,12 @@ public  class Settings extends Activity implements AdapterView.OnItemSelectedLis
         tipoPieza = parent.getItemAtPosition(position).toString();
         System.out.println(tipoPieza);
 
-        Toast.makeText(parent.getContext(), tipoPieza,Toast.LENGTH_SHORT).show();
+        Toast.makeText(parent.getContext(), tipoPieza, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        throw new UnsupportedOperationException();
     }
 
-    public String getTipoPieza(){
-        return tipoPieza;
-    }
 }
