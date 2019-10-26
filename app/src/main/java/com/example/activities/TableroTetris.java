@@ -30,11 +30,12 @@ public class TableroTetris extends AppCompatActivity {
     private boolean modoFantasia = true;
 
     @SuppressLint("ResourceType")
-    public TableroTetris(MainActivity mainActivity, Ventana v) {
+    public TableroTetris(MainActivity mainActivity, Ventana v,boolean modoFantasia) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
+        this.modoFantasia = modoFantasia;
         this.mainActivity = mainActivity;
         this.ventana = v;
         for (int i = 0; i < filas; i++) {

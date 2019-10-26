@@ -292,4 +292,8 @@ public class MainActivity extends AppCompatActivity {
     public Hebra getH() {
         return h;
     }
+
+    public boolean getModoFantasia() {
+        return modoFantasia;
+    }
 }
