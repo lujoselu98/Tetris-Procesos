@@ -46,7 +46,7 @@ public class CreadorPiezas {
         return crearPieza(n, n, rows);
     }
 
-    private int cogerColor(int x) {
+    /*private int cogerColor(int x) {
         switch (this.mainActivity.getTipoPieza()) {
             case "Tipo 1":
                 switch (x) {
@@ -126,7 +126,7 @@ public class CreadorPiezas {
                 break;
         }
         return -1;
-    }
+    }*/
 
 
     private Pieza crearPieza(int x, int color, int rows) {
