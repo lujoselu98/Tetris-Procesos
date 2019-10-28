@@ -1,6 +1,6 @@
 package com.example.utils;
 
-public class PesoPieza {
+public class PesoPieza implements Comparable{
     private double peso;
     private int tipoPieza;
 
@@ -25,7 +25,15 @@ public class PesoPieza {
         this.tipoPieza = tipoPieza;
     }
 
-    public int compare(PesoPieza p1) {
-        return Double.compare(peso, p1.getPeso());
+    @Override
+    public int compareTo(Object other) {
+        PesoPieza aux = (PesoPieza) other;
+        return Double.compare(peso, ((PesoPieza) other).getPeso());
     }
+
+    public void cambiarPeso(double p){
+        this.peso+=p;
+    }
+
+
 }

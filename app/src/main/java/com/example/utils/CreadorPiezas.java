@@ -14,6 +14,8 @@ import com.example.pieces.PiezaZI;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -23,6 +25,7 @@ public class CreadorPiezas {
     private final MainActivity mainActivity;
     private static Random r;
     private List<PesoPieza> pesos;
+    private final double numPiezas = 7;
 
     static {
         try {
@@ -35,15 +38,50 @@ public class CreadorPiezas {
     public CreadorPiezas(MainActivity mainActivity) {
         contadorPiezas = 1;
         this.mainActivity = mainActivity;
-
-
+        pesos = new ArrayList<>();
+        System.out.println("El valor es:" + (double)1/7);
+        for(int i=1; i<=numPiezas; i++){
+            int tipo = i-1;
+            double peso = 1/numPiezas;
+            peso*=i;
+            pesos.add(new PesoPieza(peso, tipo));
+            System.out.println("Pieza " +i+ " con peso"+peso);
+        }
     }
 
 
     public Pieza crearPieza(int rows) {
-        int n = r.nextInt(7);
-
+        int n = siguientePieza();
+        actualizarPesos(n);
         return crearPieza(n, n, rows);
+    }
+
+    private void actualizarPesos(int n){
+        for(PesoPieza p: pesos){
+            if(p.getTipoPieza() == n){
+                double quitado = 0.01*numPiezas;
+                p.cambiarPeso(quitado);
+            }else{
+                p.cambiarPeso(0.01);
+            }
+            System.out.println("Peso cambiado: "+ p.getPeso());
+        }
+        System.out.println("---------");
+        Collections.sort(pesos);
+    }
+
+    public int siguientePieza(){
+        //Peso entre 0 y 1
+        double prob = Math.random();
+        System.out.println("Aquí: " + prob);
+        for(PesoPieza p: pesos){
+
+            if(p.getPeso() >= prob){
+                System.out.println("Peso: " + p.getPeso());
+                return p.getTipoPieza();
+            }
+        }
+        return pesos.size()-1;
     }
 
     /*private int cogerColor(int x) {
