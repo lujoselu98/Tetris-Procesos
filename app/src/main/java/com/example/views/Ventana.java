@@ -49,7 +49,7 @@ public class Ventana extends View {
                 canvas.drawRect(cuadradoPieza, paint);
                 // fill
                 paint.setStyle(Paint.Style.FILL);
-                paint.setColor(codigoAColor(actual.getColor()));
+                paint.setColor(cogerColor(actual.getColor()));
                 canvas.drawRect(cuadradoPieza, paint);
             }
         }
