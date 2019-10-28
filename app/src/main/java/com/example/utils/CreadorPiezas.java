@@ -14,6 +14,7 @@ import com.example.pieces.PiezaZI;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 
 public class CreadorPiezas {
@@ -21,6 +22,7 @@ public class CreadorPiezas {
     private int contadorPiezas;
     private final MainActivity mainActivity;
     private static Random r;
+    private List<PesoPieza> pesos;
 
     static {
         try {
@@ -33,6 +35,8 @@ public class CreadorPiezas {
     public CreadorPiezas(MainActivity mainActivity) {
         contadorPiezas = 1;
         this.mainActivity = mainActivity;
+
+
     }
 
 
