@@ -3,8 +3,8 @@ Feature: End world mode
    Every 50 seconds two lines of the game screen are deleted.
 
    Scenario: Choose play mode
-   Given We start the aplication
-   When We see the configuration screen
-   And Choose End world mode
-   Then We play the game 
-   And Every 50 seconds the screen gets smaller
+   Given User start the aplication
+   When User see the configuration screen
+   And User choose End world mode
+   And User start the game
+   Then Every 50 seconds the screen gets two lines smaller
