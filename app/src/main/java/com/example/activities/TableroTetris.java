@@ -253,7 +253,7 @@ public class TableroTetris extends AppCompatActivity {
         eliminateRows++;
         for (int i = 0; i < 2 * eliminateRows; i++) {
             for (int j = 0; j < this.columnas; j++) {
-                tablero[i][j].setColor(Color.BLACK);
+                tablero[i][j].setColor(7);
             }
         }
     }

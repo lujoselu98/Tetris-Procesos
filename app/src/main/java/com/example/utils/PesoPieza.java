@@ -1,20 +1,16 @@
 package com.example.utils;
 
 public class PesoPieza implements Comparable{
-    private double peso;
+    private int peso;
     private int tipoPieza;
 
-    public PesoPieza(double peso, int tipoPieza) {
+    public PesoPieza(int peso, int tipoPieza) {
         this.peso = peso;
         this.tipoPieza = tipoPieza;
     }
 
-    public double getPeso() {
+    public int getPeso() {
         return peso;
-    }
-
-    public void setPeso(double peso) {
-        this.peso = peso;
     }
 
     public int getTipoPieza() {
@@ -33,6 +29,9 @@ public class PesoPieza implements Comparable{
 
     public void cambiarPeso(double p){
         this.peso+=p;
+    }
+    public void aumentarPeso(){
+        this.peso+=1;
     }
 
 

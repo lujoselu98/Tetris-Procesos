@@ -15,7 +15,6 @@ import com.example.pieces.PiezaZI;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +25,7 @@ public class CreadorPiezas {
     private static Random r;
     private List<PesoPieza> pesos;
     private final double numPiezas = 7;
+    private int minVeces = 0; //Para saber cuantas veces ha salido la pieza que menos veces a salido
 
     static {
         try {
@@ -42,46 +42,41 @@ public class CreadorPiezas {
         System.out.println("El valor es:" + (double)1/7);
         for(int i=1; i<=numPiezas; i++){
             int tipo = i-1;
-            double peso = 1/numPiezas;
-            peso*=i;
-            pesos.add(new PesoPieza(peso, tipo));
-            System.out.println("Pieza " +i+ " con peso"+peso);
+            pesos.add(new PesoPieza(0, tipo));
+            System.out.println("Pieza " +i+ " con peso"+0);
         }
     }
 
 
     public Pieza crearPieza(int rows) {
         int n = siguientePieza();
-        actualizarPesos(n);
+        actualizarMin();
         return crearPieza(n, n, rows);
     }
 
-    private void actualizarPesos(int n){
+    private void actualizarMin(){
+        int minPeso = pesos.get(0).getPeso();
         for(PesoPieza p: pesos){
-            if(p.getTipoPieza() == n){
-                double quitado = 0.01*numPiezas;
-                p.cambiarPeso(quitado);
-            }else{
-                p.cambiarPeso(0.01);
+            if(p.getPeso() < minPeso){
+                minPeso = p.getPeso();
             }
-            System.out.println("Peso cambiado: "+ p.getPeso());
         }
-        System.out.println("---------");
-        Collections.sort(pesos);
+        minVeces = minPeso;
     }
 
     public int siguientePieza(){
-        //Peso entre 0 y 1
-        double prob = Math.random();
-        System.out.println("Aquí: " + prob);
-        for(PesoPieza p: pesos){
 
-            if(p.getPeso() >= prob){
-                System.out.println("Peso: " + p.getPeso());
-                return p.getTipoPieza();
+        List<PesoPieza> candidatos = new ArrayList<>();
+        for(PesoPieza p: pesos){
+            if(Math.abs(p.getPeso() - minVeces) < 3){
+                candidatos.add(p);
             }
         }
-        return pesos.size()-1;
+        Random r = new Random();
+        int n = r.nextInt(candidatos.size());
+        candidatos.get(n).aumentarPeso();
+
+        return candidatos.get(n).getTipoPieza();
     }
 
     /*private int cogerColor(int x) {

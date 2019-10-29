@@ -141,6 +141,8 @@ public class Ventana extends View {
                         return Color.MAGENTA;
                     case 6:
                         return Color.YELLOW;
+                    case 7:
+                        return Color.BLACK;
                     default:
                         break;
                 }
@@ -161,6 +163,8 @@ public class Ventana extends View {
                         return Color.YELLOW;
                     case 6:
                         return Color.RED;
+                    case 7:
+                        return Color.BLACK;
                     default:
                         break;
                 }
@@ -181,6 +185,8 @@ public class Ventana extends View {
                         return Color.GRAY;
                     case 6:
                         return Color.CYAN;
+                    case 7:
+                        return Color.BLACK;
                     default:
                         break;
                 }
@@ -195,6 +201,8 @@ public class Ventana extends View {
                     case 5:
                     case 6:
                         return Color.YELLOW;
+                    case 7:
+                        return Color.BLACK;
                     default:
                         break;
                 }
