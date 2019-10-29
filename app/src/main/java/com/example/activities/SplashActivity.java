@@ -16,7 +16,7 @@ public class SplashActivity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_splash);
-        int duracionSplash = 1000;
+        int duracionSplash = 3000;
         new Handler().postDelayed(() -> {
             Intent intent = new Intent(SplashActivity.this, Settings.class);
             startActivity(intent);
