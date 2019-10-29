@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         nombreJug.setText("Jugador: " + nombreJugador);
         cronometro = new Cronometro("CuentaAtras", textView);
         Thread c = new Thread(cronometro);
-        ventana = new Ventana(this);
+        ventana = new Ventana(this, tipoPieza);
         RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
         ventana.setLayoutParams(params1);
         RelativeLayout relativeSteinAnzeige = findViewById(R.id.relativelayout1);

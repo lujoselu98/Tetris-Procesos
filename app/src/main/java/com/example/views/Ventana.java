@@ -18,12 +18,14 @@ public class Ventana extends View {
     private TableroTetris t;
     private int rows = 20;
     private int cols = 10;
+    private String tipoPieza;
 
 
-    public Ventana(Context context) {
+    public Ventana(Context context, String tipo) {
 
         super(context);
         arrayListPiezas = new ArrayList<>();
+        tipoPieza = tipo;
     }
 
     @Override
@@ -47,7 +49,7 @@ public class Ventana extends View {
                 canvas.drawRect(cuadradoPieza, paint);
                 // fill
                 paint.setStyle(Paint.Style.FILL);
-                paint.setColor(codigoAColor(actual.getColor()));
+                paint.setColor(cogerColor(actual.getColor()));
                 canvas.drawRect(cuadradoPieza, paint);
             }
         }
@@ -66,7 +68,7 @@ public class Ventana extends View {
                         canvas.drawRect(cuadradoPieza, paint);
                         // fill
                         paint.setStyle(Paint.Style.FILL);
-                        paint.setColor(codigoAColor(bloque.getColor()));
+                        paint.setColor(this.cogerColor(bloque.getColor()));
                         canvas.drawRect(cuadradoPieza, paint);
 
 
@@ -119,6 +121,96 @@ public class Ventana extends View {
             default:
                 return Color.GRAY;
         }
+    }
+
+    private int cogerColor(int x) {
+        switch (this.tipoPieza) {
+            case "Tipo 1":
+                switch (x) {
+                    case 0:
+                        return Color.CYAN;
+                    case 1:
+                        return Color.rgb(254, 139, 9);
+                    case 2:
+                        return Color.BLUE;
+                    case 3:
+                        return Color.RED;
+                    case 4:
+                        return Color.GREEN;
+                    case 5:
+                        return Color.MAGENTA;
+                    case 6:
+                        return Color.YELLOW;
+                    case 7:
+                        return Color.BLACK;
+                    default:
+                        break;
+                }
+                break;
+            case "Tipo 2":
+                switch (x) {
+                    case 0:
+                        return Color.CYAN;
+                    case 1:
+                        return Color.GREEN;
+                    case 2:
+                        return Color.BLUE;
+                    case 3:
+                        return Color.MAGENTA;
+                    case 4:
+                        return Color.rgb(254, 139, 9);
+                    case 5:
+                        return Color.YELLOW;
+                    case 6:
+                        return Color.RED;
+                    case 7:
+                        return Color.BLACK;
+                    default:
+                        break;
+                }
+                break;
+            case "Tipo 3":
+                switch (x) {
+                    case 0:
+                        return Color.RED;
+                    case 1:
+                        return Color.YELLOW;
+                    case 2:
+                        return Color.MAGENTA;
+                    case 3:
+                        return Color.GREEN;
+                    case 4:
+                        return Color.BLUE;
+                    case 5:
+                        return Color.GRAY;
+                    case 6:
+                        return Color.CYAN;
+                    case 7:
+                        return Color.BLACK;
+                    default:
+                        break;
+                }
+                break;
+            case "Color Único":
+                switch (x) {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                        return Color.YELLOW;
+                    case 7:
+                        return Color.BLACK;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        return -1;
     }
 }
 
