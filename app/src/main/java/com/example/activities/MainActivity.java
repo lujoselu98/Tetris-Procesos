@@ -2,6 +2,7 @@ package com.example.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -40,12 +41,18 @@ public class MainActivity extends AppCompatActivity {
     private String nombreJugador;
     private FirebaseFirestore db;
     private Intent intent;
+    private MediaPlayer mediaPlayer;
+    private int positionMediaPlayer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            mediaPlayer = MediaPlayer.create(this,R.raw.korobeiniki);
+        } catch (Exception e) {e.printStackTrace();}
 
         conexionBaseDatos();
         setContentView(R.layout.activity_juego);
@@ -112,10 +119,14 @@ public class MainActivity extends AppCompatActivity {
                     h.setPuedoMover(false);
                     cronometro.pause();
                     pause.setText("Resume");
+                    positionMediaPlayer=mediaPlayer.getCurrentPosition();
+                    mediaPlayer.pause();
                 } else {
                     h.setPuedoMover(true);
                     cronometro.reanudar();
                     pause.setText("Pause");
+                    mediaPlayer.seekTo(positionMediaPlayer);
+                    mediaPlayer.start();
                 }
             }
 
@@ -295,5 +306,9 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean getModoFantasia() {
         return modoFantasia;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

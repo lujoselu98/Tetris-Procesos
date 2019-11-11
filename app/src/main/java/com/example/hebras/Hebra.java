@@ -49,6 +49,8 @@ public class Hebra extends Thread {
 
     @Override
     public void run() {
+        mainActivity.getMediaPlayer().start();
+        mainActivity.getMediaPlayer().setLooping(true);
         while (!finPartida) {
             while (puedoMover) {
                 if (this.mainActivity.getModoSegundaPieza() && cronometro.getSegundos() % 30 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
@@ -68,6 +70,7 @@ public class Hebra extends Thread {
                     this.finPartida = true;
                     cronometro.setFinPartida();
                     puedoMover = false;
+                    this.mainActivity.getMediaPlayer().pause();
                 }
                 try {
 
