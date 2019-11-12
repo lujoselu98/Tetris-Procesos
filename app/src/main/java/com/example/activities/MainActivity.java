@@ -3,6 +3,7 @@ package com.example.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -43,16 +45,20 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     private MediaPlayer mediaPlayer;
     private int positionMediaPlayer;
+    private int cancion = 1;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediaPlayer = new MediaPlayer();
 
-        try {
-            mediaPlayer = MediaPlayer.create(this,R.raw.korobeiniki);
-        } catch (Exception e) {e.printStackTrace();}
+        /*try {
+            mediaPlayer = MediaPlayer.create(this, R.raw.korobeiniki);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
 
         conexionBaseDatos();
         setContentView(R.layout.activity_juego);
@@ -119,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     h.setPuedoMover(false);
                     cronometro.pause();
                     pause.setText("Resume");
-                    positionMediaPlayer=mediaPlayer.getCurrentPosition();
+                    positionMediaPlayer = mediaPlayer.getCurrentPosition();
                     mediaPlayer.pause();
                 } else {
                     h.setPuedoMover(true);
@@ -310,5 +316,27 @@ public class MainActivity extends AppCompatActivity {
 
     public MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    public void cambiarCancion() throws IOException {
+        mediaPlayer.reset();
+        switch (cancion) {
+            case 1:
+                mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.tetris/"+R.raw.korobeiniki));
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            default:
+
+                break;
+
+        }
+
     }
 }
