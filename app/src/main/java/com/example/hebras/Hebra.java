@@ -99,14 +99,14 @@ public class Hebra extends Thread {
 
                 }
 
-                /*if (cronometro.getSegundos() % 20 == 0 && cronometro.getSegundos() != 0 && segMusica != cronometro.getSegundos()) {
+                if (cronometro.getSegundos() % 20 == 0 && cronometro.getSegundos() != 0 && segMusica != cronometro.getSegundos()) {
                     segMusica = cronometro.getSegundos();
                     try {
                         mainActivity.cambiarCancion();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }*/
+                }
             }
         }
         mainActivity.gameOver();

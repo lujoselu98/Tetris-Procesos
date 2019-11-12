@@ -25,6 +25,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     private MediaPlayer mediaPlayer;
     private int positionMediaPlayer;
-    private int cancion = 1;
+    private int cancion = 0;
+    private ArrayList canciones = new ArrayList();
+    private int[] tiempos = new int[3];
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -53,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mediaPlayer = new MediaPlayer();
-
+        canciones.add(R.raw.korobeiniki);
+        canciones.add(R.raw.thriller);
+        canciones.add(R.raw.livinonaprayer);
+        for (int i = 0; i < tiempos.length; i++) {
+            tiempos[i] = 0;
+        }
         /*try {
             mediaPlayer = MediaPlayer.create(this, R.raw.korobeiniki);
         } catch (Exception e) {
@@ -319,24 +327,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cambiarCancion() throws IOException {
-        mediaPlayer.reset();
-        switch (cancion) {
-            case 1:
-                mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.tetris/"+R.raw.korobeiniki));
-                mediaPlayer.prepare();
-                mediaPlayer.start();
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            default:
-
-                break;
-
+        if (cancion == 0) {
+            tiempos[2] = mediaPlayer.getCurrentPosition();
+        } else {
+            tiempos[cancion - 1] = mediaPlayer.getCurrentPosition();
         }
-
+        mediaPlayer.reset();
+        mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.tetris/" + canciones.get(cancion)));
+        mediaPlayer.prepare();
+        mediaPlayer.seekTo(tiempos[cancion]);
+        mediaPlayer.start();
+        cancion++;
+        cancion = cancion % 3;
     }
 }
