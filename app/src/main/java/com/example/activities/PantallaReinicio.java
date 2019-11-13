@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -100,6 +101,7 @@ public class PantallaReinicio extends AppCompatActivity {
         System.out.println("VOY A IMPRIMIR EL LISTADO");
         System.out.println(listado.toString());
         adaptador.notifyDataSetChanged();
+        int puntuacion = datos.getInt("puntosJugador");
         //System.out.println(arrayNombres.toString());
         //System.out.println(arrayPuntuaciones.toString());
         //System.out.println(jugadores.toString());
@@ -117,6 +119,9 @@ public class PantallaReinicio extends AppCompatActivity {
 
 
         Button buttonReinicio = findViewById(R.id.activity_main_button_restart);
+        if(puntuacion < 250){
+            buttonReinicio.setVisibility(View.GONE);
+        }
         if (buttonReinicio != null) {
             (findViewById(R.id.activity_main_button_restart)).setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
