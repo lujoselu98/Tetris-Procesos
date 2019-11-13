@@ -95,7 +95,7 @@ tools:context=".MainActivity"
             android:orientation="vertical">
 
             <include layout="@layout/button_rotate_left" />
-            <include layout="@layout/button_rotate_right" />
+            <include layout="@layout/button_cambiar_pieza" />
 
         </LinearLayout>
 
