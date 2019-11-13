@@ -45,4 +45,8 @@ public class Pieza4x4 extends Pieza{
             rotarDcha();
         }
     }
+
+    public Pieza clonar(){
+        return null;
+    }
 }

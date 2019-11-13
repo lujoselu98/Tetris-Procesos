@@ -43,4 +43,9 @@ public class Controls {
         hebra.getTetris().rotarIzqda(pieza);
         hebra.getVentana().invalidate();
     }
+
+    public void cambiarPieza(){
+
+        hebra.getTetris().cambiarPieza();
+    }
 }

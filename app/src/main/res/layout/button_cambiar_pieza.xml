@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ImageButton xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/button_rotate_left"
+    android:id="@+id/button_cambiar_pieza"
     style="@android:style/Widget.ImageWell"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -9,4 +9,4 @@
     android:focusable="true"
     android:contentDescription="@string/button_rotate_left_description"
     android:scaleType="centerInside"
-    android:src="@drawable/button_rotate_left"/>
+    android:src="@drawable/button_cambiar_pieza"/>

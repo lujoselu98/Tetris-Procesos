@@ -10,4 +10,8 @@ public class PiezaI extends Pieza4x4 { //El palo
         forma[1][2].activar();
         forma[1][3].activar();
     }
+
+    public Pieza clonar(){
+        return new PiezaI(this.id, this.color, 0);
+    }
 }

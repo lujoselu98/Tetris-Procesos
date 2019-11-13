@@ -11,4 +11,8 @@ public class PiezaLI extends Pieza3x3{ //L inversa
         forma[2][1].activar();
         forma[2][0].activar();
     }
+
+    public Pieza clonar(){
+        return new PiezaLI(this.id, this.color, 0);
+    }
 }
