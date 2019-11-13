@@ -26,6 +26,7 @@ public class TableroTetris extends AppCompatActivity {
     private int columnas = 10;
     private int filas = 20;
     private int eliminateRows = 0;
+    private boolean seHaCambiado;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
     private boolean modoFantasia = true;
 
@@ -35,6 +36,7 @@ public class TableroTetris extends AppCompatActivity {
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
+        seHaCambiado = false;
         this.mainActivity = mainActivity;
         this.ventana = v;
         for (int i = 0; i < filas; i++) {
@@ -143,6 +145,7 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     private void posarPiezaActual(Pieza pieza) {
+        seHaCambiado = false;
         int filaMayor = 0;
         int filaMenor = filas - 1;
         List<Bloque> bloques = pieza.bloquesActivos();
@@ -283,10 +286,13 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void cambiarPieza(){
-        ventana.borrarPieza(piezaActual);
-        Pieza aux = piezaActual.clonar();
-        piezaActual = piezaSiguiente;
-        piezaSiguiente = aux;
-        ventana.setPieza(piezaActual);
+        if(!seHaCambiado) {
+            seHaCambiado = true;
+            ventana.borrarPieza(piezaActual);
+            Pieza aux = piezaActual.clonar();
+            piezaActual = piezaSiguiente;
+            piezaSiguiente = aux;
+            ventana.setPieza(piezaActual);
+        }
     }
 }

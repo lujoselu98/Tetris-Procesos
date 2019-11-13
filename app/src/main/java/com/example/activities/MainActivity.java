@@ -223,9 +223,9 @@ public class MainActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     controls.cambiarPieza();
 
-                    (findViewById(R.id.button_rotate_left)).setPressed(true);
+                    (findViewById(R.id.button_cambiar_pieza)).setPressed(true);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    (findViewById(R.id.button_rotate_left)).setPressed(false);
+                    (findViewById(R.id.button_cambiar_pieza)).setPressed(false);
                 }
 
                 return true;
