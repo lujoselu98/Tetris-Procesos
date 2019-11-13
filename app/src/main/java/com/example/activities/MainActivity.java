@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Lectura de Datos de la Ventana de Configuración
 
-        intent = new Intent(this, PantallaReinicio.class);
+        intent = new Intent(this, CameraActivity.class);
 
         Bundle datos = this.getIntent().getExtras();
         assert datos != null;
