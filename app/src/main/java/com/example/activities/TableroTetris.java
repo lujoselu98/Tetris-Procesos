@@ -1,7 +1,6 @@
 package com.example.activities;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +9,7 @@ import com.example.views.Ventana;
 import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -28,7 +28,7 @@ public class TableroTetris extends AppCompatActivity {
     private int eliminateRows = 0;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
     private boolean modoFantasia;
-    private boolean modoQuirk = false;
+    private boolean modoQuirk = true;
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia) {
@@ -167,14 +167,131 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     private void borrarColores() {
-        int color = -1;
-        for (Bloque[] fila : tablero) {
-            for (Bloque b : fila) {
+        int color;
+        int n, m = 0;
+        HashSet<Bloque> bloques = new HashSet<Bloque>();
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Bloque b = tablero[i][j];
                 if (b.isActivo()) {
+                    bloques.clear();
                     color = b.getColor();
+                    bloques.add(b);
+//                    bloques.addAll(comprobarAdyacentes(color,i,j));
+                    bloques.addAll(comprobarAdyacentesC1(color, i, j));
+                    bloques.addAll(comprobarAdyacentesC2(color, i, j));
+                    bloques.addAll(comprobarAdyacentesC3(color, i, j));
+                    bloques.addAll(comprobarAdyacentesC4(color, i, j));
+                    if (bloques.size() >= 5) {
+                        for (Bloque bloque : bloques) {
+                            bloque.desactivar();
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private HashSet<Bloque> comprobarAdyacentes(int color, int i, int j) {
+        HashSet<Bloque> aux = new HashSet<>();
+        HashSet<Bloque> bloques;
+        if (i < filas - 1) {
+            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
+                aux.add(tablero[i + 1][j]);
+                bloques = comprobarAdyacentes(color, i + 1, j);
+                aux.addAll(bloques);
+            }
+        }
+        if (j < columnas - 1) {
+            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
+                aux.add(tablero[i][j + 1]);
+                bloques = comprobarAdyacentes(color, i, j + 1);
+                aux.addAll(bloques);
+            }
+        }
+        if (i > 1) {
+            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
+                aux.add(tablero[i - 1][j]);
+                bloques = comprobarAdyacentes(color, i - 1, j);
+                aux.addAll(bloques);
+            }
+        }
+        if (j > 1) {
+            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
+                aux.add(tablero[i][j - 1]);
+                bloques = comprobarAdyacentes(color, i, j - 1);
+                aux.addAll(bloques);
+            }
+        }
+        return aux;
+    }
+
+    private HashSet<Bloque> comprobarAdyacentesC1(int color, int i, int j) {
+        HashSet<Bloque> aux = new HashSet<>();
+        if (i < filas - 1) {
+            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
+                aux.add(tablero[i + 1][j]);
+                aux.addAll(comprobarAdyacentesC1(color, i + 1, j));
+            }
+        }
+        if (j > 1) {
+            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
+                aux.add(tablero[i][j - 1]);
+                aux.addAll(comprobarAdyacentesC1(color, i, j - 1));
+            }
+        }
+        return aux;
+    }
+
+    private HashSet<Bloque> comprobarAdyacentesC2(int color, int i, int j) {
+        HashSet<Bloque> aux = new HashSet<>();
+        if (i < filas - 1) {
+            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
+                aux.add(tablero[i + 1][j]);
+                aux.addAll(comprobarAdyacentesC2(color, i + 1, j));
+            }
+        }
+        if (j < columnas - 1) {
+            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
+                aux.add(tablero[i][j + 1]);
+                aux.addAll(comprobarAdyacentesC2(color, i, j + 1));
+            }
+        }
+        return aux;
+    }
+
+    private HashSet<Bloque> comprobarAdyacentesC3(int color, int i, int j) {
+        HashSet<Bloque> aux = new HashSet<>();
+        if (i > 1) {
+            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
+                aux.add(tablero[i - 1][j]);
+                aux.addAll(comprobarAdyacentesC3(color, i - 1, j));
+            }
+        }
+        if (j < columnas - 1) {
+            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
+                aux.add(tablero[i][j + 1]);
+                aux.addAll(comprobarAdyacentesC3(color, i, j + 1));
+            }
+        }
+        return aux;
+    }
+
+    private HashSet<Bloque> comprobarAdyacentesC4(int color, int i, int j) {
+        HashSet<Bloque> aux = new HashSet<>();
+        if (i > 1) {
+            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
+                aux.add(tablero[i - 1][j]);
+                aux.addAll(comprobarAdyacentesC4(color, i - 1, j));
+            }
+        }
+        if (j > 1) {
+            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
+                aux.add(tablero[i][j - 1]);
+                aux.addAll(comprobarAdyacentesC4(color, i, j - 1));
+            }
+        }
+        return aux;
     }
 
     public Pieza getPiezaActual() {

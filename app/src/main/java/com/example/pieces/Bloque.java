@@ -62,4 +62,9 @@ public class Bloque {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public void desactivar() {
+        this.activo = false;
+        this.color = -1;
+    }
 }
