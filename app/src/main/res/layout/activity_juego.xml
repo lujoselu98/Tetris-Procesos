@@ -92,9 +92,10 @@ tools:context=".MainActivity"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <include layout="@layout/button_rotate_left" />
+            <include layout="@layout/button_rotate_right" />
 
         </LinearLayout>
 
