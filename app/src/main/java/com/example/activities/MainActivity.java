@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("puntuacion" + i, (long) document.getData().get("puntuacion"));
                             i++;
                         }
-                        intent.putExtra("longArray", i);
+                        intent.putExtra("puntosJugador",puntuacion);
                         comenzarActividad();
 
                     }  //Log.w(TAG, "Error getting documents.", task.getException());
