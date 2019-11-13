@@ -27,10 +27,11 @@ public class TableroTetris extends AppCompatActivity {
     private int filas = 20;
     private int eliminateRows = 0;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
-    private boolean modoFantasia = true;
+    private boolean modoFantasia;
+    private boolean modoQuirk = false;
 
     @SuppressLint("ResourceType")
-    public TableroTetris(MainActivity mainActivity, Ventana v,boolean modoFantasia) {
+    public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
@@ -158,7 +159,22 @@ public class TableroTetris extends AppCompatActivity {
                 filaMenor = pos[0];
             }
         }
-        borrarLineas(filaMayor, filaMenor);
+        if (modoQuirk) {
+            borrarColores();
+        } else {
+            borrarLineas(filaMayor, filaMenor);
+        }
+    }
+
+    private void borrarColores() {
+        int color = -1;
+        for (Bloque[] fila : tablero) {
+            for (Bloque b : fila) {
+                if (b.isActivo()) {
+                    color = b.getColor();
+                }
+            }
+        }
     }
 
     public Pieza getPiezaActual() {
@@ -206,9 +222,9 @@ public class TableroTetris extends AppCompatActivity {
             }
         }
 
-        if(modoFantasia && contadorFilasLlenas == 1){
+        if (modoFantasia && contadorFilasLlenas == 1) {
             cambiarBloquesaMismoColor();
-        }else if(modoFantasia && contadorFilasLlenas > 1){
+        } else if (modoFantasia && contadorFilasLlenas > 1) {
             cambiarBloquesColorRandom();
         }
 
@@ -263,22 +279,22 @@ public class TableroTetris extends AppCompatActivity {
         return filas;
     }
 
-    public void cambiarBloquesaMismoColor(){
+    public void cambiarBloquesaMismoColor() {
         //Cambiamos al color de la pieza actual
         int color = piezaActual.getColor();
-        for (int i = 0; i < filas ; i++) {
-            for (int j = 0; j < columnas ; j++) {
-                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (tablero[i][j].isActivo()) tablero[i][j].setColor(color);
             }
         }
     }
 
-    public void cambiarBloquesColorRandom(){
+    public void cambiarBloquesColorRandom() {
         Random r = new Random();
-        for (int i = 0; i < filas ; i++) {
-            for (int j = 0; j < columnas ; j++) {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
                 int color = r.nextInt(7);
-                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+                if (tablero[i][j].isActivo()) tablero[i][j].setColor(color);
             }
         }
     }
