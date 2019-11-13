@@ -2,12 +2,16 @@ package com.example.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -100,23 +104,19 @@ public class PantallaReinicio extends AppCompatActivity {
         System.out.println("VOY A IMPRIMIR EL LISTADO");
         System.out.println(listado.toString());
         adaptador.notifyDataSetChanged();
-        //System.out.println(arrayNombres.toString());
-        //System.out.println(arrayPuntuaciones.toString());
-        //System.out.println(jugadores.toString());
+        Integer puntuacion = datos.getInt("puntosJugador");
+        Bitmap foto = (Bitmap) datos.get("fotoUsuario");
+        ImageView fotoJugador = findViewById(R.id.fotoUsuario);
+        fotoJugador.setImageBitmap(foto);
+        TextView puntuacionJugador = findViewById(R.id.puntuacionJugador);
+        String puntosJug = Integer.toString(puntuacion);
 
-        /*TextView puntos = (TextView) findViewById(R.id.historialPuntuaciones);
-        puntos.setText(jugadores.toString());*/
-       /* for (int i = 0; i < arrayNombres.length; i++) {
-            System.out.println(arrayNombres[i]);
-            if(arrayNombres[i]==null){
-                puntos.setText("ANONIMO");
-            }else
-                puntos.setText(arrayNombres[i]);
-        }*/
-        //puntos.setText(arrayNombres.toString()+" "+arrayPuntuaciones.toString());
-
+        puntuacionJugador.setText(puntosJug);
 
         Button buttonReinicio = findViewById(R.id.activity_main_button_restart);
+        if(puntuacion < 250){
+            buttonReinicio.setVisibility(View.GONE);
+        }
         if (buttonReinicio != null) {
             (findViewById(R.id.activity_main_button_restart)).setOnTouchListener((view, event) -> {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
