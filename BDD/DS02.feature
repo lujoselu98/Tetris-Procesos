@@ -3,8 +3,9 @@ Feature: New random piece
    Every 30 seconds a new piece appears on the board that goes down at a higher speed.
 
    Scenario: Choose play mode
-   Given We start the aplication
-   When We see the configuration screen
-   And Choose new piece mode
-   Then We play the game 
-   And Every 30 seconds a new piece appears
+   Given User start the aplication
+   When User see the configuration screen
+   And User choose new piece mode
+   Then User play the game 
+   And New piece appears every 30 seconds
+

@@ -14,6 +14,8 @@ import com.example.pieces.PiezaZI;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CreadorPiezas {
@@ -21,6 +23,9 @@ public class CreadorPiezas {
     private int contadorPiezas;
     private final MainActivity mainActivity;
     private static Random r;
+    private List<PesoPieza> pesos;
+    private final double numPiezas = 7;
+    private int minVeces = 0; //Para saber cuantas veces ha salido la pieza que menos veces a salido
 
     static {
         try {
@@ -33,16 +38,48 @@ public class CreadorPiezas {
     public CreadorPiezas(MainActivity mainActivity) {
         contadorPiezas = 1;
         this.mainActivity = mainActivity;
+        pesos = new ArrayList<>();
+        System.out.println("El valor es:" + (double)1/7);
+        for(int i=1; i<=numPiezas; i++){
+            int tipo = i-1;
+            pesos.add(new PesoPieza(0, tipo));
+            System.out.println("Pieza " +i+ " con peso"+0);
+        }
     }
 
 
     public Pieza crearPieza(int rows) {
-        int n = r.nextInt(7);
-
+        int n = siguientePieza();
+        actualizarMin();
         return crearPieza(n, n, rows);
     }
 
-    private int cogerColor(int x) {
+    private void actualizarMin(){
+        int minPeso = pesos.get(0).getPeso();
+        for(PesoPieza p: pesos){
+            if(p.getPeso() < minPeso){
+                minPeso = p.getPeso();
+            }
+        }
+        minVeces = minPeso;
+    }
+
+    public int siguientePieza(){
+
+        List<PesoPieza> candidatos = new ArrayList<>();
+        for(PesoPieza p: pesos){
+            if(Math.abs(p.getPeso() - minVeces) < 3){
+                candidatos.add(p);
+            }
+        }
+        Random r = new Random();
+        int n = r.nextInt(candidatos.size());
+        candidatos.get(n).aumentarPeso();
+
+        return candidatos.get(n).getTipoPieza();
+    }
+
+    /*private int cogerColor(int x) {
         switch (this.mainActivity.getTipoPieza()) {
             case "Tipo 1":
                 switch (x) {
@@ -122,7 +159,7 @@ public class CreadorPiezas {
                 break;
         }
         return -1;
-    }
+    }*/
 
 
     private Pieza crearPieza(int x, int color, int rows) {

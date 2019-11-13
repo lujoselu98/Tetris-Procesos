@@ -2,7 +2,8 @@ Feature: The feedback about the game
 
    There is the option that users can give their opinion about the game.
 
-   Scenario The feedback about the game
-   Given The game ends
-   When  We see the end game screen
-   Then There is a way to express opinion
+   Scenario Feedback about the game
+   Given User start the aplication
+   And User start the game 
+   When User lose the game
+   Then User can give feedback and its register for posterior analysis

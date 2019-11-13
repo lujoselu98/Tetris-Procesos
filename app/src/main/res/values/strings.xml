@@ -97,5 +97,6 @@
 <string name="pref_category_velocity">VELOCIDAD</string>
 <string name="pref_category_layout">LAYOUT</string>
 
-
+<string name="photo_button">Sacar foto</string>
+<string name="photo_description">Foto sacada al perder</string>
     </resources>

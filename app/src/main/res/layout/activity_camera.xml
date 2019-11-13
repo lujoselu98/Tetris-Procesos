@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/pantallajugar2"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:gravity="center"
+        android:layout_marginTop="30sp"
+        android:textStyle="bold"
+        android:text="HAZTE UNA FOTO!!! ES OBLIGATORIO JEJEJE"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/pantallaJugar"
+        android:textSize="30dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20sp"
+        android:layout_height="400dp"
+        android:contentDescription="@string/photo_description"
+        android:src="@drawable/photo_image" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+
+            <Button
+                android:id="@+id/button"
+                style="@android:style/Widget.ImageWell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/photo_button"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/pantallaJugar"
+                android:textColorHint="@color/pantallaJugar"
+                android:textSize="50dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+
+            <Button
+                android:id="@+id/botonContinuar"
+                style="@android:style/Widget.ImageWell"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Continuar"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/pantallaJugar"
+                android:textColorHint="@color/pantallaJugar"
+                android:textSize="50dp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

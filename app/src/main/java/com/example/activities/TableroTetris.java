@@ -31,12 +31,13 @@ public class TableroTetris extends AppCompatActivity {
     private boolean modoFantasia = true;
 
     @SuppressLint("ResourceType")
-    public TableroTetris(MainActivity mainActivity, Ventana v) {
+    public TableroTetris(MainActivity mainActivity, Ventana v,boolean modoFantasia) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         seHaCambiado = false;
+        this.modoFantasia = modoFantasia;
         this.mainActivity = mainActivity;
         this.ventana = v;
         for (int i = 0; i < filas; i++) {
@@ -256,7 +257,7 @@ public class TableroTetris extends AppCompatActivity {
         eliminateRows++;
         for (int i = 0; i < 2 * eliminateRows; i++) {
             for (int j = 0; j < this.columnas; j++) {
-                tablero[i][j].setColor(Color.BLACK);
+                tablero[i][j].setColor(7);
             }
         }
     }

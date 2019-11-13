@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Lectura de Datos de la Ventana de Configuración
 
-        intent = new Intent(this, PantallaReinicio.class);
+        intent = new Intent(this, CameraActivity.class);
 
         Bundle datos = this.getIntent().getExtras();
         assert datos != null;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         nombreJug.setText("Jugador: " + nombreJugador);
         cronometro = new Cronometro("CuentaAtras", textView);
         Thread c = new Thread(cronometro);
-        ventana = new Ventana(this);
+        ventana = new Ventana(this, tipoPieza);
         RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams(R.id.relativelayout1, R.id.relativelayout1);
         ventana.setLayoutParams(params1);
         RelativeLayout relativeSteinAnzeige = findViewById(R.id.relativelayout1);
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("puntuacion" + i, (long) document.getData().get("puntuacion"));
                             i++;
                         }
-                        intent.putExtra("longArray", i);
+                        intent.putExtra("puntosJugador",puntuacion);
                         comenzarActividad();
 
                     }  //Log.w(TAG, "Error getting documents.", task.getException());
@@ -306,5 +306,9 @@ public class MainActivity extends AppCompatActivity {
 
     public Hebra getH() {
         return h;
+    }
+
+    public boolean getModoFantasia() {
+        return modoFantasia;
     }
 }
