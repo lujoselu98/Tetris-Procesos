@@ -216,6 +216,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             });
         }
+
+        ImageButton buttonCambiarPieza = findViewById(R.id.button_cambiar_pieza);
+        if (buttonCambiarPieza != null) {
+            (findViewById(R.id.button_cambiar_pieza)).setOnTouchListener((view, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    controls.cambiarPieza();
+
+                    (findViewById(R.id.button_rotate_left)).setPressed(true);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    (findViewById(R.id.button_rotate_left)).setPressed(false);
+                }
+
+                return true;
+            });
+        }
     }
 
     public boolean getModoReduccion() {

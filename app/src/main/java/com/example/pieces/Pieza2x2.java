@@ -27,4 +27,8 @@ public class Pieza2x2 extends Pieza {
     @Override
     public void rotarIzqda(){ //No rotan
     }
+
+    public Pieza clonar(){
+        return null;
+    }
 }
