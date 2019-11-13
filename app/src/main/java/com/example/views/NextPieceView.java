@@ -1,11 +1,10 @@
-package com.example.activities;
+package com.example.views;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.example.activities.R;
@@ -19,24 +18,20 @@ import com.example.pieces.PiezaT;
 import com.example.pieces.PiezaZ;
 import com.example.pieces.PiezaZI;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 /*
 paint next Piece on Screen
  */
 
 public class NextPieceView extends View {
 
-   private TableroTetris tetris;
-   private Pieza piezaSig;
-    private Bitmap squarePiece = BitmapFactory.decodeResource(getResources(), R.drawable.cuadrado);
-    private Bitmap tPiece = BitmapFactory.decodeResource(getResources(), R.drawable.t);
-    private Bitmap zPiece = BitmapFactory.decodeResource(getResources(), R.drawable.z);
-    private Bitmap sPiece = BitmapFactory.decodeResource(getResources(), R.drawable.s);
-    private Bitmap jPiece = BitmapFactory.decodeResource(getResources(), R.drawable.l_invertida);
-    private Bitmap lPiece = BitmapFactory.decodeResource(getResources(), R.drawable.l);
-    private Bitmap iPiece = BitmapFactory.decodeResource(getResources(), R.drawable.i);
+   private final TableroTetris tetris;
+    private final Bitmap squarePiece = BitmapFactory.decodeResource(getResources(), R.drawable.cuadrado);
+    private final Bitmap tPiece = BitmapFactory.decodeResource(getResources(), R.drawable.t);
+    private final Bitmap zPiece = BitmapFactory.decodeResource(getResources(), R.drawable.z);
+    private final Bitmap sPiece = BitmapFactory.decodeResource(getResources(), R.drawable.s);
+    private final Bitmap jPiece = BitmapFactory.decodeResource(getResources(), R.drawable.l_invertida);
+    private final Bitmap lPiece = BitmapFactory.decodeResource(getResources(), R.drawable.l);
+    private final Bitmap iPiece = BitmapFactory.decodeResource(getResources(), R.drawable.i);
 
     public NextPieceView(Context context, TableroTetris tetris) {
         super(context);
@@ -48,7 +43,7 @@ public class NextPieceView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Paint p = new Paint();
-        piezaSig = tetris.getPiezaSig();
+        Pieza piezaSig = tetris.getPiezaSig();
         if(piezaSig instanceof PiezaC){
             canvas.drawBitmap(squarePiece, 0, 0, p);
         }else if(piezaSig instanceof PiezaI){

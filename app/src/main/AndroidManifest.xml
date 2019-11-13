@@ -17,10 +17,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Hebra">
+        <activity android:name="com.example.hebras.Hebra">
         </activity>
 
         <activity android:name=".PantallaReinicio">
+
+
+        </activity>
+        <activity android:name=".Settings">
+
+
         </activity>
 
         <activity android:name=".SplashActivity">
@@ -30,6 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

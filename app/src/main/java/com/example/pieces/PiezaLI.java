@@ -1,11 +1,9 @@
 package com.example.pieces;
 
-import android.graphics.Color;
-
 public class PiezaLI extends Pieza3x3{ //L inversa
 
-    public PiezaLI(int id, int color){
-        super(id, color);
+    public PiezaLI(int id, int color, int rows){
+        super(id, color,rows);
 
         //Colocar las piezas
         forma[0][1].activar();
