@@ -22,8 +22,8 @@ public class CameraActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acticity_camera);
-        this.imageView = (ImageView) this.findViewById(R.id.imageView1);
-        Button photoButton = (Button) this.findViewById(R.id.button1);
+        this.imageView = (ImageView) this.findViewById(R.id.imageView);
+        Button photoButton = (Button) this.findViewById(R.id.button);
         photoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
