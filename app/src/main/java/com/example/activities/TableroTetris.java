@@ -283,6 +283,7 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void cambiarPieza(){
+        ventana.borrarPieza(piezaActual);
         Pieza aux = piezaActual.clonar();
         piezaActual = piezaSiguiente;
         piezaSiguiente = aux;
