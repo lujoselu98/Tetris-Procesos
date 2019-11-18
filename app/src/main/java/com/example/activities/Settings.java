@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -65,6 +66,21 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
         //Nombre Usuario
         EditText nombreUsuario = findViewById(R.id.nombreJugador);
         //BOTON PARA INICIAR PARTIDA
+
+            switchModoLegacy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(switchModoFantasia.isChecked()){
+                        switchModoFantasia.toggle();
+                    }
+                    if(switchModoReduccion.isChecked()){
+                        switchModoReduccion.toggle();
+                    }
+                    if(switchModoSegundaPieza.isChecked()) {
+                        switchModoSegundaPieza.toggle();
+                    }
+                }
+            });
 
         Button botonInicioPartida = findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
