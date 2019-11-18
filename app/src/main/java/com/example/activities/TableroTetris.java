@@ -28,7 +28,8 @@ public class TableroTetris extends AppCompatActivity {
     private int eliminateRows = 0;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
     private boolean modoFantasia;
-    private boolean modoQuirk = true;
+    private boolean modoLegacy = true;
+    private HashSet<Bloque> eliminados = new HashSet<>();
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia) {
@@ -159,7 +160,7 @@ public class TableroTetris extends AppCompatActivity {
                 filaMenor = pos[0];
             }
         }
-        if (modoQuirk) {
+        if (modoLegacy) {
             borrarColores();
         } else {
             borrarLineas(filaMayor, filaMenor);
@@ -169,129 +170,50 @@ public class TableroTetris extends AppCompatActivity {
     private void borrarColores() {
         int color;
         int n, m = 0;
-        HashSet<Bloque> bloques = new HashSet<Bloque>();
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 Bloque b = tablero[i][j];
                 if (b.isActivo()) {
-                    bloques.clear();
+                    eliminados.clear();
                     color = b.getColor();
-                    bloques.add(b);
-//                    bloques.addAll(comprobarAdyacentes(color,i,j));
-                    bloques.addAll(comprobarAdyacentesC1(color, i, j));
-                    bloques.addAll(comprobarAdyacentesC2(color, i, j));
-                    bloques.addAll(comprobarAdyacentesC3(color, i, j));
-                    bloques.addAll(comprobarAdyacentesC4(color, i, j));
-                    if (bloques.size() >= 5) {
-                        for (Bloque bloque : bloques) {
+                    eliminados.add(b);
+                    comprobarAdyacentes(color, i, j);
+                    if (eliminados.size() >= 5) {
+                        for (Bloque bloque : eliminados) {
                             bloque.desactivar();
                         }
+                        mainActivity.sumar_puntuacion(20);
                     }
                 }
             }
         }
     }
 
-    private HashSet<Bloque> comprobarAdyacentes(int color, int i, int j) {
-        HashSet<Bloque> aux = new HashSet<>();
-        HashSet<Bloque> bloques;
+    private void comprobarAdyacentes(int color, int i, int j) {
         if (i < filas - 1) {
-            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
-                aux.add(tablero[i + 1][j]);
-                bloques = comprobarAdyacentes(color, i + 1, j);
-                aux.addAll(bloques);
+            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color && !eliminados.contains(tablero[i + 1][j])) {
+                eliminados.add(tablero[i + 1][j]);
+                comprobarAdyacentes(color, i + 1, j);
             }
         }
         if (j < columnas - 1) {
-            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
-                aux.add(tablero[i][j + 1]);
-                bloques = comprobarAdyacentes(color, i, j + 1);
-                aux.addAll(bloques);
+            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color && !eliminados.contains(tablero[i][j + 1])) {
+                eliminados.add(tablero[i][j + 1]);
+                comprobarAdyacentes(color, i, j + 1);
             }
         }
-        if (i > 1) {
-            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
-                aux.add(tablero[i - 1][j]);
-                bloques = comprobarAdyacentes(color, i - 1, j);
-                aux.addAll(bloques);
+        if (i > 0) {
+            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color && !eliminados.contains(tablero[i - 1][j])) {
+                eliminados.add(tablero[i - 1][j]);
+                comprobarAdyacentes(color, i - 1, j);
             }
         }
-        if (j > 1) {
-            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
-                aux.add(tablero[i][j - 1]);
-                bloques = comprobarAdyacentes(color, i, j - 1);
-                aux.addAll(bloques);
+        if (j > 0) {
+            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color && !eliminados.contains(tablero[i][j - 1])) {
+                eliminados.add(tablero[i][j - 1]);
+                comprobarAdyacentes(color, i, j - 1);
             }
         }
-        return aux;
-    }
-
-    private HashSet<Bloque> comprobarAdyacentesC1(int color, int i, int j) {
-        HashSet<Bloque> aux = new HashSet<>();
-        if (i < filas - 1) {
-            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
-                aux.add(tablero[i + 1][j]);
-                aux.addAll(comprobarAdyacentesC1(color, i + 1, j));
-            }
-        }
-        if (j > 1) {
-            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
-                aux.add(tablero[i][j - 1]);
-                aux.addAll(comprobarAdyacentesC1(color, i, j - 1));
-            }
-        }
-        return aux;
-    }
-
-    private HashSet<Bloque> comprobarAdyacentesC2(int color, int i, int j) {
-        HashSet<Bloque> aux = new HashSet<>();
-        if (i < filas - 1) {
-            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color) {
-                aux.add(tablero[i + 1][j]);
-                aux.addAll(comprobarAdyacentesC2(color, i + 1, j));
-            }
-        }
-        if (j < columnas - 1) {
-            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
-                aux.add(tablero[i][j + 1]);
-                aux.addAll(comprobarAdyacentesC2(color, i, j + 1));
-            }
-        }
-        return aux;
-    }
-
-    private HashSet<Bloque> comprobarAdyacentesC3(int color, int i, int j) {
-        HashSet<Bloque> aux = new HashSet<>();
-        if (i > 1) {
-            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
-                aux.add(tablero[i - 1][j]);
-                aux.addAll(comprobarAdyacentesC3(color, i - 1, j));
-            }
-        }
-        if (j < columnas - 1) {
-            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color) {
-                aux.add(tablero[i][j + 1]);
-                aux.addAll(comprobarAdyacentesC3(color, i, j + 1));
-            }
-        }
-        return aux;
-    }
-
-    private HashSet<Bloque> comprobarAdyacentesC4(int color, int i, int j) {
-        HashSet<Bloque> aux = new HashSet<>();
-        if (i > 1) {
-            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color) {
-                aux.add(tablero[i - 1][j]);
-                aux.addAll(comprobarAdyacentesC4(color, i - 1, j));
-            }
-        }
-        if (j > 1) {
-            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color) {
-                aux.add(tablero[i][j - 1]);
-                aux.addAll(comprobarAdyacentesC4(color, i, j - 1));
-            }
-        }
-        return aux;
     }
 
     public Pieza getPiezaActual() {

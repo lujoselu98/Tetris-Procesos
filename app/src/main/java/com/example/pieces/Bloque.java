@@ -1,5 +1,7 @@
 package com.example.pieces;
 
+import androidx.annotation.Nullable;
+
 import java.util.Arrays;
 
 public class Bloque {
@@ -66,5 +68,10 @@ public class Bloque {
     public void desactivar() {
         this.activo = false;
         this.color = -1;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        return mismaPosicion((Bloque) obj) && ((Bloque) obj).color == this.color && ((Bloque) obj).activo == this.activo && ((Bloque) obj).identificador == this.identificador;
     }
 }
