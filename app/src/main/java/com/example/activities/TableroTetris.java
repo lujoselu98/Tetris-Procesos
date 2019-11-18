@@ -1,7 +1,6 @@
 package com.example.activities;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +9,7 @@ import com.example.views.Ventana;
 import com.example.pieces.Bloque;
 import com.example.pieces.Pieza;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -28,10 +28,12 @@ public class TableroTetris extends AppCompatActivity {
     private int eliminateRows = 0;
     private boolean seHaCambiado;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
-    private boolean modoFantasia = true;
+    private boolean modoFantasia;
+    private boolean modoLegacy = true;
+    private HashSet<Bloque> eliminados = new HashSet<>();
 
     @SuppressLint("ResourceType")
-    public TableroTetris(MainActivity mainActivity, Ventana v,boolean modoFantasia) {
+    public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
@@ -161,7 +163,60 @@ public class TableroTetris extends AppCompatActivity {
                 filaMenor = pos[0];
             }
         }
-        borrarLineas(filaMayor, filaMenor);
+        if (modoLegacy) {
+            borrarColores();
+        } else {
+            borrarLineas(filaMayor, filaMenor);
+        }
+    }
+
+    private void borrarColores() {
+        int color;
+        int n, m = 0;
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Bloque b = tablero[i][j];
+                if (b.isActivo()) {
+                    eliminados.clear();
+                    color = b.getColor();
+                    eliminados.add(b);
+                    comprobarAdyacentes(color, i, j);
+                    if (eliminados.size() >= 5) {
+                        for (Bloque bloque : eliminados) {
+                            bloque.desactivar();
+                        }
+                        mainActivity.sumar_puntuacion(20);
+                    }
+                }
+            }
+        }
+    }
+
+    private void comprobarAdyacentes(int color, int i, int j) {
+        if (i < filas - 1) {
+            if (tablero[i + 1][j].isActivo() && tablero[i + 1][j].getColor() == color && !eliminados.contains(tablero[i + 1][j])) {
+                eliminados.add(tablero[i + 1][j]);
+                comprobarAdyacentes(color, i + 1, j);
+            }
+        }
+        if (j < columnas - 1) {
+            if (tablero[i][j + 1].isActivo() && tablero[i][j + 1].getColor() == color && !eliminados.contains(tablero[i][j + 1])) {
+                eliminados.add(tablero[i][j + 1]);
+                comprobarAdyacentes(color, i, j + 1);
+            }
+        }
+        if (i > 0) {
+            if (tablero[i - 1][j].isActivo() && tablero[i - 1][j].getColor() == color && !eliminados.contains(tablero[i - 1][j])) {
+                eliminados.add(tablero[i - 1][j]);
+                comprobarAdyacentes(color, i - 1, j);
+            }
+        }
+        if (j > 0) {
+            if (tablero[i][j - 1].isActivo() && tablero[i][j - 1].getColor() == color && !eliminados.contains(tablero[i][j - 1])) {
+                eliminados.add(tablero[i][j - 1]);
+                comprobarAdyacentes(color, i, j - 1);
+            }
+        }
     }
 
     public Pieza getPiezaActual() {
@@ -209,9 +264,9 @@ public class TableroTetris extends AppCompatActivity {
             }
         }
 
-        if(modoFantasia && contadorFilasLlenas == 1){
+        if (modoFantasia && contadorFilasLlenas == 1) {
             cambiarBloquesaMismoColor();
-        }else if(modoFantasia && contadorFilasLlenas > 1){
+        } else if (modoFantasia && contadorFilasLlenas > 1) {
             cambiarBloquesColorRandom();
         }
 
@@ -266,22 +321,22 @@ public class TableroTetris extends AppCompatActivity {
         return filas;
     }
 
-    public void cambiarBloquesaMismoColor(){
+    public void cambiarBloquesaMismoColor() {
         //Cambiamos al color de la pieza actual
         int color = piezaActual.getColor();
-        for (int i = 0; i < filas ; i++) {
-            for (int j = 0; j < columnas ; j++) {
-                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                if (tablero[i][j].isActivo()) tablero[i][j].setColor(color);
             }
         }
     }
 
-    public void cambiarBloquesColorRandom(){
+    public void cambiarBloquesColorRandom() {
         Random r = new Random();
-        for (int i = 0; i < filas ; i++) {
-            for (int j = 0; j < columnas ; j++) {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
                 int color = r.nextInt(7);
-                if(tablero[i][j].isActivo()) tablero[i][j].setColor(color);
+                if (tablero[i][j].isActivo()) tablero[i][j].setColor(color);
             }
         }
     }
