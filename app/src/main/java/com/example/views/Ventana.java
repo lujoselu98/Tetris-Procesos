@@ -19,6 +19,7 @@ public class Ventana extends View {
     private int rows = 20;
     private int cols = 10;
     private String tipoPieza;
+    private Pieza sombra;
 
 
     public Ventana(Context context, String tipo) {
@@ -77,7 +78,20 @@ public class Ventana extends View {
             }
         }
 
+        for (Bloque[] bloques : sombra.getForma()) {
+            for (Bloque bloque : bloques) {
+                if (bloque.isActivo()) {
 
+
+                    Rect cuadradoPieza = new Rect(bloque.getPosicion()[1] * colSize, bloque.getPosicion()[0] * rowSize, bloque.getPosicion()[1] * colSize + colSize, bloque.getPosicion()[0] * rowSize + rowSize);
+                    // border
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setColor(Color.RED);
+                    paint.setStrokeWidth(8);
+                    canvas.drawRect(cuadradoPieza, paint);
+                }
+            }
+        }
 
     }
 
@@ -85,6 +99,10 @@ public class Ventana extends View {
 
             this.arrayListPiezas.add(p);
 
+    }
+
+    public void setSombra(Pieza p){
+        this.sombra = p;
     }
 
 

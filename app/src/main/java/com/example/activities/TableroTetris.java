@@ -29,12 +29,14 @@ public class TableroTetris extends AppCompatActivity {
     private boolean seHaCambiado;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
     private boolean modoFantasia = true;
+    private Pieza sombra;
 
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v,boolean modoFantasia) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
+        sombra = piezaActual.clonar();
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         seHaCambiado = false;
         this.modoFantasia = modoFantasia;
@@ -67,6 +69,10 @@ public class TableroTetris extends AppCompatActivity {
     public void bajar(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.bajar();
+            sombra.bajar();
+            sombra.bajar();
+            sombra.bajar();
+
             if (noPosible(pieza)) {
                 pieza.subir();
                 siguientePieza();
@@ -295,5 +301,9 @@ public class TableroTetris extends AppCompatActivity {
             piezaSiguiente = aux;
             ventana.setPieza(piezaActual);
         }
+    }
+
+    public Pieza getSombra(){
+        return this.sombra;
     }
 }
