@@ -38,6 +38,7 @@ public class Hebra extends Thread {
         }
         tetris = new TableroTetris(this.mainActivity, this.ventana, this.mainActivity.getModoFantasia(),this.mainActivity.getModoLegacy());
         v.setPieza(tetris.getPiezaActual());
+        v.setSombra(tetris.getSombra());
         v.setTablero(tetris);
         this.cronometro = cronometro;
         if (this.mainActivity.getModoSegundaPieza()) {

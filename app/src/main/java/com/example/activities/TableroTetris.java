@@ -28,15 +28,19 @@ public class TableroTetris extends AppCompatActivity {
     private int eliminateRows = 0;
     private boolean seHaCambiado;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
+
+    private Pieza sombra;
+    
     private boolean modoFantasia;
     private boolean modoLegacy;
     private HashSet<Bloque> eliminados = new HashSet<>();
-
     @SuppressLint("ResourceType")
     public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia, boolean modoLegacy) {
+
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
+        sombra = piezaActual.clonar();
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         seHaCambiado = false;
         this.modoFantasia = modoFantasia;
@@ -49,6 +53,7 @@ public class TableroTetris extends AppCompatActivity {
                 tablero[i][j] = new Bloque(false, 0, -1, pos);
             }
         }
+        actualizarSombra();
     }
 
     public Bloque bloqueEn(int fila, int columna) {
@@ -89,37 +94,51 @@ public class TableroTetris extends AppCompatActivity {
     public void despDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despDcha();
+            sombra.despDcha();
             if (noPosible(pieza)) {
                 pieza.despIzqda();
+                sombra.despIzqda();
             }
+            actualizarSombra();
         }
     }
 
     public void despIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despIzqda();
+            sombra.despIzqda();
             if (noPosible(pieza)) {
                 pieza.despDcha();
+                sombra.despDcha();
             }
+            actualizarSombra();
         }
     }
 
     public void rotarDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarDcha();
+            sombra.rotarDcha();
             if (noPosible(pieza)) {
                 pieza.rotarIzqda();
+                sombra.rotarIzqda();
             }
+            actualizarSombra();
         }
+
     }
 
     public void rotarIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarIzqda();
+            sombra.rotarIzqda();
             if (noPosible(pieza)) {
                 pieza.rotarDcha();
+                sombra.rotarDcha();
             }
+            actualizarSombra();
         }
+
     }
 
     public boolean noPosible(Pieza pieza) {
@@ -143,7 +162,10 @@ public class TableroTetris extends AppCompatActivity {
             posarPiezaActual(piezaActual);
             ventana.borrarPieza(piezaActual);
             this.piezaActual = piezaSiguiente;
+            this.sombra=piezaActual.clonar();
+            ventana.setSombra(sombra);
             ventana.setPieza(piezaActual);
+            actualizarSombra();
             piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         }
     }
@@ -342,8 +364,8 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
 
-    public void cambiarPieza(){
-        if(!seHaCambiado) {
+    public void cambiarPieza() {
+        if (!seHaCambiado) {
             seHaCambiado = true;
             ventana.borrarPieza(piezaActual);
             Pieza aux = piezaActual.clonar();
@@ -351,5 +373,16 @@ public class TableroTetris extends AppCompatActivity {
             piezaSiguiente = aux;
             ventana.setPieza(piezaActual);
         }
+    }
+
+    public void actualizarSombra() {
+        while (!noPosible(sombra)) {
+            sombra.bajar();
+        }
+        sombra.subir();
+    }
+
+    public Pieza getSombra() {
+        return this.sombra;
     }
 }
