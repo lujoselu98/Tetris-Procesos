@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -53,6 +54,7 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
         Switch switchModoSegundaPieza = findViewById(R.id.casillaModoSegundaPieza);
         Switch switchModoFantasia = findViewById(R.id.casillaModoFantasia);
         Switch switchModoReduccion = findViewById(R.id.casillaModoReduccion);
+        Switch switchModoLegacy = findViewById(R.id.casillaModoLegacy);
 
         //Tipo Piezas
         Spinner tipoPiezas = findViewById(R.id.seleccion_tipo_piezas);
@@ -65,6 +67,21 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
         EditText nombreUsuario = findViewById(R.id.nombreJugador);
         //BOTON PARA INICIAR PARTIDA
 
+            switchModoLegacy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(switchModoFantasia.isChecked()){
+                        switchModoFantasia.toggle();
+                    }
+                    if(switchModoReduccion.isChecked()){
+                        switchModoReduccion.toggle();
+                    }
+                    if(switchModoSegundaPieza.isChecked()) {
+                        switchModoSegundaPieza.toggle();
+                    }
+                }
+            });
+
         Button botonInicioPartida = findViewById(R.id.botonInicioPartida);
         botonInicioPartida.setOnClickListener(v -> {
             Intent intent = new Intent(Settings.this, MainActivity.class);
@@ -75,6 +92,7 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
             intent.putExtra("modoDificil", switchModoSegundaPieza.isChecked());
             intent.putExtra("modoFantasia", switchModoFantasia.isChecked());
             intent.putExtra("modoReduccion", switchModoReduccion.isChecked());
+            intent.putExtra("modoLegacy", switchModoLegacy.isChecked());
             startActivity(intent);
             finish();
         });

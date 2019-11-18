@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean modoSegundaPieza;
     private Boolean modoFantasia;
     private Boolean modoReduccion;
+    private Boolean modoLegacy;
     private String nombreJugador;
     private FirebaseFirestore db;
     private Intent intent;
@@ -84,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
         modoSegundaPieza = datos.getBoolean("modoDificil");
         modoFantasia = datos.getBoolean("modoFantasia");
         modoReduccion = datos.getBoolean("modoReduccion");
-
+        modoLegacy = datos.getBoolean("modoLegacy");
+        if(modoLegacy){
+            nivelVelocidad+=5;
+        }
         TextView textView = findViewById(R.id.Cronometro);
         TextView nombreJug = findViewById(R.id.nombreJug);
         nombreJug.setText("Jugador: " + nombreJugador);
@@ -354,5 +358,9 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
         cancion++;
         cancion = cancion % 3;
+    }
+
+    public boolean getModoLegacy() {
+        return this.modoLegacy;
     }
 }
