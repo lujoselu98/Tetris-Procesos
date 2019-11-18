@@ -29,17 +29,18 @@ public class TableroTetris extends AppCompatActivity {
     private boolean seHaCambiado;
     // TODO: 25/10/2019 : Pasarle el parámetro desde la pantalla de inicio
     private boolean modoFantasia;
-    private boolean modoLegacy = true;
+    private boolean modoLegacy;
     private HashSet<Bloque> eliminados = new HashSet<>();
 
     @SuppressLint("ResourceType")
-    public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia) {
+    public TableroTetris(MainActivity mainActivity, Ventana v, boolean modoFantasia, boolean modoLegacy) {
         tablero = new Bloque[20][10];
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         seHaCambiado = false;
         this.modoFantasia = modoFantasia;
+        this.modoLegacy = modoLegacy;
         this.mainActivity = mainActivity;
         this.ventana = v;
         for (int i = 0; i < filas; i++) {
@@ -181,7 +182,7 @@ public class TableroTetris extends AppCompatActivity {
                     color = b.getColor();
                     eliminados.add(b);
                     comprobarAdyacentes(color, i, j);
-                    if (eliminados.size() >= 5) {
+                    if (eliminados.size() >= 10) {
                         for (Bloque bloque : eliminados) {
                             bloque.desactivar();
                         }

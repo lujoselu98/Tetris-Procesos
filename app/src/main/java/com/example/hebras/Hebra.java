@@ -36,7 +36,7 @@ public class Hebra extends Thread {
         if (velocidad != 0) {
             this.velocidadCaida = velocidadCaida / velocidad;
         }
-        tetris = new TableroTetris(this.mainActivity, this.ventana, this.mainActivity.getModoFantasia());
+        tetris = new TableroTetris(this.mainActivity, this.ventana, this.mainActivity.getModoFantasia(),this.mainActivity.getModoLegacy());
         v.setPieza(tetris.getPiezaActual());
         v.setTablero(tetris);
         this.cronometro = cronometro;

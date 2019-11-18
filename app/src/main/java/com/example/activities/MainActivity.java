@@ -86,7 +86,9 @@ public class MainActivity extends AppCompatActivity {
         modoFantasia = datos.getBoolean("modoFantasia");
         modoReduccion = datos.getBoolean("modoReduccion");
         modoLegacy = datos.getBoolean("modoLegacy");
-
+        if(modoLegacy){
+            nivelVelocidad+=5;
+        }
         TextView textView = findViewById(R.id.Cronometro);
         TextView nombreJug = findViewById(R.id.nombreJug);
         nombreJug.setText("Jugador: " + nombreJugador);
@@ -356,5 +358,9 @@ public class MainActivity extends AppCompatActivity {
         mediaPlayer.start();
         cancion++;
         cancion = cancion % 3;
+    }
+
+    public boolean getModoLegacy() {
+        return this.modoLegacy;
     }
 }
