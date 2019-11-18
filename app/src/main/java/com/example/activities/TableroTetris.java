@@ -37,6 +37,7 @@ public class TableroTetris extends AppCompatActivity {
         creador = new CreadorPiezas(mainActivity);
         piezaActual = creador.crearPieza(2 * eliminateRows);
         sombra = piezaActual.clonar();
+        actualizarSombra();
         piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         seHaCambiado = false;
         this.modoFantasia = modoFantasia;
@@ -95,6 +96,7 @@ public class TableroTetris extends AppCompatActivity {
             if (noPosible(pieza)) {
                 pieza.despIzqda();
             }
+            actualizarSombra();
         }
     }
 
@@ -104,6 +106,7 @@ public class TableroTetris extends AppCompatActivity {
             if (noPosible(pieza)) {
                 pieza.despDcha();
             }
+            actualizarSombra();
         }
     }
 
@@ -114,6 +117,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.rotarIzqda();
             }
         }
+        actualizarSombra();
     }
 
     public void rotarIzqda(Pieza pieza) {
@@ -123,6 +127,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.rotarDcha();
             }
         }
+        actualizarSombra();
     }
 
     public boolean noPosible(Pieza pieza) {
@@ -303,6 +308,12 @@ public class TableroTetris extends AppCompatActivity {
         }
     }
 
+    public void actualizarSombra(){
+        sombra = piezaActual.clonar();
+        while(!noPosible(sombra)){
+            sombra.bajar();
+        }
+    }
     public Pieza getSombra(){
         return this.sombra;
     }
