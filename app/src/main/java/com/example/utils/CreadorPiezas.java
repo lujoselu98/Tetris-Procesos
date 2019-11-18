@@ -141,20 +141,6 @@ public class CreadorPiezas {
                         break;
                 }
                 break;
-            case "Color Único":
-                switch (x) {
-                    case 0:
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                        return Color.YELLOW;
-                    default:
-                        break;
-                }
-                break;
             default:
                 break;
         }
