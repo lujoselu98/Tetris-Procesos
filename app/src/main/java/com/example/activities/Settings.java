@@ -53,6 +53,7 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
         Switch switchModoSegundaPieza = findViewById(R.id.casillaModoSegundaPieza);
         Switch switchModoFantasia = findViewById(R.id.casillaModoFantasia);
         Switch switchModoReduccion = findViewById(R.id.casillaModoReduccion);
+        Switch switchModoLegacy = findViewById(R.id.casillaModoLegacy);
 
         //Tipo Piezas
         Spinner tipoPiezas = findViewById(R.id.seleccion_tipo_piezas);
@@ -75,6 +76,7 @@ public class Settings extends Activity implements AdapterView.OnItemSelectedList
             intent.putExtra("modoDificil", switchModoSegundaPieza.isChecked());
             intent.putExtra("modoFantasia", switchModoFantasia.isChecked());
             intent.putExtra("modoReduccion", switchModoReduccion.isChecked());
+            intent.putExtra("modoLegacy", switchModoLegacy.isChecked());
             startActivity(intent);
             finish();
         });
