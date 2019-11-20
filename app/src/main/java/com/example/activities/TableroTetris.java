@@ -370,16 +370,23 @@ public class TableroTetris extends AppCompatActivity {
             ventana.borrarPieza(piezaActual);
             Pieza aux = piezaActual.clonar();
             piezaActual = piezaSiguiente;
+            sombra = piezaActual.clonar();
+            actualizarSombra();
             piezaSiguiente = aux;
             ventana.setPieza(piezaActual);
+            ventana.setSombra(sombra);
         }
     }
 
     public void actualizarSombra() {
-        while (!noPosible(sombra)) {
+        boolean baja = true;
+        while(baja){
             sombra.bajar();
+            if (noPosible(sombra)) {
+                sombra.subir();
+                baja=false;
+            }
         }
-        sombra.subir();
     }
 
     public Pieza getSombra() {
