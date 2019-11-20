@@ -94,10 +94,8 @@ public class TableroTetris extends AppCompatActivity {
     public void despDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despDcha();
-            sombra.despDcha();
             if (noPosible(pieza)) {
                 pieza.despIzqda();
-                sombra.despIzqda();
             }
             actualizarSombra();
         }
@@ -106,10 +104,8 @@ public class TableroTetris extends AppCompatActivity {
     public void despIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despIzqda();
-            sombra.despIzqda();
             if (noPosible(pieza)) {
                 pieza.despDcha();
-                sombra.despDcha();
             }
             actualizarSombra();
         }
@@ -118,10 +114,8 @@ public class TableroTetris extends AppCompatActivity {
     public void rotarDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarDcha();
-            sombra.rotarDcha();
             if (noPosible(pieza)) {
                 pieza.rotarIzqda();
-                sombra.rotarIzqda();
             }
             actualizarSombra();
         }
@@ -131,10 +125,8 @@ public class TableroTetris extends AppCompatActivity {
     public void rotarIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarIzqda();
-            sombra.rotarIzqda();
             if (noPosible(pieza)) {
                 pieza.rotarDcha();
-                sombra.rotarDcha();
             }
             actualizarSombra();
         }

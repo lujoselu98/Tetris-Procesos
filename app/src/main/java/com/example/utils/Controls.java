@@ -12,6 +12,7 @@ public class Controls {
 
     public void leftButtonPressed(Pieza pieza) {
         hebra.getTetris().despIzqda(pieza);
+        hebra.getTetris().actualizarSombra();
         hebra.getVentana().invalidate();
     }
 
@@ -21,8 +22,8 @@ public class Controls {
     }
 
     public void downButtonPressed(Pieza pieza) {
-
         hebra.getTetris().bajar(pieza);
+        hebra.getTetris().actualizarSombra();
         hebra.getVentana().invalidate();
     }
 
@@ -35,12 +36,14 @@ public class Controls {
     public void rotateRightPressed(Pieza pieza) {
 
         hebra.getTetris().rotarDcha(pieza);
+        hebra.getTetris().actualizarSombra();
         hebra.getVentana().invalidate();
     }
 
     public void rotateLeftPressed(Pieza pieza) {
 
         hebra.getTetris().rotarIzqda(pieza);
+        hebra.getTetris().actualizarSombra();
         hebra.getVentana().invalidate();
     }
 
