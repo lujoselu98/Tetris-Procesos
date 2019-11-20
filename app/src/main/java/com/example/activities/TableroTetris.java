@@ -94,30 +94,36 @@ public class TableroTetris extends AppCompatActivity {
     public void despDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despDcha();
+            sombra.despDcha();
             if (noPosible(pieza)) {
                 pieza.despIzqda();
+                sombra.despIzqda();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
     }
 
     public void despIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.despIzqda();
+            sombra.despIzqda();
             if (noPosible(pieza)) {
                 pieza.despDcha();
+                sombra.despDcha();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
     }
 
     public void rotarDcha(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarDcha();
+            sombra.rotarDcha();
             if (noPosible(pieza)) {
                 pieza.rotarIzqda();
+                sombra.rotarIzqda();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
 
     }
@@ -125,10 +131,12 @@ public class TableroTetris extends AppCompatActivity {
     public void rotarIzqda(Pieza pieza) {
         if (mainActivity.getH().getPuedoMover()) {
             pieza.rotarIzqda();
+            sombra.rotarIzqda();
             if (noPosible(pieza)) {
                 pieza.rotarDcha();
+                sombra.rotarDcha();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
 
     }
@@ -155,9 +163,9 @@ public class TableroTetris extends AppCompatActivity {
             ventana.borrarPieza(piezaActual);
             this.piezaActual = piezaSiguiente;
             this.sombra=piezaActual.clonar();
-            ventana.setSombra(sombra);
             ventana.setPieza(piezaActual);
             actualizarSombra();
+            ventana.setSombra(sombra);
             piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         }
     }
@@ -371,6 +379,11 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void actualizarSombra() {
+
+        while(noPosible(sombra)){
+            sombra.subir();
+        }
+
         boolean baja = true;
         while(baja){
             sombra.bajar();
@@ -379,6 +392,7 @@ public class TableroTetris extends AppCompatActivity {
                 baja=false;
             }
         }
+        ventana.setSombra(sombra);
     }
 
     public Pieza getSombra() {
