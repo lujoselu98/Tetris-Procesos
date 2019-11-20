@@ -99,7 +99,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.despIzqda();
                 sombra.despIzqda();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
     }
 
@@ -111,7 +111,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.despDcha();
                 sombra.despDcha();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
     }
 
@@ -123,7 +123,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.rotarIzqda();
                 sombra.rotarIzqda();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
 
     }
@@ -136,7 +136,7 @@ public class TableroTetris extends AppCompatActivity {
                 pieza.rotarDcha();
                 sombra.rotarDcha();
             }
-            actualizarSombra();
+            ventana.setSombra(sombra);
         }
 
     }
@@ -163,9 +163,9 @@ public class TableroTetris extends AppCompatActivity {
             ventana.borrarPieza(piezaActual);
             this.piezaActual = piezaSiguiente;
             this.sombra=piezaActual.clonar();
-            ventana.setSombra(sombra);
             ventana.setPieza(piezaActual);
             actualizarSombra();
+            ventana.setSombra(sombra);
             piezaSiguiente = creador.crearPieza(2 * eliminateRows);
         }
     }
@@ -370,16 +370,32 @@ public class TableroTetris extends AppCompatActivity {
             ventana.borrarPieza(piezaActual);
             Pieza aux = piezaActual.clonar();
             piezaActual = piezaSiguiente;
+            sombra = piezaActual.clonar();
+            actualizarSombra();
             piezaSiguiente = aux;
             ventana.setPieza(piezaActual);
+            ventana.setSombra(sombra);
         }
     }
 
     public void actualizarSombra() {
-        while (!noPosible(sombra)) {
-            sombra.bajar();
+        int contador = 0;
+        while(noPosible(sombra) && contador<filas){
+            sombra.subir();
+            contador++;
         }
-        sombra.subir();
+
+        contador = 0;
+        boolean baja = true;
+        while(baja && contador<filas){
+            sombra.bajar();
+            contador++;
+            if (noPosible(sombra)) {
+                sombra.subir();
+                baja=false;
+            }
+        }
+        ventana.setSombra(sombra);
     }
 
     public Pieza getSombra() {
