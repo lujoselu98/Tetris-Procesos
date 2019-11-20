@@ -379,14 +379,17 @@ public class TableroTetris extends AppCompatActivity {
     }
 
     public void actualizarSombra() {
-
-        while(noPosible(sombra)){
+        int contador = 0;
+        while(noPosible(sombra) && contador<filas){
             sombra.subir();
+            contador++;
         }
 
+        contador = 0;
         boolean baja = true;
-        while(baja){
+        while(baja && contador<filas){
             sombra.bajar();
+            contador++;
             if (noPosible(sombra)) {
                 sombra.subir();
                 baja=false;
