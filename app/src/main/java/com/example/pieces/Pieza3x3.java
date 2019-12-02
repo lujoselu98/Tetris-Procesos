@@ -19,4 +19,7 @@ class Pieza3x3 extends Pieza {
         desplazarBloques(rows, 0);
     }
 
+    public Pieza clonar(){
+        return null;
+    }
 }

@@ -6,9 +6,17 @@
     <color name="black_overlay">#66F20303</color>
     <color name="dark_blue_green">#FF408080</color>
     <color name="yellow">#ffffff30</color>
+    <color name="yellowTrafico">#FAD201</color>
     <color name="transparent">#00000000</color>
     <color name="pantallaCarga">#ffffff30</color>
     <color name="pantallaJugar">#BEDFE7</color>
     <color name="holo_grey">#FF4D4D4D</color>
     <color name="colorL">#ff9800</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="cyanOscuro">#00B0F6</color>
+    <color name="rojo">#FD2D1C</color>
+    <color name="verde">#7FFF00</color>
+    <color name="negro">#000000</color>
+    <color name="verdeCyan">#00FA9A</color>
+    <color name="multicolor">#bf930d</color>
 </resources>

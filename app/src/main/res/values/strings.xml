@@ -23,11 +23,13 @@
 <item> Tipo 1 </item>
 <item> Tipo 2 </item>
 <item> Tipo 3 </item>
-<item> Color Único </item>
 </string-array>
 <string name="titulo_modoSegundaPieza">MODO SEGUNDA PIEZA:</string>
 <string name="descripcion_modoSegundaPieza">En este nuevo modo, las piezas caerán cada 30 segundos, aunque no se haya colocado la anterior. ¿Te atreves?</string>
-<string name="titulo_nombre">INTRODUCE TU NOMBRE:</string>
+<string name="titulo_modoLegacy">MODO LEGACY:</string>
+<string name="descripcion_modoLegacy">En este nuevo modo, las piezas del mismo color se borrarán cuando se junten. ¿Te atreves?</string>
+
+    <string name="titulo_nombre">INTRODUCE TU NOMBRE:</string>
     <string name="titulo_modoFantasia">MODO FANTASÍA:</string>
     <string name="descripcion_modoFantasia">En este nuevo modo, las piezas se cambiarán de color de manera aleatoria a medida que completas filas</string>
 
@@ -97,5 +99,6 @@
 <string name="pref_category_velocity">VELOCIDAD</string>
 <string name="pref_category_layout">LAYOUT</string>
 
-
+<string name="photo_button">Sacar foto</string>
+<string name="photo_description">Foto sacada al perder</string>
     </resources>

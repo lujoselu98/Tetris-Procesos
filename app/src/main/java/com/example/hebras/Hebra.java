@@ -6,6 +6,8 @@ import com.example.activities.TableroTetris;
 import com.example.views.Ventana;
 import com.example.pieces.Pieza;
 
+import java.io.IOException;
+
 /* IGUAL QUE EL WORKTHREAD */
 public class Hebra extends Thread {
     private boolean puedoMover;
@@ -22,6 +24,8 @@ public class Hebra extends Thread {
 
     private int segAnt = 0;
 
+    private int segMusica = 0;
+
 
     public Hebra(boolean puedoMover, MainActivity mainActivity, Ventana v, int velocidad, Cronometro cronometro) {
 
@@ -32,8 +36,9 @@ public class Hebra extends Thread {
         if (velocidad != 0) {
             this.velocidadCaida = velocidadCaida / velocidad;
         }
-        tetris = new TableroTetris(this.mainActivity, this.ventana,this.mainActivity.getModoFantasia());
+        tetris = new TableroTetris(this.mainActivity, this.ventana, this.mainActivity.getModoFantasia(),this.mainActivity.getModoLegacy());
         v.setPieza(tetris.getPiezaActual());
+        v.setSombra(tetris.getSombra());
         v.setTablero(tetris);
         this.cronometro = cronometro;
         if (this.mainActivity.getModoSegundaPieza()) {
@@ -49,6 +54,13 @@ public class Hebra extends Thread {
 
     @Override
     public void run() {
+        //mainActivity.getMediaPlayer().start();
+        //mainActivity.getMediaPlayer().setLooping(true);
+        try {
+            mainActivity.cambiarCancion();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         while (!finPartida) {
             while (puedoMover) {
                 if (this.mainActivity.getModoSegundaPieza() && cronometro.getSegundos() % 30 == 0 && cronometro.getSegundos() != 0 && segAntSegundaPieza != cronometro.getSegundos()) {
@@ -68,6 +80,7 @@ public class Hebra extends Thread {
                     this.finPartida = true;
                     cronometro.setFinPartida();
                     puedoMover = false;
+                    this.mainActivity.getMediaPlayer().pause();
                 }
                 try {
 
@@ -85,6 +98,15 @@ public class Hebra extends Thread {
                     ventana.setRows(tetris.getFilas());
                     ventana.setTablero(tetris);
 
+                }
+
+                if (cronometro.getSegundos() % 20 == 0 && cronometro.getSegundos() != 0 && segMusica != cronometro.getSegundos()) {
+                    segMusica = cronometro.getSegundos();
+                    try {
+                        mainActivity.cambiarCancion();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

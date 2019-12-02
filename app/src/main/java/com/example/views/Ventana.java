@@ -19,6 +19,7 @@ public class Ventana extends View {
     private int rows = 20;
     private int cols = 10;
     private String tipoPieza;
+    private Pieza sombra;
 
 
     public Ventana(Context context, String tipo) {
@@ -77,7 +78,20 @@ public class Ventana extends View {
             }
         }
 
+        for (Bloque[] bloques : sombra.getForma()) {
+            for (Bloque bloque : bloques) {
+                if (bloque.isActivo()) {
 
+
+                    Rect cuadradoPieza = new Rect(bloque.getPosicion()[1] * colSize, bloque.getPosicion()[0] * rowSize, bloque.getPosicion()[1] * colSize + colSize, bloque.getPosicion()[0] * rowSize + rowSize);
+                    // border
+                    paint.setStyle(Paint.Style.STROKE);
+                    paint.setColor(Color.RED);
+                    paint.setStrokeWidth(8);
+                    canvas.drawRect(cuadradoPieza, paint);
+                }
+            }
+        }
 
     }
 
@@ -85,6 +99,10 @@ public class Ventana extends View {
 
             this.arrayListPiezas.add(p);
 
+    }
+
+    public void setSombra(Pieza p){
+        this.sombra = p;
     }
 
 
@@ -100,27 +118,6 @@ public class Ventana extends View {
 
     public void setTablero(TableroTetris t) {
         this.t = t;	
-    }
-
-    public int codigoAColor(int x){
-        switch (x) {
-            case 0:
-                return Color.CYAN;
-            case 1:
-                return Color.rgb(254, 139, 9);
-            case 2:
-                return Color.BLUE;
-            case 3:
-                return Color.RED;
-            case 4:
-                return Color.GREEN;
-            case 5:
-                return Color.MAGENTA;
-            case 6:
-                return Color.YELLOW;
-            default:
-                return Color.GRAY;
-        }
     }
 
     private int cogerColor(int x) {

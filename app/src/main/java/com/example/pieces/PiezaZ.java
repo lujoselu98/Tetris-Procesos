@@ -10,4 +10,8 @@ public class PiezaZ extends Pieza3x3{
         forma[1][1].activar();
         forma[1][2].activar();
     }
+
+    public Pieza clonar(){
+        return new PiezaZ(this.id, this.color, 0);
+    }
 }

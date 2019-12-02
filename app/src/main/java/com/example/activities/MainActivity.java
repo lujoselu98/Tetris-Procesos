@@ -2,6 +2,8 @@ package com.example.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Button;
@@ -22,6 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -37,22 +41,40 @@ public class MainActivity extends AppCompatActivity {
     private Boolean modoSegundaPieza;
     private Boolean modoFantasia;
     private Boolean modoReduccion;
+    private Boolean modoLegacy;
     private String nombreJugador;
     private FirebaseFirestore db;
     private Intent intent;
+    private MediaPlayer mediaPlayer;
+    private int positionMediaPlayer;
+    private int cancion = 0;
+    private ArrayList canciones = new ArrayList();
+    private int[] tiempos = new int[3];
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
 
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediaPlayer = new MediaPlayer();
+        canciones.add(R.raw.korobeiniki);
+        canciones.add(R.raw.thriller);
+        canciones.add(R.raw.livinonaprayer);
+        for (int i = 0; i < tiempos.length; i++) {
+            tiempos[i] = 0;
+        }
+        /*try {
+            mediaPlayer = MediaPlayer.create(this, R.raw.korobeiniki);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
 
         conexionBaseDatos();
         setContentView(R.layout.activity_juego);
 
         //Lectura de Datos de la Ventana de Configuración
 
-        intent = new Intent(this, PantallaReinicio.class);
+        intent = new Intent(this, CameraActivity.class);
 
         Bundle datos = this.getIntent().getExtras();
         assert datos != null;
@@ -63,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
         modoSegundaPieza = datos.getBoolean("modoDificil");
         modoFantasia = datos.getBoolean("modoFantasia");
         modoReduccion = datos.getBoolean("modoReduccion");
-
+        modoLegacy = datos.getBoolean("modoLegacy");
+        if(modoLegacy){
+            nivelVelocidad+=5;
+        }
         TextView textView = findViewById(R.id.Cronometro);
         TextView nombreJug = findViewById(R.id.nombreJug);
         nombreJug.setText("Jugador: " + nombreJugador);
@@ -112,10 +137,14 @@ public class MainActivity extends AppCompatActivity {
                     h.setPuedoMover(false);
                     cronometro.pause();
                     pause.setText("Resume");
+                    positionMediaPlayer = mediaPlayer.getCurrentPosition();
+                    mediaPlayer.pause();
                 } else {
                     h.setPuedoMover(true);
                     cronometro.reanudar();
                     pause.setText("Pause");
+                    mediaPlayer.seekTo(positionMediaPlayer);
+                    mediaPlayer.start();
                 }
             }
 
@@ -216,6 +245,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             });
         }
+
+        ImageButton buttonCambiarPieza = findViewById(R.id.button_cambiar_pieza);
+        if (buttonCambiarPieza != null) {
+            (findViewById(R.id.button_cambiar_pieza)).setOnTouchListener((view, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    controls.cambiarPieza();
+
+                    (findViewById(R.id.button_cambiar_pieza)).setPressed(true);
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    (findViewById(R.id.button_cambiar_pieza)).setPressed(false);
+                }
+
+                return true;
+            });
+        }
     }
 
     public boolean getModoReduccion() {
@@ -258,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("puntuacion" + i, (long) document.getData().get("puntuacion"));
                             i++;
                         }
-                        intent.putExtra("longArray", i);
+                        intent.putExtra("puntosJugador",puntuacion);
                         comenzarActividad();
 
                     }  //Log.w(TAG, "Error getting documents.", task.getException());
@@ -295,5 +339,28 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean getModoFantasia() {
         return modoFantasia;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
+    }
+
+    public void cambiarCancion() throws IOException {
+        if (cancion == 0) {
+            tiempos[2] = mediaPlayer.getCurrentPosition();
+        } else {
+            tiempos[cancion - 1] = mediaPlayer.getCurrentPosition();
+        }
+        mediaPlayer.reset();
+        mediaPlayer.setDataSource(this, Uri.parse("android.resource://com.tetris/" + canciones.get(cancion)));
+        mediaPlayer.prepare();
+        mediaPlayer.seekTo(tiempos[cancion]);
+        mediaPlayer.start();
+        cancion++;
+        cancion = cancion % 3;
+    }
+
+    public boolean getModoLegacy() {
+        return this.modoLegacy;
     }
 }

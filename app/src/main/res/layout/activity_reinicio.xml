@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="end"
-    android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,172 +10,96 @@
     android:background="@drawable/pantallajugar2"
     tools:context=".PantallaReinicio">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/pantallaJugar"
-        android:textSize="70dp" />
 
-    <!--<ListView
-        android:id="@+id/activity_main_listview_highscores"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:contentDescription="@string/new_game" />
-    <ImageView
-        android:id="@+id/pantallaJugar"
-        android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        android:src="@drawable/pantallajugar"
-
-        android:contentDescription="@string/nrew_game" />
-    <EditText
-        android:id="@+id/activity_main_edittext_player_name"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="ALEX"
-        android:imeOptions="actionDone"
-        android:inputType="textCapWords"
-        android:singleLine="true"
-        />-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <!--<Button
-            android:id="@+id/activity_main_button_resume_game"
-            style="@android:style/Widget.ImageWell"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|top"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/pantallaJugar"
-            android:textColorHint="@color/pantallaJugar" />-->
-
-        <Button
-            android:id="@+id/activity_main_button_restart"
-            style="@android:style/Widget.ImageWell"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/new_game"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/pantallaJugar"
-            android:textColorHint="@color/pantallaJugar"
-            android:textSize="50dp" />
-
-    </LinearLayout>
-
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="235dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:gravity="center"
-        android:id="@+id/historialPuntuaciones"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="#FFFFFF"
-        android:textSize="30dp" />
-        android:text="@string/integrantesGrupo"-->
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="5"
-        android:layout_gravity="center"/>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-</LinearLayout>
-
-    <!--
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="end"
-        android:orientation="vertical"
-        tools:context=".MainActivity"
-        >
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <ListView
-            android:id="@+id/activity_main_listview_highscores"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:contentDescription="@string/new_game" />
-
-        <EditText
-            android:id="@+id/activity_main_edittext_player_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="ALEX"
-            android:imeOptions="actionDone"
-            android:inputType="textCapWords"
-            android:singleLine="true" />
-
-        <ImageView
-            android:id="@+id/pantallaJugar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/pantallajugar"
-
-            />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/new_game"
-                style="@android:style/Widget.ImageWell"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/black_overlay"
-                android:text="@string/new_game"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/colorPrimary"
-                android:textColorHint="@color/holo_grey" />
 
-            <Button
-                android:id="@+id/activity_main_button_new_game"
-                style="@android:style/Widget.ImageWell"
-                android:layout_width="0dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/new_game"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@color/holo_grey"
-                android:textColorHint="@color/holo_grey" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/pantallaJugar"
+                android:textSize="70dp" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <!--<Button
+                    android:id="@+id/activity_main_button_resume_game"
+                    style="@android:style/Widget.ImageWell"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|top"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:text="@string/app_name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/pantallaJugar"
+                    android:textColorHint="@color/pantallaJugar" />-->
+
+                <Button
+                    android:id="@+id/activity_main_button_restart"
+                    style="@android:style/Widget.ImageWell"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/new_game"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/pantallaJugar"
+                    android:textColorHint="@color/pantallaJugar"
+                    android:textSize="50dp" />
+
+            </LinearLayout>
+
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:numStars="5" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/fotoUsuario"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp" />
+                <TextView
+                    android:id="@+id/puntuacionJugador"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textColor="@color/holo_grey"
+                    android:gravity="center"
+                    android:textSize="70dp"
+                    />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true" />
         </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
 
-
-    </LinearLayout>-->

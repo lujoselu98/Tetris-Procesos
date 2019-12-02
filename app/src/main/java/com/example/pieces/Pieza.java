@@ -5,15 +5,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Pieza {
+public abstract class Pieza{
     protected Bloque[][] forma;
     protected int id;
     protected int color;
+
 
     Pieza(int id, int color) {
         this.id = id;
         this.color = color;
     }
+
+    public abstract Pieza clonar();
 
     public void rotarDcha() {
         int filas = forma.length;
@@ -100,4 +103,6 @@ public abstract class Pieza {
     public int getColor() {
         return color;
     }
+
+
 }
